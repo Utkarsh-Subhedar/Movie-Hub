@@ -18,7 +18,7 @@ const useFetch = (dataURL) => {
           setLoading(false);
         }
       } catch (err) {
-        if (isMounted) {
+        if (!isMounted) {
           setErr("Something went wrong");
           setLoading(false);
         }
