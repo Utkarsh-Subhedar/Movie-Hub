@@ -6,6 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { data, err, loading } = useFetch(`/movie/popular`);
+  console.log("erorrrrrrr", err, loading);
   const popMovies = data?.results;
 
   useEffect(() => {
