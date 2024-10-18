@@ -1,16 +1,34 @@
-import Navbar from "./pages/Navbar";
 import { ThemeProvider } from "./components/ThemeProvider";
+import {
+  DetailsContext,
+  DetailsProvider,
+} from "./components/Store/DetailsContext";
+import Layout from "./pages/Layout";
+import Details from "./pages/Details";
+import Popular from "./pages/Navbar/Popular";
+import Upcoming from "./pages/Navbar/Upcoming";
+import Wishlist from "./pages/Navbar/Wishlist";
 import Hero from "./pages/Hero";
-
+import NoPage from "./pages/NoPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Navbar />
-      <Hero />
-      <div>
-        testinggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-      </div>
-    </ThemeProvider>
+    <DetailsProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Hero />} />
+              <Route path="/Popular" element={<Popular />} />
+              <Route path="/Upcoming" element={<Upcoming />} />
+              <Route path="/Wishlist" element={<Wishlist />} />
+              <Route path="/Details/:id" element={<Details />} />
+              <Route path="*" element={<NoPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </DetailsProvider>
   );
 }
 

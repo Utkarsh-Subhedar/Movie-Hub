@@ -17,12 +17,17 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"], // New font added
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        text_dark: "#a1a1aa",
+        text_light: "#27272a",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
