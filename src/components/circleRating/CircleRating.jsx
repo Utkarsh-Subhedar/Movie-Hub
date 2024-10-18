@@ -4,14 +4,12 @@ import "react-circular-progressbar/dist/styles.css";
 
 const CircleRating = ({ rating }) => {
   return (
-    <div className="w-[90px] bg-zinc-950 rounded-full p-[0.2rem] font-bold ">
+    <div className="max-w-[90px] bg-zinc-950 rounded-full p-[0.2rem] font-bold ">
       <CircularProgressbar
-        value={rating}
+        value={rating <= 1 ? 1 : rating}
         maxValue={10}
-        text={rating?.toFixed(1)}
+        text={rating <= 1 ? 1 : rating?.toFixed(1)}
         styles={buildStyles({
-          // Rotation of path and trail, in number of turns (0-1)
-
           textSize: "36px",
           trailColor: "transparent", // Colors customization
           pathColor: `${

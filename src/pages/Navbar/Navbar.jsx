@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="relative z-50 bg-zinc-700 bg-opacity-50 w-full">
-      <nav className="w-full h-[5rem] shadow-xl flex justify-between items-center px-16 fixed top-0 ">
+    <div className="relative z-50  w-full">
+      <nav className="w-full h-[4rem] shadow-xl dark:bg-black/50 flex justify-between items-center px-16 fixed top-0 ">
         <Link to="/">
           <strong className="cursor-pointer">Movie Hub</strong>
         </Link>
