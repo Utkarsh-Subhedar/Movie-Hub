@@ -1,7 +1,6 @@
 import React from "react";
 
 export const getGenresWiseColor = (genre) => {
-  console.log(genre);
   switch (genre.name) {
     case "Action":
       return "text-[#FF5733]";
@@ -13,7 +12,7 @@ export const getGenresWiseColor = (genre) => {
       return "text-[#FF9FF0]";
 
     case "Comedy":
-      return "text-[#00FF00]";
+      return "text-[#65a30d]";
 
     case "Crime":
       return "text-[#900C3F]";

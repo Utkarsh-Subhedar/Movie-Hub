@@ -16,10 +16,9 @@ import imdb from "@/assets/Img/imdbicon.png";
 import { getGenresWiseColor } from "@/components/utils/getGenresWiseColor.js";
 const CustomCard = ({ movie }) => {
   const { data } = useFetch(`/movie/${movie.id}`);
-  console.log(data);
   let runtime = movieRuntime(data);
+  console.log(data);
   let year = new Date(data?.release_date).getFullYear();
-  console.log(runtime);
   return (
     <div className="group hover:scale-95 duration-500 w-[14.5rem]">
       <Card className="border-none">
@@ -39,24 +38,25 @@ const CustomCard = ({ movie }) => {
       </Card>{" "}
       <div className="p-[0.4rem] *:font-roboto space-y-[0.8rem] rounded-b-lg dark:bg-slate-900 bg-slate-200 cursor-default">
         <div className="space-y-[0.6rem]">
-          <h6 className="text-xl font-semibold leading-none line-clamp-1 pl-1">
+          <h6 className="text-xl font-semibold leading-none line-clamp-1 pl-1 capitalize">
             {data?.title}
           </h6>
           <div className="py-2">
-            {data?.genres?.map((genre, index) => (
+            {!data?.genres?.length && (
+              <span className="text-red-800 font-semibold">
+                No Genres Found
+              </span>
+            )}
+            {data?.genres?.slice(0, 2)?.map((genre) => (
               <div className=" px-[0.2rem] inline">
-                {index <= 1 ? (
-                  <span
-                    key={genre.id}
-                    className={`${getGenresWiseColor(
-                      genre
-                    )} border-slate-600 border-2 p-[0.3rem] !text-sm font-roboto font-semibold rounded-full`}
-                  >
-                    {genre.name === "Science Fiction" ? "sci-fi" : genre.name}
-                  </span>
-                ) : (
-                  ""
-                )}
+                <span
+                  key={genre.id}
+                  className={`${getGenresWiseColor(
+                    genre
+                  )} border-slate-600  border-2 p-[0.3rem] !text-sm font-roboto font-semibold rounded-full`}
+                >
+                  {genre.name === "Science Fiction" ? "sci-fi" : genre.name}
+                </span>
               </div>
             ))}
           </div>
@@ -77,3 +77,7 @@ const CustomCard = ({ movie }) => {
 };
 
 export default CustomCard;
+
+// : data?.genres?.length < 1 ? (
+//   <span>{console.log(true)}</span>
+// )

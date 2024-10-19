@@ -9,6 +9,7 @@ import { useParams } from "react-router";
 import CastCorousel from "@/pages/corousels/CastCorousel";
 import MovieCarousel from "./corousels/MovieCarousel";
 import { movieRuntime } from "@/components/utils/runTime";
+import { getGenresWiseColor } from "@/components/utils/getGenresWiseColor";
 
 const Details = () => {
   const { id } = useParams();
@@ -17,6 +18,7 @@ const Details = () => {
   const { data: videos } = useFetch(`/movie/${id}/videos`);
   const { data: similar } = useFetch(`/movie/${id}/similar`);
   const { data: recommended } = useFetch(`/movie/${id}/recommendations`);
+  console.log(recommended);
   const director = credits?.crew?.find((item) => item.job == "Director");
   const writers = credits?.crew?.filter((item) => item.job == "Writer");
   console.log(id);
@@ -72,10 +74,10 @@ const Details = () => {
             </label>
             <div
               id="genre"
-              className="whitespace-pre text-text_primary font-roboto pt-1 font-medium text-red-800  text-xl"
+              className="whitespace-pre text-text_primary font-roboto pt-1 font-medium text-xl"
             >
               {data?.genres?.map((genre, index) => (
-                <span key={genre.id}>
+                <span key={genre.id} className={getGenresWiseColor(genre)}>
                   {" "}
                   {genre.name}
                   {index === data.genres.length - 1 ? "." : ","}
