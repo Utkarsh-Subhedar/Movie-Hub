@@ -18,13 +18,13 @@ const HeroCarousel = ({ movieData }) => {
     <>
       <div>
         <div
-          className="realtive overflow-hidden w-full h-screen bg-cover opacity-40 z-20"
+          className="realtive overflow-hidden w-full h-[45rem] bg-cover opacity-40 z-20"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original${movieData.backdrop_path})`,
           }}
         ></div>
         <div
-          className="absolute top-[14.8rem] left-[5rem] z-20 space-y-1 cursor-pointer"
+          className="absolute top-[14.8rem] left-[5rem] z-20 space-y-2 cursor-pointer"
           onClick={showDetails}
         >
           <div className="max-w-[48rem]">
@@ -52,7 +52,6 @@ const HeroCarousel = ({ movieData }) => {
           className="w-[17rem] h-[25rem] rounded-lg shadow-zinc-600 shadow-lg absolute top-[9rem] right-[7rem] z-30 cursor-pointer"
           src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`}
         />
-        <div className="top-[19.1rem] bg-gradient-to-b from-transparent from-0% dark:via-gray-800 dark:to-gray-900 via-gray-500 to-gray-600  w-full h-full absolute"></div>
       </div>
     </>
   );

@@ -18,10 +18,11 @@ const Details = () => {
   const { data: videos } = useFetch(`/movie/${id}/videos`);
   const { data: similar } = useFetch(`/movie/${id}/similar`);
   const { data: recommended } = useFetch(`/movie/${id}/recommendations`);
-  console.log(recommended);
   const director = credits?.crew?.find((item) => item.job == "Director");
-  const writers = credits?.crew?.filter((item) => item.job == "Writer");
-  console.log(id);
+  const writers = credits?.crew?.filter(
+    (item) => item.job == "Writer" || "Writing"
+  );
+  console.log(credits);
   const runTime = movieRuntime(data);
   return !data ? (
     <div>
@@ -87,7 +88,9 @@ const Details = () => {
           </div>
           <div className="w-[40rem]">
             <h2 className="text-2xl font-semibold tracking-wide">Overview</h2>
-            <span className="text-pretty font-roboto">{data.overview}</span>
+            <span className="text-pretty font-roboto line-clamp-3">
+              {data.overview}
+            </span>
           </div>
 
           <div className="flex mt-4">
@@ -128,10 +131,10 @@ const Details = () => {
           <div className="flex gap-4 mt-3 ">
             <span className="font-roboto font-medium">
               Writers:
-              {writers?.map((writer, index) => (
+              {writers?.slice(0, 3).map((writer, index) => (
                 <span className="ml-2 opacity-80">
                   {writer.name}
-                  {index === writers.length - 1 ? "." : ","}
+                  {index === 2 ? "." : ","}
                 </span>
               ))}
             </span>
@@ -139,28 +142,17 @@ const Details = () => {
         </div>
       </div>
       <div className="mt-[5rem]">
-        <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]">
-          Official Videos
-        </h1>
-        <VideoCorousel videos={videos} />
+        <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]"></h1>
+        <VideoCorousel name={"Official Videos"} videos={videos} />
       </div>
       <div className="mt-[2rem]">
-        <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]">
-          Top Cast
-        </h1>
-        <CastCorousel credits={credits} />
+        <CastCorousel name={"Top Cast"} credits={credits} />
       </div>
       <div className="mt-[2rem]">
-        <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]">
-          You may also like{" "}
-        </h1>
-        <MovieCarousel movie={similar} />
+        <MovieCarousel name={"You may also like"} movie={similar} />
       </div>
       <div className="mt-[2rem]">
-        <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]">
-          Recommended Movies{" "}
-        </h1>
-        <MovieCarousel movie={recommended} />
+        <MovieCarousel name={"Recommended Movies"} movie={recommended} />
       </div>
     </div>
   );

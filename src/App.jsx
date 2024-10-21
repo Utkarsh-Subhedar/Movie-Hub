@@ -8,9 +8,9 @@ import Details from "./pages/Details";
 import Popular from "./pages/Navbar/Popular";
 import Upcoming from "./pages/Navbar/Upcoming";
 import Wishlist from "./pages/Navbar/Wishlist";
-import Hero from "./pages/Hero";
 import NoPage from "./pages/NoPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
 function App() {
   return (
     <DetailsProvider>
@@ -18,7 +18,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Hero />} />
+              <Route index element={<Home />} />
               <Route path="/Popular" element={<Popular />} />
               <Route path="/Upcoming" element={<Upcoming />} />
               <Route path="/Wishlist" element={<Wishlist />} />
