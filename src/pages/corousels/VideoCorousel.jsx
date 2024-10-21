@@ -12,9 +12,9 @@ import NoVideo from "../no_image/NoVideo";
 import { imageCheck } from "@/components/utils/imageCheck";
 import VideoCard from "./VideoCard";
 
-const VideoCorousel = ({ videos }) => {
+const VideoCorousel = ({ name, videos }) => {
   const [imageExist, setImageExist] = useState(true);
-
+  console.log(videos);
   // useEffect(() => {
   //   videos?.results.forEach((video) => {
   //     imageCheck(video.key, (exist) => {
@@ -25,18 +25,37 @@ const VideoCorousel = ({ videos }) => {
   // }, [videos]);
 
   return (
-    <div className="w-full flex justify-center items-center mt-4 mb-10">
-      <Carousel opts={{ loop: true }} className="max-w-[75rem] py-1">
-        <CarouselContent>
-          {videos?.results.map((video, index) => (
-            <CarouselItem key={index} className="md:basis-1/4 lg:basis-1/5">
-              <VideoCard videoDetails={video} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="absolute top-[4.5rem]" />
-        <CarouselNext className="absolute top-[4.5rem]" />
-      </Carousel>
+    <div className="mt-4 w-full">
+      {videos?.results?.length > 1 ? (
+        <div>
+          <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]">
+            {name}
+          </h1>
+          <div className="w-full flex justify-center items-center mt-2 mb-10">
+            <Carousel
+              opts={{ loop: true }}
+              className="max-w-[75rem] w-full py-1"
+            >
+              <CarouselContent>
+                {videos?.results?.map((video, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="basis-1/2 md:basis-1/4 lg:basis-1/5"
+                  >
+                    <VideoCard videoDetails={video} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="absolute top-[4.5rem]" />
+              <CarouselNext className="absolute top-[4.5rem]" />
+            </Carousel>
+          </div>
+        </div>
+      ) : (
+        <div className="text-center">
+          <h1 className="text-3xl text-red-900">No Videos Found</h1>
+        </div>
+      )}
     </div>
   );
 };

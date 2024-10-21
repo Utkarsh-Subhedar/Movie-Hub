@@ -8,11 +8,11 @@ const VideoCard = ({ videoDetails }) => {
   return (
     <>
       <div className="">
-        <Card className="border-none">
+        <Card className="border-none object-cover">
           {imageExist ? (
-            <CardContent className="relative flex aspect-auto *:hover:text-red-700  hover:cursor-pointer rounded-lg items-center justify-center p-[0.1rem] group shadow-lg hover:scale-90 transition-all duration-500">
+            <CardContent className="relative flex aspect-auto *:hover:text-red-700  hover:cursor-pointer rounded-lg items-center justify-center p-[0.1rem] group shadow-lg hover:scale-90 transition-all duration-500 ">
               <img
-                className="group-hover:opacity-40 rounded-xl transition-all duration-500"
+                className="group-hover:opacity-40 rounded-xl transition-all duration-500 "
                 src={`https://img.youtube.com/vi/${
                   videoDetails?.key
                 }/hqdefault.jpg?${new Date().getTime()}`}

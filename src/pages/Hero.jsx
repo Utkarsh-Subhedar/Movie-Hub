@@ -42,7 +42,7 @@ const Hero = () => {
       </Skeleton>
     </div>
   ) : err ? (
-    <div className="bg-red h-[15rem] w-full rounded ">{err}</div>
+    <div className="bg-red h-full w-full rounded ">{err}</div>
   ) : (
     <HeroCarousel movieData={popMovies[currentIndex]} />
   );
