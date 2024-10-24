@@ -4,18 +4,21 @@ import CarouselShimmer from "../shimmer/CarouselShimmer";
 import CustomCard from "../carousel_card/CustomCard";
 
 import Sort from "@/components/Sort";
+import { useNavigate } from "react-router";
 
 const Popular = () => {
   const { data, loading } = useFetch(`/movie/popular`);
-  const [type, setType] = useState();
-
+  const navigate = useNavigate();
   const [sortedData, setSortedData] = useState([]);
-
-  console.log(sortedData);
 
   useEffect(() => {
     setSortedData(data?.results);
   }, [data]);
+
+  const DeatailsPage = (id) => {
+    console.log(id);
+    navigate(`/Details/${id}`);
+  };
   return loading ? (
     <div>
       <CarouselShimmer />
@@ -24,14 +27,12 @@ const Popular = () => {
       <CarouselShimmer />
     </div>
   ) : (
-    <div className="mt-28 ">
-      <div className="flex gap-32 items-center mb-8 justify-between pr-56">
-        <h1 className="text-2xl font-roboto font-semibold pl-[4.4rem]">
-          Most Popular
-        </h1>
-        <div className="font-semibold *:font-roboto flex items-center gap-24">
+    <div className="mt-24">
+      <div className="flex items-center mb-4 justify-between px-16">
+        <h1 className="text-2xl font-roboto font-semibold">Most Popular</h1>
+        <div className="*:font-roboto flex items-center gap-24 pr-16">
           <Sort
-            labels={["Default", "AtoZ", "ZtoA"]}
+            labels={["default", "AtoZ", "ZtoA"]}
             set={setSortedData}
             data={data?.results || []}
           />
@@ -43,7 +44,9 @@ const Popular = () => {
       </div>
       <div className="w-full h-full flex flex-wrap justify-around gap-y-7 px-14">
         {sortedData?.map((movie) => (
-          <CustomCard movie={movie} />
+          <div onClick={() => DeatailsPage(movie.id)}>
+            <CustomCard movie={movie} />
+          </div>
         ))}
       </div>
     </div>

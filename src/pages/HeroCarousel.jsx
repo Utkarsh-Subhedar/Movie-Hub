@@ -1,4 +1,3 @@
-import { DetailsContext } from "@/components/Store/DetailsContext";
 import {
   Carousel,
   CarouselContent,

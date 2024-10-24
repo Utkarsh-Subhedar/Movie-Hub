@@ -34,7 +34,7 @@ const Home = () => {
     <>
       <div className="w-full h-full relative">
         <HeroCarousel movieData={popMovies[currentIndex]} />
-        <div className="top-[7rem] bg-gradient-to-b from-transparent from-40% dark:via-customLightBackground dark:to-background via-gray-300 to-white  w-full h-full absolute z-10"></div>
+        <div className="top-[7rem] bg-gradient-to-b from-transparent from-40% dark:via-customLightBackground dark:to-background via-gray-400 to-white  w-full h-full absolute z-10"></div>
       </div>
       <div className="mt-[7rem]">
         <MovieCarousel name={"Upcoming"} movie={upcoming} />
