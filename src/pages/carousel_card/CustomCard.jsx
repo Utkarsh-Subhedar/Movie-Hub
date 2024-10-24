@@ -17,7 +17,6 @@ import { getGenresWiseColor } from "@/components/utils/getGenresWiseColor.js";
 const CustomCard = ({ movie }) => {
   const { data } = useFetch(`/movie/${movie.id}`);
   let runtime = movieRuntime(data);
-  let year = new Date(data?.release_date).getFullYear();
   return (
     <div className="group hover:scale-95 duration-500 w-[14.5rem]">
       <Card className="border-none">
@@ -76,7 +75,3 @@ const CustomCard = ({ movie }) => {
 };
 
 export default CustomCard;
-
-// : data?.genres?.length < 1 ? (
-//   <span>{console.log(true)}</span>
-// )

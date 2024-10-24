@@ -1,8 +1,5 @@
 import { ThemeProvider } from "./components/ThemeProvider";
-import {
-  DetailsContext,
-  DetailsProvider,
-} from "./components/Store/DetailsContext";
+
 import Layout from "./pages/Layout";
 import Details from "./pages/Details";
 import Popular from "./pages/Navbar/Popular";
@@ -11,9 +8,10 @@ import Wishlist from "./pages/Navbar/Wishlist";
 import NoPage from "./pages/NoPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import ContextStore from "./components/Store/ContextStore";
 function App() {
   return (
-    <DetailsProvider>
+    <ContextStore>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <BrowserRouter>
           <Routes>
@@ -28,7 +26,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
-    </DetailsProvider>
+    </ContextStore>
   );
 }
 
