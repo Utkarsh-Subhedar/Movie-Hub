@@ -30,6 +30,7 @@ const ContextStore = ({ children }) => {
     };
     dispatch(wishlist);
   };
+
   return (
     <movieContext.Provider value={{ movieData, newWishlist }}>
       {children}

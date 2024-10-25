@@ -26,7 +26,7 @@ const Details = () => {
   const writers = credits?.crew?.filter(
     (item) => item.job == "Writer" || "Writing"
   );
-  console.log(credits);
+  console.log(data);
   const runTime = movieRuntime(data);
   const { newWishlist } = useContext(movieContext);
   return loading ? (

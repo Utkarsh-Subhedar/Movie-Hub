@@ -15,10 +15,6 @@ const Popular = () => {
     setSortedData(data?.results);
   }, [data]);
 
-  const DeatailsPage = (id) => {
-    console.log(id);
-    navigate(`/Details/${id}`);
-  };
   return loading ? (
     <div>
       <CarouselShimmer />
@@ -44,7 +40,7 @@ const Popular = () => {
       </div>
       <div className="w-full h-full flex flex-wrap justify-around gap-y-7 px-14">
         {sortedData?.map((movie) => (
-          <div onClick={() => DeatailsPage(movie.id)}>
+          <div>
             <CustomCard movie={movie} />
           </div>
         ))}
