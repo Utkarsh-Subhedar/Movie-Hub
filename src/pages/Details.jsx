@@ -24,6 +24,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import Img from "@/components/lazyLoadImage/Img";
 const Details = () => {
   const { id } = useParams();
   const { data, loading } = useFetch(`/movie/${id}`);
@@ -56,7 +57,7 @@ const Details = () => {
         }}
       ></div>
       <div className="absolute top-[7rem] left-[8rem] flex space-x-16 ">
-        <img
+        <Img
           className="w-[20rem] h-[30rem] rounded-lg shadow-zinc-600 shadow-md"
           src={
             data?.poster_path === null

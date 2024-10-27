@@ -7,6 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import NoProfile from "../no_image/NoProfile";
+import Img from "@/components/lazyLoadImage/Img";
 
 const CastCorousel = ({ name, credits }) => {
   return (
@@ -22,7 +23,7 @@ const CastCorousel = ({ name, credits }) => {
                   {role.profile_path == null ? (
                     <NoProfile />
                   ) : (
-                    <img
+                    <Img
                       className="object-top w-full h-full object-cover"
                       src={`https://image.tmdb.org/t/p/original${role.profile_path}`}
                     />

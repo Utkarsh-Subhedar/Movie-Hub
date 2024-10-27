@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import NoVideo from "../no_image/NoVideo";
 import { Card, CardContent } from "@/components/ui/card";
 import { FaPlay } from "react-icons/fa6";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import Img from "@/components/lazyLoadImage/Img";
 import ReactPlayer from "react-player/lazy";
 
 const VideoCard = ({ videoDetails }) => {
@@ -21,7 +15,7 @@ const VideoCard = ({ videoDetails }) => {
           <Card className="border-none object-cover">
             {imageExist ? (
               <CardContent className="relative flex aspect-auto *:hover:text-red-700  hover:cursor-pointer rounded-lg items-center justify-center p-[0.1rem] group shadow-lg hover:scale-90 transition-all duration-500 ">
-                <img
+                <Img
                   className="group-hover:opacity-40 rounded-xl transition-all duration-500 "
                   src={`https://img.youtube.com/vi/${
                     videoDetails?.key

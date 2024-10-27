@@ -9,6 +9,7 @@ import { getGenresWiseColor } from "@/components/utils/getGenresWiseColor.js";
 import { FaRegBookmark } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { movieContext } from "@/components/Store/ContextStore.jsx";
+import Img from "@/components/lazyLoadImage/Img.jsx";
 
 const CustomCard = ({ movie }) => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const CustomCard = ({ movie }) => {
       <div onClick={() => DetailsPage(movie.id)}>
         <Card className="border-none onClick={() => DetailsPage(movie.id)}">
           <div className="relative w-[14.5rem] h-[20rem] ">
-            <img
+            <Img
               className="w-full h-full object-cover  object-top rounded-t-md group-hover:opacity-60"
               src={
                 movie.poster_path === null
