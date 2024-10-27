@@ -10,7 +10,7 @@ const Wishlist = () => {
       <div className="text-3xl font-roboto font-semibold">Wishlist</div>
       <div className="flex flex-wrap justify-center w-full h-full gap-10">
         {movieData?.map((movie) => (
-          <div className="">
+          <div className="border hover:border-2">
             <img
               src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
               className="w-[16rem] h-[20rem]"

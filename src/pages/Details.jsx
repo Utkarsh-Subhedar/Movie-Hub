@@ -2,7 +2,7 @@ import CircleRating from "@/components/circleRating/CircleRating";
 import VideoCorousel from "@/pages/corousels/VideoCorousel";
 import useFetch from "@/components/custom_hook/useFetch";
 import { FaHeart, FaPlay } from "react-icons/fa6";
-
+import ReactPlayer from "react-player/lazy";
 import React, { useContext } from "react";
 import { useParams } from "react-router";
 import CastCorousel from "@/pages/corousels/CastCorousel";
@@ -13,8 +13,17 @@ import DetailsShimmer from "./shimmer/DetailsShimmer";
 import CarouselShimmer from "./shimmer/CarouselShimmer";
 import CastShimmer from "./shimmer/CastShimmer";
 import VideosShimmer from "./shimmer/VideosShimmer";
-import ContextStore, { movieContext } from "@/components/Store/ContextStore";
-
+import { movieContext } from "@/components/Store/ContextStore";
+import NoPoster from "@/assets/Img/no-poster.png";
+import NoVideo from "@/assets/Img/no-video-available-image.webp";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 const Details = () => {
   const { id } = useParams();
   const { data, loading } = useFetch(`/movie/${id}`);
@@ -26,7 +35,8 @@ const Details = () => {
   const writers = credits?.crew?.filter(
     (item) => item.job == "Writer" || "Writing"
   );
-  console.log(credits);
+  const trailer = videos?.results?.find((video) => video.type === "Trailer");
+  console.log(trailer);
   const runTime = movieRuntime(data);
   const { newWishlist } = useContext(movieContext);
   return loading ? (
@@ -48,7 +58,11 @@ const Details = () => {
       <div className="absolute top-[7rem] left-[8rem] flex space-x-16 ">
         <img
           className="w-[20rem] h-[30rem] rounded-lg shadow-zinc-600 shadow-md"
-          src={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
+          src={
+            data?.poster_path === null
+              ? NoPoster
+              : `https://image.tmdb.org/t/p/original${data.poster_path}`
+          }
         />
         <div className="*:pb-2">
           <h1 className="text-4xl tracking-normal font-semibold ">
@@ -85,9 +99,28 @@ const Details = () => {
               <CircleRating rating={data?.vote_average} />
             </div>
             <div className="ml-5 flex dark:border-r-slate-200 border-r-slate-700 border-r-2 w-[250px] h-[90px] border-dashed">
-              <div className="flex  text-5xl space-x-2 items-center cursor-pointer *:hover:scale-95 *:duration-500  *:hover:text-red-700 ">
-                <FaPlay />
-                <span className="text-3xl">Watch Trailer</span>
+              <div className="text-5xl items-center cursor-pointer *:hover:scale-95 *:duration-500  *:hover:text-red-700 ">
+                <Dialog>
+                  <DialogTrigger className="flex space-x-2 pt-5 items-center">
+                    <FaPlay />
+                    <span className="text-3xl">Watch Trailer</span>
+                  </DialogTrigger>
+                  <DialogContent className="flex items-center justify-center w-full h-[30rem] border-none">
+                    {trailer === undefined ? (
+                      <img src={NoVideo} />
+                    ) : (
+                      <ReactPlayer
+                        url={`https://www.youtube.com/watch?v=${trailer?.key}`}
+                        controls
+                        width="100%"
+                        height="100%"
+
+                        // width="100%"
+                        // height="100%"
+                      />
+                    )}
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
             <div className="flex justify-center items-center ml-6 text-6xl cursor-pointer ">
