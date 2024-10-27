@@ -28,7 +28,7 @@ const Popular = () => {
         <h1 className="text-2xl font-roboto font-semibold">Most Popular</h1>
         <div className="*:font-roboto flex items-center gap-24 pr-16">
           <Sort
-            labels={["default", "AtoZ", "ZtoA"]}
+            labels={["default", "trending", "AtoZ", "ZtoA"]}
             set={setSortedData}
             data={data?.results || []}
           />
