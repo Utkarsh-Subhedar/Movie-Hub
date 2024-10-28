@@ -15,7 +15,7 @@ const MovieCarousel = ({ name, movie }) => {
         {name}
       </h1>
       <div className="w-full flex justify-center mb-10 mt-2">
-        <Carousel className="max-w-[75rem] px-1" opts={{ loop: true }}>
+        <Carousel className="max-w-[75rem] px-2" opts={{ loop: true }}>
           <CarouselContent>
             {movie?.results?.map((movie, index) => (
               <CarouselItem key={index} className="md:basis-1/4 lg:basis-1/5">

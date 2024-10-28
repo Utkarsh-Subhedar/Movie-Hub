@@ -7,7 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import NoProfile from "../no_image/NoProfile";
-import Img from "@/components/lazyLoadImage/Img";
+import Img from "@/components/lazyLoad/Img";
 
 const CastCorousel = ({ name, credits }) => {
   return (
