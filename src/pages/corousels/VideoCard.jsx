@@ -3,7 +3,7 @@ import NoVideo from "../no_image/NoVideo";
 import { Card, CardContent } from "@/components/ui/card";
 import { FaPlay } from "react-icons/fa6";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import Img from "@/components/lazyLoadImage/Img";
+import Img from "@/components/lazyLoad/Img";
 import ReactPlayer from "react-player/lazy";
 
 const VideoCard = ({ videoDetails }) => {

@@ -9,7 +9,7 @@ import { getGenresWiseColor } from "@/components/utils/getGenresWiseColor.js";
 import { FaRegBookmark } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { movieContext } from "@/components/Store/ContextStore.jsx";
-import Img from "@/components/lazyLoadImage/Img.jsx";
+import Img from "@/components/lazyLoad/Img.jsx";
 
 const CustomCard = ({ movie }) => {
   const navigate = useNavigate();
@@ -33,23 +33,23 @@ const CustomCard = ({ movie }) => {
         <FaRegBookmark color={isSaved ? "yellow" : ""} />
       </span>
       <div onClick={() => DetailsPage(movie.id)}>
-        <Card className="border-none onClick={() => DetailsPage(movie.id)}">
-          <div className="relative w-[14.5rem] h-[20rem] ">
+        <Card className="border-none ">
+          <div className="relative w-[14.5rem] h-[20rem] hover:opacity-60">
             <Img
-              className="w-full h-full object-cover  object-top rounded-t-md group-hover:opacity-60"
+              className="w-full h-full object-cover object-top rounded-t-md "
               src={
                 movie.poster_path === null
                   ? NoPoster
                   : ` https://image.tmdb.org/t/p/original${movie.poster_path}`
               }
             />
-            <div className="absolute bottom-2 left-2 w-[4rem] group-hover:opacity-90">
+            <div className="absolute bottom-2 left-2 w-[4rem] hover:opacity-90">
               <CircleRating rating={movie.vote_average} />
             </div>
           </div>
         </Card>{" "}
-        <div className="p-[0.4rem] *:font-roboto space-y-[0.8rem] rounded-b-lg dark:bg-slate-900 bg-slate-200 cursor-default group-hover:opacity-90 ">
-          <div className="space-y-[0.6rem]">
+        <div className="relative p-[0.4rem] *:font-roboto space-y-[0.8rem] rounded-b-lg dark:bg-slate-900 bg-slate-200 cursor-default ">
+          <div className="space-y-[0.6rem] ">
             <h6 className="text-xl font-semibold leading-none line-clamp-1 pl-1 capitalize">
               {data?.title}
             </h6>

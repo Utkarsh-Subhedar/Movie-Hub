@@ -24,7 +24,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Img from "@/components/lazyLoadImage/Img";
+import Img from "@/components/lazyLoad/Img";
 const Details = () => {
   const { id } = useParams();
   const { data, loading } = useFetch(`/movie/${id}`);
