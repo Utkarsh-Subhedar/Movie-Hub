@@ -16,14 +16,7 @@ import VideosShimmer from "./shimmer/VideosShimmer";
 import { movieContext } from "@/components/Store/ContextStore";
 import NoPoster from "@/assets/Img/no-poster.png";
 import NoVideo from "@/assets/Img/no-video-available-image.webp";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Img from "@/components/lazyLoad/Img";
 const Details = () => {
   const { id } = useParams();
@@ -37,8 +30,12 @@ const Details = () => {
     (item) => item.job == "Writer" || "Writing"
   );
   const trailer = videos?.results?.find((video) => video.type === "Trailer");
-  console.log(trailer);
   const runTime = movieRuntime(data);
+  console.log(data);
+  console.log("simiiii", similar);
+  console.log("recommm", recommended);
+  console.log("credits", credits);
+
   const { newWishlist } = useContext(movieContext);
   return loading ? (
     <div>
@@ -62,7 +59,7 @@ const Details = () => {
           src={
             data?.poster_path === null
               ? NoPoster
-              : `https://image.tmdb.org/t/p/original${data.poster_path}`
+              : `https://image.tmdb.org/t/p/original${data?.poster_path}`
           }
         />
         <div className="*:pb-2">
@@ -75,23 +72,33 @@ const Details = () => {
             <label htmlFor="genre" className="font-bold opacity-90 text-xl">
               Genre:
             </label>
-            <div
-              id="genre"
-              className="whitespace-pre text-text_primary font-roboto pt-1 font-medium text-xl"
-            >
-              {data?.genres?.map((genre, index) => (
-                <span key={genre.id} className={getGenresWiseColor(genre)}>
-                  {" "}
-                  {genre.name}
-                  {index === data.genres.length - 1 ? "." : ","}
-                </span>
-              ))}
-            </div>
+            {data?.genres?.length == 0 ? (
+              <span className="text-red-800 pt-1 opacity-80 font-roboto font-medium">
+                No generes found
+              </span>
+            ) : (
+              <div
+                id="genre"
+                className="whitespace-pre text-text_primary font-roboto pt-1 font-medium text-xl"
+              >
+                {data?.genres?.map((genre, index) => (
+                  <span key={genre.id} className={getGenresWiseColor(genre)}>
+                    {" "}
+                    {genre.name}
+                    {index === data?.genres?.length - 1 ? "." : ","}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
           <div className="w-[40rem]">
             <h2 className="text-2xl font-semibold tracking-wide">Overview</h2>
-            <span className="text-pretty font-roboto line-clamp-3">
-              {data?.overview}
+            <span
+              className={`text-pretty font-roboto line-clamp-3 ${
+                data?.overview === "" ? "text-red-800 opacity-80" : ""
+              }`}
+            >
+              {data?.overview === "" ? "No data found" : data?.overview}
             </span>
           </div>
 
@@ -99,10 +106,10 @@ const Details = () => {
             <div className="dark:border-r-slate-200 border-r-slate-700 border-r-2 w-[110px] h-[90px] border-dashed">
               <CircleRating rating={data?.vote_average} />
             </div>
-            <div className="ml-5 flex dark:border-r-slate-200 border-r-slate-700 border-r-2 w-[250px] h-[90px] border-dashed">
-              <div className="text-5xl items-center cursor-pointer *:hover:scale-95 *:duration-500  *:hover:text-red-700 ">
+            <div className="flex dark:border-r-slate-200 border-r-slate-700 border-r-2 px-4 border-dashed">
+              <div className="w-full ">
                 <Dialog>
-                  <DialogTrigger className="flex space-x-2 pt-5 items-center">
+                  <DialogTrigger className="flex space-x-2 pt-5 items-center text-5xl cursor-pointer *:hover:scale-105 *:duration-500  *:hover:text-red-700 ">
                     <FaPlay />
                     <span className="text-3xl">Watch Trailer</span>
                   </DialogTrigger>
@@ -115,9 +122,6 @@ const Details = () => {
                         controls
                         width="100%"
                         height="100%"
-
-                        // width="100%"
-                        // height="100%"
                       />
                     )}
                   </DialogContent>
@@ -137,31 +141,57 @@ const Details = () => {
             </h1>
             <h1>
               Release Date:
-              <span className="ml-2 opacity-80">{data?.release_date}</span>
+              <span
+                className={`ml-2 opacity-80 ${
+                  data?.release_date === "" ? "text-red-700" : ""
+                }`}
+              >
+                {data?.release_date === ""
+                  ? "No data found"
+                  : data?.release_date}
+              </span>
             </h1>
             <h1>
               Runtime:
-              <span className="ml-2 tracking-normal opacity-80">{runTime}</span>
+              <span
+                className={`ml-2 tracking-normal opacity-80 ${
+                  data?.runtime === "0" ? "text-red-700" : ""
+                }`}
+              >
+                {runTime === "0h" ? "No data found" : runTime}
+              </span>
             </h1>
           </div>
           <div className="border-b-2 dark:border-b-slate-200 border-b-slate-700 "></div>
           <div className="flex gap-2 mt-3">
             <span className="font-roboto font-medium">
               Director:
-              <span className="opacity-80 ml-2">{director?.name}</span>
+              <span
+                className={`ml-2 font-roboto tracking-normal opacity-80 ${
+                  director?.name === undefined ? "text-red-700" : ""
+                }`}
+              >
+                {director?.name === undefined
+                  ? "No data found"
+                  : director?.name}
+              </span>
             </span>
           </div>
           <div className="border-b-2 dark:border-b-slate-200 border-b-slate-700"></div>
-          <div className="flex gap-4 mt-3 ">
-            <span className="font-roboto font-medium">
-              Writers:
-              {writers?.slice(0, 3).map((writer, index) => (
-                <span className="ml-2 opacity-80">
-                  {writer.name}
-                  {index === writer.length - 1 || 2 ? "." : ","}
-                </span>
-              ))}
-            </span>
+          <div className="flex gap-2 mt-3 font-roboto ">
+            <span className="font-roboto font-medium">Writers:</span>
+            {writers?.length === 0 ? (
+              <span className="text-red-700 opacity-80">No data found</span>
+            ) : (
+              <span>
+                {writers?.slice(0, 3).map((writer, index) => (
+                  <span className="opacity-80 font-mediumfont-medium">
+                    {writer.name}
+                    {index === writer.length - 1 || 2 ? "." : ","}
+                  </span>
+                ))}
+              </span>
+            )}
           </div>
         </div>
       </div>
