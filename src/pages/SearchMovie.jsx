@@ -33,7 +33,7 @@ const SearchMovie = () => {
           No movies Found
         </div>
       ) : (
-        <div className="flex flex-wrap justify-center items-center px-6 w-full h-full  gap-4">
+        <div className="flex flex-wrap justify-center items-center px-6 w-full h-full gap-4">
           {data?.results?.map((movie) => (
             <CustomCard movie={movie} />
           ))}

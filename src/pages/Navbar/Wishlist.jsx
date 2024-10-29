@@ -2,12 +2,15 @@ import { movieContext } from "@/components/Store/ContextStore";
 import React, { useContext } from "react";
 import WishlistImg from "../../assets/Img/empty_wishlist.png";
 import Img from "@/components/lazyLoad/Img";
+import { showDetails } from "@/components/utils/showDetails";
+import { useNavigate } from "react-router";
 
 const Wishlist = () => {
   const { movieData } = useContext(movieContext);
+  const Navigate = useNavigate();
   console.log(movieData);
   return (
-    <div className="text-center w-full min-h-screen mt-24 space-y-5">
+    <div className="text-center w-full min-h-screen mt-24 space-y-5 py-10">
       <div className="text-3xl font-roboto font-semibold">Wishlist</div>
       {movieData?.length === 0 ? (
         <div>
@@ -19,16 +22,19 @@ const Wishlist = () => {
           </span>
         </div>
       ) : (
-        <div className="flex flex-wrap justify-center w-full h-full gap-10">
+        <div className="flex flex-wrap justify-center max-w-full h-full gap-10">
           {movieData?.map((movie) => (
-            <div className="hover:opacity-80 relative">
+            <div
+              className="hover:opacity-80"
+              onClick={() => showDetails(Navigate, movie?.id)}
+            >
               <Img
                 src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
                 className="w-full h-[20rem]"
               />
-              <div className="absolute *:text-lg font-roboto font-medium pl-1 flex flex-col justify-start">
-                <div className="">{movie?.title}</div>
-                <div className="absolute top-7">
+              <div className="*:text-sm font-roboto font-medium max-w-[20rem]">
+                <span className="w-[13.6rem] line-clamp-1">{movie?.title}</span>
+                <div className="">
                   {new Date(movie?.release_date).getFullYear()}
                 </div>
               </div>
