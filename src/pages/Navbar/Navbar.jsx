@@ -34,10 +34,13 @@ const Navbar = () => {
           />
         </div>
         <div className="flex items-center space-x-12 font-medium">
-          <Link to="/" className="hover:text-sky-700">
+          <Link to="/" className="hover:text-sky-700 active:text-sky-700">
             Home
           </Link>
-          <Link to="/Popular" className="hover:text-sky-700">
+          <Link
+            to="/Popular"
+            className="hover:text-sky-700 active:text-sky-700"
+          >
             Popular{" "}
           </Link>
           <Link to="/Upcoming" className="hover:text-sky-700">
