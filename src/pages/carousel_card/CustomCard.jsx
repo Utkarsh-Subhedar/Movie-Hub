@@ -12,6 +12,7 @@ import { movieContext } from "@/components/Store/ContextStore.jsx";
 import Img from "@/components/lazyLoad/Img.jsx";
 
 const CustomCard = ({ movie }) => {
+  console.log("searched", movie);
   const navigate = useNavigate();
   const { newWishlist } = useContext(movieContext);
   const { data } = useFetch(`/movie/${movie.id}`);

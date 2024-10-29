@@ -11,7 +11,7 @@ const LoadingSpinner = () => {
         ariaLabel="color-ring-loading"
         wrapperStyle={{}}
         wrapperClass="color-ring-wrapper"
-        colors={["#e2e8f0", "#94a3b8"]}
+        colors={["#e2e8f0", "#cbd5e1"]}
       />
     </div>
   );

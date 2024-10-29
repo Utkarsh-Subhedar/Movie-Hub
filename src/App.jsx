@@ -5,6 +5,7 @@ import { lazy, Suspense } from "react";
 import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
 import LoadingSpinner from "./components/lazyLoad/LoadingSpinner";
+import SearchMovie from "./pages/SearchMovie";
 const Home = lazy(() => import("@/pages/Home"));
 const Details = lazy(() => import("@/pages/Details"));
 const Popular = lazy(() => import("@/pages/Navbar/Popular"));
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/Wishlist" element={<Wishlist />} />
                 <Route path="/Details/:id" element={<Details />} />
                 <Route path="*" element={<NoPage />} />
+                <Route path="/SearchMovie/:name" element={<SearchMovie />} />
               </Route>
             </Routes>
           </Suspense>
