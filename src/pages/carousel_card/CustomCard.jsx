@@ -12,15 +12,16 @@ import { movieContext } from "@/components/Store/ContextStore.jsx";
 import Img from "@/components/lazyLoad/Img.jsx";
 import { showDetails } from "@/components/utils/showDetails.js";
 
-const CustomCard = ({ movie }) => {
+const CustomCard = ({ movie, Searched }) => {
   const Navigate = useNavigate();
+  console.log("Searched Movies", Searched);
   const { newWishlist } = useContext(movieContext);
   const { data } = useFetch(`/movie/${movie.id}`);
   const [isSaved, setIsSaved] = useState(false);
   let runtime = movieRuntime(data);
 
   return (
-    <div className="group relative duration-500 w-[14.5rem]">
+    <div className="group relative duration-500 w-[14.5rem] h-[29rem]">
       <span
         className="absolute right-0 text-2xl cursor-pointer p-[0.3rem] pt-1 z-20 bg-black/40 rounded-br-sm "
         onClick={() => {
@@ -31,29 +32,27 @@ const CustomCard = ({ movie }) => {
         <FaRegBookmark color={isSaved ? "yellow" : ""} />
       </span>
       <div onClick={() => showDetails(Navigate, movie.id)}>
-        <Card className="border-none ">
-          <div className="relative w-[14.5rem] max-h-[29rem] hover:opacity-60">
+        <Card className="border-none relative ">
+          <div className=" hover:opacity-60 p-0 m-0" style={{ lineHeight: 0 }}>
             <Img
-              className="w-full h-[22rem] object-fill rounded-t-md"
+              className="w-full h-[21rem] rounded-t-md p-0 m-0 object-cover"
+              style={{ padding: 0, margin: 0 }}
               src={
                 movie.poster_path === null
                   ? NoPoster
                   : ` https://image.tmdb.org/t/p/original${movie.poster_path}`
               }
             />
-            <div className="absolute bottom-28 left-2 w-[4rem] hover:opacity-90">
-              <CircleRating rating={movie.vote_average} />
-            </div>
-            <div className="p-[0.4rem] *:font-robotorounded-b-lg dark:bg-slate-900 bg-slate-200 cursor-default ">
-              <div className="space-y-[0.6rem] ">
-                <h6 className="text-xl font-semibold leading-none line-clamp-1 pl-1 capitalize">
+            <div className="p-[0.5rem] *:font-roboto rounded-b-lg dark:bg-slate-900 bg-slate-200 cursor-default space-y-4">
+              <div className="space-y-[1rem]">
+                <h6 className="text-xl font-semibold line-clamp-1 pl-1 capitalize">
                   {data?.title}
                 </h6>
-                <div className="py-2">
+                <div>
                   {!data?.genres?.length && (
-                    <span className="text-red-800 font-semibold">
+                    <div className="text-red-800 font-semibold px-[0.4rem] p-[0.6rem]">
                       No Genres Found
-                    </span>
+                    </div>
                   )}
                   {data?.genres?.slice(0, 2)?.map((genre) => (
                     <div className=" px-[0.2rem] inline">
@@ -71,7 +70,7 @@ const CustomCard = ({ movie }) => {
                   ))}
                 </div>
               </div>
-              <div className="flex justify-around">
+              <div className="flex justify-around items-center *:font-roboto *:font-normal">
                 <a
                   href={`https://www.imdb.com/title/${data?.imdb_id}/`}
                   target="_blank"
@@ -79,9 +78,15 @@ const CustomCard = ({ movie }) => {
                 >
                   <img className="hover:scale-110 duration-500" src={imdb} />
                 </a>
-                <span>{data?.release_date}</span> <span>{runtime}</span>
+                <span>
+                  {data?.release_date ? data?.release_date : "No date found"}
+                </span>{" "}
+                <span>{runtime}</span>
               </div>
             </div>
+          </div>
+          <div className="absolute bottom-[7.2rem] left-1 w-[4rem] hover:opacity-90">
+            <CircleRating rating={movie.vote_average} />
           </div>
         </Card>{" "}
       </div>

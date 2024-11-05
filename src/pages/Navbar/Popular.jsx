@@ -10,6 +10,14 @@ const Popular = () => {
   const { data, loading } = useFetch(`/movie/popular`);
   const navigate = useNavigate();
   const [sortedData, setSortedData] = useState([]);
+  const [Searched, setSearched] = useState(null);
+  const searchMovie = (e) => {
+    if (e.key === "Enter" && e.target.value !== "") {
+      setSearched(e.target.value);
+    } else if (e.target.value === "") {
+      setSearched(null);
+    }
+  };
 
   useEffect(() => {
     setSortedData(data?.results);
@@ -35,13 +43,14 @@ const Popular = () => {
           <input
             placeholder="Search...."
             className="w-[20rem] h-[2rem] border-2 bg-background p-4 rounded-full placeholder:text-sm"
+            onKeyDown={(e) => searchMovie(e)}
           />
         </div>
       </div>
       <div className="w-full h-full flex flex-wrap justify-around gap-y-7 px-14">
         {sortedData?.map((movie) => (
           <div>
-            <CustomCard movie={movie} />
+            <CustomCard movie={movie} Searched={Searched} />
           </div>
         ))}
       </div>

@@ -26,11 +26,9 @@ const VideoCorousel = ({ name, videos }) => {
 
   return (
     <div className="mt-4 w-full">
+      <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]">{name}</h1>
       {videos?.results?.length > 1 ? (
         <div>
-          <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]">
-            {name}
-          </h1>
           <div className="w-full flex justify-center items-center mt-2 mb-10">
             <Carousel
               opts={{ loop: true }}

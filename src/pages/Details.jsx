@@ -202,11 +202,23 @@ const Details = () => {
       <div className="mt-[2rem]">
         <CastCorousel name={"Top Cast"} credits={credits} />
       </div>
-      <div className="mt-[2rem]">
-        <MovieCarousel name={"You may also like"} movie={similar} />
+      <div>
+        {similar?.results?.length === 0 ? (
+          <div></div>
+        ) : (
+          <div className="mt-[2rem]">
+            <MovieCarousel name={"You may also like"} movie={similar} />
+          </div>
+        )}
       </div>
-      <div className="mt-[2rem]">
-        <MovieCarousel name={"Recommended Movies"} movie={recommended} />
+      <div>
+        {recommended?.results?.length === 0 ? (
+          <div></div>
+        ) : (
+          <div className="mt-[2rem]">
+            <MovieCarousel name={"Recommended Movies"} movie={recommended} />
+          </div>
+        )}
       </div>
     </div>
   );

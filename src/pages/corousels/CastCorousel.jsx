@@ -17,7 +17,9 @@ const CastCorousel = ({ name, credits }) => {
       <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]">{name}</h1>
 
       {credits?.cast?.length === 0 ? (
-        <span>No credits found</span>
+        <div className="text-center text-3xl text-red-800">
+          No credits found
+        </div>
       ) : (
         <div className="w-full flex justify-center items-center mb-10 mt-4">
           <Carousel
