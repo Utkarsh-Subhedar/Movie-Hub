@@ -10,19 +10,27 @@ const Popular = () => {
   const { data, loading } = useFetch(`/movie/popular`);
   const navigate = useNavigate();
   const [sortedData, setSortedData] = useState([]);
-  const [Searched, setSearched] = useState(null);
+  const [notFound, setNotFound] = useState(false);
+
   const searchMovie = (e) => {
     if (e.key === "Enter" && e.target.value !== "") {
-      setSearched(e.target.value);
-    } else if (e.target.value === "") {
-      setSearched(null);
+      const searchedMovies = sortedData?.filter((movie) =>
+        movie?.title.includes(e.target.value)
+      );
+
+      if (searchedMovies.length !== 0) {
+        setSortedData(searchedMovies);
+        setNotFound(false);
+      } else if (searchedMovies.length === 0) {
+        setNotFound(true);
+      }
     }
   };
 
   useEffect(() => {
     setSortedData(data?.results);
   }, [data]);
-
+  console.log("sorted data popular", sortedData);
   return loading ? (
     <div>
       <CarouselShimmer />
@@ -47,13 +55,19 @@ const Popular = () => {
           />
         </div>
       </div>
-      <div className="w-full h-full flex flex-wrap justify-around gap-y-7 px-14">
-        {sortedData?.map((movie) => (
-          <div>
-            <CustomCard movie={movie} Searched={Searched} />
-          </div>
-        ))}
-      </div>
+      {notFound === true ? (
+        <div className="text-center text-5xl text-red-800 space my-32">
+          Movie Unavailable
+        </div>
+      ) : (
+        <div className="w-full h-full flex flex-wrap justify-around gap-y-7 px-14">
+          {sortedData?.map((movie) => (
+            <div>
+              <CustomCard movie={movie} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
