@@ -12,13 +12,13 @@ import { movieContext } from "@/components/Store/ContextStore.jsx";
 import Img from "@/components/lazyLoad/Img.jsx";
 import { showDetails } from "@/components/utils/showDetails.js";
 
-const CustomCard = ({ movie, Searched }) => {
+const CustomCard = ({ movie }) => {
   const Navigate = useNavigate();
-  console.log("Searched Movies", Searched);
   const { newWishlist } = useContext(movieContext);
   const { data } = useFetch(`/movie/${movie.id}`);
   const [isSaved, setIsSaved] = useState(false);
   let runtime = movieRuntime(data);
+  console.log("searched movie", movie);
 
   return (
     <div className="group relative duration-500 w-[14.5rem] h-[29rem]">
@@ -32,10 +32,10 @@ const CustomCard = ({ movie, Searched }) => {
         <FaRegBookmark color={isSaved ? "yellow" : ""} />
       </span>
       <div onClick={() => showDetails(Navigate, movie.id)}>
-        <Card className="border-none relative ">
+        <Card className="border-none relative w-full">
           <div className=" hover:opacity-60 p-0 m-0" style={{ lineHeight: 0 }}>
             <Img
-              className="w-full h-[21rem] rounded-t-md p-0 m-0 object-cover"
+              className="size-[21.6rem] rounded-t-md p-0 m-0 object-cover"
               style={{ padding: 0, margin: 0 }}
               src={
                 movie.poster_path === null
@@ -85,7 +85,7 @@ const CustomCard = ({ movie, Searched }) => {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-[7.2rem] left-1 w-[4rem] hover:opacity-90">
+          <div className="absolute bottom-[7.3rem] left-1 w-[4rem] hover:opacity-90">
             <CircleRating rating={movie.vote_average} />
           </div>
         </Card>{" "}

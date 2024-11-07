@@ -48,7 +48,7 @@ const HeroCarousel = ({ movieData }) => {
           </div>
         </div>
         <img
-          className="w-[17rem] h-[25rem] rounded-lg shadow-zinc-600 shadow-lg absolute top-[9rem] right-[7rem] z-30 cursor-pointer"
+          className="absolute top-[9rem] right-[7rem] w-[17rem] h-[25rem] rounded-lg shadow-zinc-600 shadow-lg  z-30 cursor-pointer"
           src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`}
         />
       </div>
