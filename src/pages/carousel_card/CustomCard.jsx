@@ -18,7 +18,7 @@ const CustomCard = ({ movie }) => {
   const { data } = useFetch(`/movie/${movie.id}`);
   const [isSaved, setIsSaved] = useState(false);
   let runtime = movieRuntime(data);
-  console.log("searched movie", movie);
+  console.log("searched movie", movie?.title);
 
   return (
     <div className="group relative duration-500 w-[14.5rem] h-[29rem]">

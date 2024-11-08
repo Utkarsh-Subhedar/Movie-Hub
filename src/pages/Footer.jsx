@@ -24,7 +24,8 @@ const Footer = () => {
               <ul className="p-1 flex space-x-3  items-center">
                 <li>
                   <a
-                    href="https://github.com/yourgithub"
+                    href="https://github.com/Utkarsh-Subhedar"
+                    target="_blank"
                     className="hover:text-gray-300"
                   >
                     <FaGithub />{" "}
@@ -32,7 +33,8 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="https://linkedin.com/in/yourlinkedin"
+                    href="https://www.linkedin.com/in/utkarsh-subhedar-0ab111211/"
+                    target="_blank"
                     className="hover:text-gray-300"
                   >
                     <Linkedin />
@@ -41,7 +43,8 @@ const Footer = () => {
                 <li>
                   <a
                     className="hover:text-gray-300 text-xl"
-                    href="mailto:youremail@example.com"
+                    target="_blank"
+                    href="https://www.instagram.com/utkarsh_subhedar/profilecard/?igsh=MXd4aHE4cnM1b3YxOA=="
                   >
                     <SlSocialInstagram />
                   </a>
