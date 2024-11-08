@@ -6,7 +6,25 @@ import Sort from "@/components/Sort";
 
 const Upcoming = () => {
   const { data, loading } = useFetch("/movie/upcoming");
-  const [sortedData, setSortedData] = useState();
+  const [sortedData, setSortedData] = useState([]);
+  const [notFound, setNotFound] = useState(false);
+
+  const searchMovie = (e) => {
+    if (e.key === "Enter" && e.target.value !== "") {
+      const searchedMovies = sortedData?.filter((movie) =>
+        movie?.title.toLowerCase().includes(e.target.value)
+      );
+      if (searchedMovies.length !== 0) {
+        setSortedData(searchedMovies);
+        setNotFound(false);
+      } else if (searchedMovies.length === 0) {
+        setNotFound(true);
+      }
+    } else if (e.target.value == "") {
+      setSortedData(data?.results);
+      setNotFound(false);
+    }
+  };
 
   useEffect(() => {
     setSortedData(data?.results);
@@ -34,14 +52,23 @@ const Upcoming = () => {
           <input
             placeholder="Search...."
             className="w-[20rem] h-[2rem] border-2 bg-background p-4 rounded-full placeholder:text-sm"
+            onKeyUp={(e) => searchMovie(e)}
           />{" "}
         </div>
       </div>
-      <div className="flex flex-wrap justify-between px-16 gap-y-5">
-        {sortedData?.map((movie) => (
-          <CustomCard movie={movie} />
-        ))}
-      </div>
+      {notFound === true ? (
+        <div className="text-center text-5xl text-red-800 space my-32">
+          Movie Unavailable
+        </div>
+      ) : (
+        <div className="max-w-full max-h-full grid grid-cols-5 gap-4 px-10  place-content-center">
+          {sortedData?.map((movie) => (
+            <div>
+              <CustomCard movie={movie} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

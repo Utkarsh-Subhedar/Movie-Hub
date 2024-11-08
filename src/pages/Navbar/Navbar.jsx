@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import DarkTheme from "./DarkTheme";
 import { CircleUser } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import logo from "@/assets/Img/Logo1.png";
+import logo2 from "@/assets/Img/Logo.png";
 
 const Navbar = () => {
   const Navigate = useNavigate();
@@ -13,8 +15,6 @@ const Navbar = () => {
       e.target.value !== "" &&
       /^[a-zA-Z0-9]/.test(e.target.value)
     ) {
-      console.log("valueee", e.target.value);
-
       Navigate(`/SearchMovie/${e.target.value}`);
       e.target.value = "";
     }
@@ -23,7 +23,8 @@ const Navbar = () => {
     <div className="relative z-50  w-full">
       <nav className="w-full h-[4rem] shadow-xl dark:bg-black/50 bg-white/50 flex justify-between items-center px-16 fixed top-0 ">
         <Link to="/">
-          <strong className="cursor-pointer">Movie Hub</strong>
+          <img src={logo} className="w-[9rem] h-[2rem] dark:block hidden" />
+          <img src={logo2} className="w-[9rem] h-[2rem] block dark:hidden" />
         </Link>
         <div className="flex items-center space-x-2">
           <Input
@@ -34,22 +35,39 @@ const Navbar = () => {
           />
         </div>
         <div className="flex items-center space-x-12 font-medium">
-          <Link to="/" className="hover:text-sky-700 active:text-sky-700">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "text-blue-500" : "hover:text-blue-500"
+            }
+          >
             Home
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/Popular"
-            className="hover:text-sky-700 active:text-sky-700"
+            className={({ isActive }) =>
+              isActive ? "text-blue-500" : "hover:text-blue-500"
+            }
           >
             Popular{" "}
-          </Link>
-          <Link to="/Upcoming" className="hover:text-sky-700">
+          </NavLink>
+          <NavLink
+            to="/Upcoming"
+            className={({ isActive }) =>
+              isActive ? "text-blue-500" : "hover:text-blue-500"
+            }
+          >
             Upcoming
-          </Link>
+          </NavLink>
 
-          <Link to="/Wishlist" className="hover:text-sky-700">
+          <NavLink
+            to="/Wishlist"
+            className={({ isActive }) =>
+              isActive ? "text-blue-500" : "hover:text-blue-500"
+            }
+          >
             Wishlist
-          </Link>
+          </NavLink>
           <div>
             <DarkTheme />
           </div>
