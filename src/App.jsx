@@ -6,6 +6,8 @@ import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
 import LoadingSpinner from "./components/lazyLoad/LoadingSpinner";
 import SearchMovie from "./pages/SearchMovie";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 const Home = lazy(() => import("@/pages/Home"));
 const Details = lazy(() => import("@/pages/Details"));
 const Popular = lazy(() => import("@/pages/Navbar/Popular"));
@@ -19,8 +21,10 @@ function App() {
         <BrowserRouter>
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
+              <Route index path="/Signup" element={<SignUp />} />
+              <Route path="/Login" element={<Login />} />
               <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
+                <Route element={<Home />} />
                 <Route path="/Popular" element={<Popular />} />
                 <Route path="/Upcoming" element={<Upcoming />} />
                 <Route path="/Wishlist" element={<Wishlist />} />
