@@ -21,10 +21,10 @@ function App() {
         <BrowserRouter>
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
-              <Route index path="/Signup" element={<SignUp />} />
-              <Route path="/Login" element={<Login />} />
+              {/* <Route index path="/Signup" element={<SignUp />} />
+              <Route path="/Login" element={<Login />} /> */}
               <Route path="/" element={<Layout />}>
-                <Route element={<Home />} />
+                <Route index element={<Home />} />
                 <Route path="/Popular" element={<Popular />} />
                 <Route path="/Upcoming" element={<Upcoming />} />
                 <Route path="/Wishlist" element={<Wishlist />} />
