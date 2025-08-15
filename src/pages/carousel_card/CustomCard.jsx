@@ -21,7 +21,7 @@ const CustomCard = ({ movie }) => {
   console.log("searched movie", movie?.title);
 
   return (
-    <div className="group relative duration-500 w-[14.5rem] h-[29rem]">
+    <div className="group relative duration-500 w-[14.5rem] h-[29rem] cursor-pointer hover:scale-95 hover:shadow-2xl transition-all rounded-xl">
       <span
         className="absolute right-0 text-2xl cursor-pointer p-[0.3rem] pt-1 z-20 bg-black/40 rounded-br-sm "
         onClick={() => {
@@ -32,11 +32,12 @@ const CustomCard = ({ movie }) => {
         <FaRegBookmark color={isSaved ? "yellow" : ""} />
       </span>
       <div onClick={() => showDetails(Navigate, movie.id)}>
-        <Card className="border-none relative w-full">
+        <Card className="border-none relative w-full ">
           <div className=" hover:opacity-60 p-0 m-0" style={{ lineHeight: 0 }}>
             <Img
               className="size-[21.6rem] rounded-t-md p-0 m-0 object-cover"
               style={{ padding: 0, margin: 0 }}
+              loading="lazy"
               src={
                 movie.poster_path === null
                   ? NoPoster
