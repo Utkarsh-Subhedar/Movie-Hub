@@ -1,19 +1,33 @@
 import { movieContext } from "@/components/Store/ContextStore";
-import React, { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import WishlistImg from "../../assets/Img/empty_wishlist.png";
 import Img from "@/components/lazyLoad/Img";
 import { showDetails } from "@/components/utils/showDetails";
 import { useNavigate } from "react-router";
 
 const Wishlist = () => {
-  const { movieData } = useContext(movieContext);
+  const { movieData, newWishlist } = useContext(movieContext);
   const Navigate = useNavigate();
-  console.log(movieData);
-  const removeFromWishlist = () => {};
+
+  const [wishlistedMovie, setWishlistedMovie] = useState([]);
+
+  useEffect(() => {
+    const localData = JSON.parse(localStorage.getItem("wishlistArray"));
+    if (localData !== null) {
+      setWishlistedMovie(localData);
+    } else {
+      setWishlistedMovie(movieData);
+    }
+  }, [movieData]);
+
+  console.log(wishlistedMovie);
+  const removeFromWishlist = (movie) => {
+    newWishlist(movie);
+  };
   return (
     <div className="text-center w-full min-h-screen mt-24 space-y-5 py-10">
       <div className="text-3xl font-roboto font-semibold">Wishlist</div>
-      {movieData?.length === 0 ? (
+      {wishlistedMovie?.length === 0 ? (
         <div>
           <div className="flex justify-center">
             <img src={WishlistImg} className=" w-[50rem]" />
@@ -24,7 +38,7 @@ const Wishlist = () => {
         </div>
       ) : (
         <div className="flex flex-wrap justify-center max-w-full h-full gap-10">
-          {movieData?.map((movie) => (
+          {wishlistedMovie?.map((movie) => (
             <div
               onClick={() => showDetails(Navigate, movie?.id)}
               className="hover:opacity-90 cursor-pointer relative"
@@ -36,7 +50,7 @@ const Wishlist = () => {
               <button
                 onClick={(e) => {
                   e.stopPropagation(); // prevent opening details
-                  removeFromWishlist(movie?.id); // your function to remove
+                  removeFromWishlist(movie); // your function to remove
                 }}
                 className="absolute right-[0.15rem] bg-inherit hover:bg-slate-950 p-[0.2rem] rounded-bl-lg shadow-lg transition-all duration-300"
               >
