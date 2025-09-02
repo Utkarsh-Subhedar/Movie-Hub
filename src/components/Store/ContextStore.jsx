@@ -4,23 +4,39 @@ export const movieContext = createContext({
   movieData: [],
   newWishlist: () => {},
 });
-const dataHandle = (movieData, action) => {
-  let newMovieData = movieData;
+const dataHandle = (state, action) => {
   const { type, payload } = action;
-  if (
-    type === "wishlist" &&
-    movieData.some((movie) => movie.id === payload.data.id) === false
-  ) {
-    newMovieData = [...movieData, payload.data];
-  } else {
-    newMovieData = movieData.filter((movie) => {
-      movie.id !== payload.data.id;
-    });
+  switch (type) {
+    case "wishlist": {
+      const targetId = String(payload.data.id);
+
+      const exists = state.some((m) => String(m.id) === targetId);
+
+      let newMovieData;
+      if (exists) {
+        newMovieData = state.filter((m) => String(m.id) !== targetId);
+      } else {
+        newMovieData = [...state, payload.data];
+      }
+
+      localStorage.setItem("wishlistArray", JSON.stringify(newMovieData));
+      return newMovieData;
+    }
+    default:
+      return state;
   }
-  return newMovieData;
+};
+const init = () => {
+  try {
+    const saved = localStorage.getItem("wishlistArray");
+    const parsed = saved ? JSON.parse(saved) : [];
+    return Array.isArray(parsed) ? parsed : []; // ✅ always return array
+  } catch {
+    return [];
+  }
 };
 const ContextStore = ({ children }) => {
-  const [movieData, dispatch] = useReducer(dataHandle, []);
+  const [movieData, dispatch] = useReducer(dataHandle, [], init);
   const newWishlist = (data) => {
     const wishlist = {
       type: "wishlist",

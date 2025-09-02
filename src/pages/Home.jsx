@@ -1,46 +1,64 @@
 import MovieCarousel from "./corousels/MovieCarousel";
 import useFetch from "@/components/custom_hook/useFetch";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import HeroCarousel from "./HeroCarousel";
 import HomeShimmer from "./shimmer/HomeShimmer";
 import CarouselShimmer from "./shimmer/CarouselShimmer";
+
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const { data, err, loading } = useFetch(`/movie/popular`);
   const popMovies = data?.results;
+
   const { data: topRated } = useFetch(`/movie/top_rated`);
   const { data: popular } = useFetch(`/movie/popular`);
   const { data: upcoming } = useFetch(`/movie/upcoming`);
+
   useEffect(() => {
-    const Interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => {
-        return prevIndex >= popMovies?.length - 1 ? 0 : prevIndex + 1;
-      });
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex >= popMovies?.length - 1 ? 0 : prevIndex + 1
+      );
     }, 5000);
-    return () => clearInterval(Interval);
+    return () => clearInterval(interval);
   }, [popMovies]);
-  return loading ? (
-    <div>
-      <HomeShimmer />
-      <div className="mt-[10rem]">
-        <CarouselShimmer />
-        <CarouselShimmer />
-        <CarouselShimmer />
+
+  if (loading) {
+    return (
+      <div className="px-4 sm:px-6 lg:px-8">
+        <HomeShimmer />
+        <div className="mt-10 space-y-8">
+          <CarouselShimmer />
+          <CarouselShimmer />
+          <CarouselShimmer />
+        </div>
       </div>
-    </div>
-  ) : err ? (
-    <div className="bg-red h-full w-full rounded ">{err}</div>
-  ) : (
+    );
+  }
+
+  if (err) {
+    return (
+      <div className="bg-red-500 text-white p-4 rounded w-full text-center">
+        {err}
+      </div>
+    );
+  }
+
+  return (
     <>
-      <div className="w-full h-full relative">
+      {/* Hero Section */}
+      <div className="w-full relative">
         <HeroCarousel movieData={popMovies[currentIndex]} />
-        <div className="top-[7rem] bg-gradient-to-b from-transparent from-40% dark:via-customLightBackground dark:to-background via-gray-400 to-white  w-full h-full absolute z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-400 dark:via-customLightBackground dark:to-background to-white z-10"></div>
       </div>
-      <div className="mt-[7rem]">
-        <MovieCarousel name={"Upcoming"} movie={upcoming} />
-        <MovieCarousel name={"Top Rated"} movie={topRated} />
-        <MovieCarousel name={"Popular"} movie={popular} />
-      </div>{" "}
+
+      {/* Movie Carousels */}
+      <div className="mt-12 px-4 sm:px-6 lg:px-8 space-y-12">
+        <MovieCarousel name="Upcoming" movie={upcoming} />
+        <MovieCarousel name="Top Rated" movie={topRated} />
+        <MovieCarousel name="Popular" movie={popular} />
+      </div>
     </>
   );
 };

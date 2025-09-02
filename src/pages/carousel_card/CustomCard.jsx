@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import CircleRating from "@/components/circleRating/CircleRating";
 import NoPoster from "@/assets/Img/no-poster.png";
@@ -14,20 +14,29 @@ import { showDetails } from "@/components/utils/showDetails.js";
 
 const CustomCard = ({ movie }) => {
   const Navigate = useNavigate();
-  const { newWishlist } = useContext(movieContext);
+  const { newWishlist, movieData } = useContext(movieContext);
   const { data } = useFetch(`/movie/${movie.id}`);
   const [isSaved, setIsSaved] = useState(false);
   let runtime = movieRuntime(data);
-  console.log("searched movie", movie?.title);
+
+  useEffect(() => {
+    try {
+      let local = JSON.parse(localStorage.getItem("wishlistArray")) || [];
+      setIsSaved(local.some((m) => m.id === movie.id));
+    } catch (error) {
+      setIsSaved(false);
+    }
+  }, [movie, movieData]);
+
+  const toggleWishlist = () => {
+    newWishlist(movie);
+  };
 
   return (
     <div className="group relative duration-500 w-[14.5rem] h-[29rem] cursor-pointer hover:scale-95 hover:shadow-2xl transition-all rounded-xl">
       <span
         className="absolute right-0 text-2xl cursor-pointer p-[0.3rem] pt-1 z-20 bg-black/40 rounded-br-sm "
-        onClick={() => {
-          setIsSaved(!isSaved);
-          newWishlist(data);
-        }}
+        onClick={toggleWishlist}
       >
         <FaRegBookmark color={isSaved ? "yellow" : ""} />
       </span>
