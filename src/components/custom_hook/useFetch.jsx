@@ -1,35 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { api } from "../utils/api";
 
-const useFetch = (dataURL) => {
+const useFetch = (dataUrl) => {
   const [data, setData] = useState(null);
-  const [err, setErr] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false); // boolean error flag
 
   useEffect(() => {
-    let isMounted = true;
+    let isSubscribed = true; // prevent state updates if unmounted
+    setLoading(true);
+    setIsError(false); // reset error for new fetch
 
     const fetchData = async () => {
-      setLoading(true);
       try {
-        const result = await api(dataURL);
-        if (isMounted) {
-          setData(result);
-          setLoading(false);
-        }
+        const res = await api(dataUrl);
+        if (isSubscribed) setData(res);
       } catch (err) {
-        if (!isMounted) {
-          setErr("Something went wrong");
-          setLoading(false);
-        }
+        if (isSubscribed) setIsError(true);
+      } finally {
+        if (isSubscribed) setLoading(false);
       }
     };
+
     fetchData();
+
     return () => {
-      isMounted = false;
+      isSubscribed = false; // cleanup
     };
-  }, [dataURL]);
-  return { data, err, loading };
+  }, [dataUrl]);
+
+  return { data, loading, isError };
 };
 
 export default useFetch;

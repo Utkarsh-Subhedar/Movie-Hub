@@ -8,7 +8,6 @@ import { useNavigate } from "react-router";
 const Wishlist = () => {
   const { movieData, newWishlist } = useContext(movieContext);
   const Navigate = useNavigate();
-
   const [wishlistedMovie, setWishlistedMovie] = useState([]);
 
   useEffect(() => {
@@ -20,46 +19,53 @@ const Wishlist = () => {
     }
   }, [movieData]);
 
-  console.log(wishlistedMovie);
   const removeFromWishlist = (movie) => {
     newWishlist(movie);
   };
+
   return (
-    <div className="text-center w-full min-h-screen mt-24 space-y-5 py-10">
-      <div className="text-3xl font-roboto font-semibold">Wishlist</div>
+    <div className="text-center w-full min-h-screen  space-y-6 px-4 sm:px-6 lg:px-12 py-10">
+      <div className="text-2xl sm:text-3xl font-roboto font-semibold mt-24">
+        Wishlist
+      </div>
+
       {wishlistedMovie?.length === 0 ? (
-        <div>
-          <div className="flex justify-center">
-            <img src={WishlistImg} className=" w-[50rem]" />
-          </div>
-          <span className="text-4xl font-roboto font-medium">
+        <div className="flex flex-col items-center space-y-6">
+          <img
+            src={WishlistImg}
+            className="w-[16rem] sm:w-[24rem] md:w-[32rem] lg:w-[40rem] max-w-full"
+          />
+          <span className="text-xl sm:text-2xl md:text-3xl font-roboto font-medium">
             Your Wishlist is empty
           </span>
         </div>
       ) : (
-        <div className="flex flex-wrap justify-center max-w-full h-full gap-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {wishlistedMovie?.map((movie) => (
             <div
+              key={movie?.id}
               onClick={() => showDetails(Navigate, movie?.id)}
               className="hover:opacity-90 cursor-pointer relative"
             >
               <Img
                 src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
-                className="w-full h-[20rem]"
+                className="w-full h-[12rem] sm:h-[15rem] md:h-[18rem] lg:h-[20rem] object-cover rounded"
               />
               <button
                 onClick={(e) => {
                   e.stopPropagation(); // prevent opening details
-                  removeFromWishlist(movie); // your function to remove
+                  removeFromWishlist(movie);
                 }}
-                className="absolute right-[0.15rem] bg-inherit hover:bg-slate-950 p-[0.2rem] rounded-bl-lg shadow-lg transition-all duration-300"
+                className="absolute right-1 top-1 bg-black/70 text-white hover:bg-red-600 px-2 py-1 text-xs rounded shadow-lg transition-all duration-300"
               >
                 ❌
               </button>
 
-              <div className="*:text-sm font-roboto font-medium max-w-[20rem]">
-                <span className="w-[13.6rem] line-clamp-1">{movie?.title}</span>
-                <div className="">
+              <div className="mt-2 text-center">
+                <span className="block text-sm sm:text-base font-roboto font-medium truncate">
+                  {movie?.title}
+                </span>
+                <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                   {new Date(movie?.release_date).getFullYear()}
                 </div>
               </div>

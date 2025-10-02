@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import CarouselShimmer from "../shimmer/CarouselShimmer";
 import CustomCard from "../carousel_card/CustomCard";
 import Sort from "@/components/Sort";
+import ServerErrorPage from "../ServerErrorPage";
 
 const Upcoming = () => {
-  const { data, loading } = useFetch("/movie/upcoming");
+  const { data, loading, isError } = useFetch("/movie/upcoming");
   const [sortedData, setSortedData] = useState([]);
   const [notFound, setNotFound] = useState(false);
 
@@ -30,14 +31,21 @@ const Upcoming = () => {
     setSortedData(data?.results);
   }, [data]);
 
-  return loading ? (
-    <div>
-      <CarouselShimmer />
-      <CarouselShimmer />
-      <CarouselShimmer />
-      <CarouselShimmer />
-    </div>
-  ) : (
+  if (loading)
+    return (
+      <div className="mt-24">
+        <CarouselShimmer />
+        <CarouselShimmer />
+        <CarouselShimmer />
+        <CarouselShimmer />
+      </div>
+    );
+
+  if (isError) {
+    return <ServerErrorPage />;
+  }
+
+  return (
     <div className="mt-24">
       <div className="flex justify-between px-16 mb-4">
         <span className="text-xl font-roboto font-semibold">

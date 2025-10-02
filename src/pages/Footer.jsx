@@ -9,26 +9,27 @@ import Links from "./Links";
 const Footer = () => {
   return (
     <div className="w-full h-auto">
-      <footer className="mt-10 px-10 dark:bg-slate-800 bg-slate-400/60 py-5">
-        <div className="w-full container flex justify-between">
-          <div className="flex">
-            <img src={logo} className="w-[15rem] h-[3rem] " />
+      <footer className="mt-10 px-4 sm:px-10 dark:bg-slate-800 bg-slate-400/60 py-5">
+        {/* Top Section: Logo + Socials */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
+          <div className="flex flex-wrap items-center mb-4 md:mb-0 pl-8 md:pl-0 ">
+            <img src={logo} className="w-36 sm:w-48 h-12 sm:h-12" />
             <img
               src={logo2}
-              className="w-[9.5rem] h-[3rem] ml-2  border-l-2  border-slate-200"
+              className="w-24 sm:w-36 h-12 sm:h-12 ml-2 border-l-2 border-slate-200"
             />
           </div>
-          <div className=" flex w-[15rem]">
-            <div className="w-full float-right">
-              <h4 className="font-bold text-xl">Follow us</h4>
-              <ul className="p-1 flex space-x-3  items-center">
+          <div className="flex mt-4 md:mt-0 pl-8 md:pl-0 ">
+            <div>
+              <h4 className="font-bold text-lg sm:text-xl">Follow us</h4>
+              <ul className="flex space-x-3 items-center mt-1 text-lg">
                 <li>
                   <a
                     href="https://github.com/Utkarsh-Subhedar"
                     target="_blank"
                     className="hover:text-gray-300"
                   >
-                    <FaGithub />{" "}
+                    <FaGithub />
                   </a>
                 </li>
                 <li>
@@ -42,9 +43,9 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    className="hover:text-gray-300 text-xl"
-                    target="_blank"
                     href="https://www.instagram.com/utkarsh_subhedar/profilecard/?igsh=MXd4aHE4cnM1b3YxOA=="
+                    target="_blank"
+                    className="hover:text-gray-300 text-xl"
                   >
                     <SlSocialInstagram />
                   </a>
@@ -53,25 +54,29 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-around px-36 text-lg font-sans mt-4 tracking-wide ">
-          <ul className="mt-2 space-y-2">
+
+        {/* Bottom Links Section */}
+        <div className="grid grid-cols-1 pl-8 md:pl-0 md:place-items-center md:grid-cols-3 gap-6 mt-6 text-base sm:text-lg font-sans">
+          <ul className="space-y-2">
             <Links url={"#about"} name={"Help Center"} />
             <Links url={"#movies"} name={"How to Rent or Buy a Movie"} />
             <Links url={"#categories"} name={"How to Watch a Movie"} />
           </ul>
-          <ul className="mt-2 space-y-2">
+          <ul className="space-y-2">
             <Links url={"#about"} name={"About Us"} />
             <Links url={"#movies"} name={"Movies"} />
             <Links url={"#categories"} name={"Categories"} />
           </ul>
-          <ul className="mt-2 space-y-2">
+          <ul className="space-y-2">
             <Links url={"#about"} name={"Terms of Use"} />
             <Links url={"#movies"} name={"Privacy Policy"} />
             <Links url={"#categories"} name={"Advertise With Us"} />
           </ul>
         </div>
       </footer>
-      <div className="container mx-auto mb-6 text-center pt-4 ">
+
+      {/* Copyright */}
+      <div className="container mx-auto mb-6 text-center pt-4 px-4 sm:px-0">
         <p className="text-sm">
           © 2024 Utkarsh. All Rights Reserved. | Powered by TMDB
         </p>
