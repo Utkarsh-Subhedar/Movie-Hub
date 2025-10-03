@@ -2,12 +2,13 @@ import useFetch from "@/components/custom_hook/useFetch";
 import React, { useEffect, useState } from "react";
 import CarouselShimmer from "../shimmer/CarouselShimmer";
 import CustomCard from "../carousel_card/CustomCard";
-
 import Sort from "@/components/Sort";
 import { useNavigate } from "react-router";
+import ServerErrorPage from "../ServerErrorPage";
 
 const Popular = () => {
-  const { data, loading } = useFetch(`/movie/popular`);
+  const { data, loading, isError } = useFetch(`/movie/popular`);
+  console.log("err", isError);
   const navigate = useNavigate();
   const [sortedData, setSortedData] = useState([]);
   const [notFound, setNotFound] = useState(false);
@@ -33,14 +34,22 @@ const Popular = () => {
     setSortedData(data?.results);
   }, [data]);
   console.log("sorted data popular", sortedData);
-  return loading ? (
-    <div>
-      <CarouselShimmer />
-      <CarouselShimmer />
-      <CarouselShimmer />
-      <CarouselShimmer />
-    </div>
-  ) : (
+
+  if (loading)
+    return (
+      <div className="mt-24">
+        <CarouselShimmer />
+        <CarouselShimmer />
+        <CarouselShimmer />
+        <CarouselShimmer />
+      </div>
+    );
+
+  if (isError) {
+    return <ServerErrorPage />;
+  }
+
+  return (
     <div className="mt-24">
       <div className="flex items-center mb-4 justify-between px-16">
         <h1 className="text-2xl font-roboto font-semibold">Most Popular</h1>

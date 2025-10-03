@@ -33,73 +33,74 @@ const CustomCard = ({ movie }) => {
   };
 
   return (
-    <div className="group relative duration-500 w-[14.5rem] h-[29rem] cursor-pointer hover:scale-95 hover:shadow-2xl transition-all rounded-xl">
+    <div className="group relative w-full max-w-[200px] sm:max-w-[250px] md:max-w-[280px] mx-auto cursor-pointer hover:scale-95 hover:shadow-md transition-all rounded-xl">
+      {/* Wishlist */}
       <span
-        className="absolute right-0 text-2xl cursor-pointer p-[0.3rem] pt-1 z-20 bg-black/40 rounded-br-sm "
+        className="absolute right-1 top-1 z-20 bg-black/40 p-1 rounded-br-sm text-lg sm:text-xl"
         onClick={toggleWishlist}
       >
         <FaRegBookmark color={isSaved ? "yellow" : ""} />
       </span>
-      <div onClick={() => showDetails(Navigate, movie.id)}>
-        <Card className="border-none relative w-full ">
-          <div className=" hover:opacity-60 p-0 m-0" style={{ lineHeight: 0 }}>
-            <Img
-              className="size-[21.6rem] rounded-t-md p-0 m-0 object-cover"
-              style={{ padding: 0, margin: 0 }}
-              loading="lazy"
-              src={
-                movie.poster_path === null
-                  ? NoPoster
-                  : ` https://image.tmdb.org/t/p/original${movie.poster_path}`
-              }
-            />
-            <div className="p-[0.5rem] *:font-roboto rounded-b-lg dark:bg-slate-900 bg-slate-200 cursor-default space-y-4">
-              <div className="space-y-[1rem]">
-                <h6 className="text-xl font-semibold line-clamp-1 pl-1 capitalize">
-                  {data?.title}
-                </h6>
-                <div>
-                  {!data?.genres?.length && (
-                    <div className="text-red-800 font-semibold px-[0.4rem] p-[0.6rem]">
-                      No Genres Found
-                    </div>
-                  )}
-                  {data?.genres?.slice(0, 2)?.map((genre) => (
-                    <div className=" px-[0.2rem] inline">
-                      <span
-                        key={genre.id}
-                        className={`${getGenresWiseColor(
-                          genre
-                        )} border-slate-600  border-2 p-[0.3rem] !text-sm font-roboto font-semibold rounded-full`}
-                      >
-                        {genre.name === "Science Fiction"
-                          ? "sci-fi"
-                          : genre.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex justify-around items-center *:font-roboto *:font-normal">
-                <a
-                  href={`https://www.imdb.com/title/${data?.imdb_id}/`}
-                  target="_blank"
-                  className="underline underline-offset-2 hover:text-sky-600"
-                >
-                  <img className="hover:scale-110 duration-500" src={imdb} />
-                </a>
-                <span>
-                  {data?.release_date ? data?.release_date : "No date found"}
-                </span>{" "}
-                <span>{runtime}</span>
-              </div>
-            </div>
+
+      <Card
+        className="border-none relative w-full flex flex-col"
+        onClick={() => showDetails(Navigate, movie.id)}
+      >
+        {/* Poster */}
+        <Img
+          className="w-full h-[calc(100%-80px)] sm:h-[calc(100%-100px)] md:h-[calc(100%-120px)] object-cover rounded-t-md"
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+              : NoPoster
+          }
+        />
+
+        {/* Info Section */}
+        <div
+          className="p-2 bg-slate-200 dark:bg-slate-900 flex flex-col justify-between rounded-b-md
+                h-[calc(100%-80px)] sm:h-[calc(100%-100px)] md:h-[calc(100%-120px)]"
+        >
+          {/* Title */}
+          <h6 className="text-sm sm:text-base md:text-lg  font-semibold line-clamp-1 px-1">
+            {data?.title}
+          </h6>
+
+          {/* Genres */}
+          <div className="flex flex-wrap">
+            {data?.genres?.slice(0, 2).map((genre) => (
+              <span
+                key={genre.id}
+                className={`${getGenresWiseColor(genre)}
+                    text-[1rem] sm:text-sm md:text-base 
+                    px-1 rounded-full font-semibold`}
+              >
+                {genre.name === "Science Fiction" ? "sci-fi" : genre.name}
+              </span>
+            ))}
           </div>
-          <div className="absolute bottom-[7.3rem] left-1 w-[4rem] hover:opacity-90">
-            <CircleRating rating={movie.vote_average} />
+
+          {/* Release date + IMDb + runtime */}
+          <div
+            className="flex justify-between items-center
+                  text-[13px]  md:text-[14px] mt-1 px-1"
+          >
+            <a
+              href={`https://www.imdb.com/title/${data?.imdb_id}/`}
+              target="_blank"
+            >
+              <img className="w-7 sm:w-7 md:w-8 lg:w-9" src={imdb} alt="IMDb" />
+            </a>
+            <span className="truncate">{data?.release_date ?? "No date"}</span>
+            <span>{runtime}</span>
           </div>
-        </Card>{" "}
-      </div>
+        </div>
+
+        {/* Circle Rating */}
+        <div className="absolute bottom-[5.4rem] md:bottom-[6.2rem] left-1 w-4 sm:w-6 md:w-8">
+          <CircleRating rating={movie.vote_average} />
+        </div>
+      </Card>
     </div>
   );
 };

@@ -1,58 +1,62 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import { useContext } from "react";
 import { FaStar } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 
 const HeroCarousel = ({ movieData }) => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const showDetails = () => {
-    Navigate(`/Details/${movieData.id}`);
+    navigate(`/Details/${movieData.id}`);
   };
+
   return (
-    <>
-      <div>
-        <div
-          className="realtive overflow-hidden w-full h-[45rem] bg-cover opacity-40 z-20"
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${movieData.backdrop_path})`,
-          }}
-        ></div>
-        <div
-          className="absolute top-[14.8rem] left-[5rem] z-20 space-y-2 cursor-pointer"
-          onClick={showDetails}
-        >
-          <div className="max-w-[48rem]">
-            <span className="font-serif text-7xl">
-              {movieData.original_title}
-            </span>
-          </div>
-          <div className="flex font-sans text-2xl space-x-4">
+    <div className="relative w-full">
+      {/* Background image */}
+      <div
+        className="w-full h-[20rem] sm:h-[30rem] lg:h-[45rem] bg-cover bg-center"
+        style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/original${movieData.backdrop_path})`,
+        }}
+      ></div>
+
+      {/* Overlay container */}
+      <div
+        className="absolute inset-0 flex flex-col sm:flex-row items-center justify-center p-4 sm:p-8 lg:p-12 gap-4 sm:gap-8 cursor-pointer z-30"
+        onClick={showDetails}
+      >
+        {/* Text content */}
+        <div className="flex-1 space-y-2 max-w-full sm:max-w-[60%] lg:max-w-[48rem] text-center sm:text-left">
+          <h1 className="font-serif text-xl sm:text-3xl lg:text-5xl font-semibold">
+            {movieData.original_title}
+          </h1>
+
+          <div className="flex flex-wrap justify-center sm:justify-start items-center text-sm sm:text-base lg:text-xl gap-2 sm:gap-4">
             <span className="font-normal">{movieData.release_date}</span>
-            <span className="font-bold flex items-center gap-2">
-              {Math.round(movieData.vote_average)} / 10
-              <FaStar />
+            <span className="font-bold flex items-center gap-1 sm:gap-2">
+              {Math.round(movieData.vote_average)} / 10{" "}
+              <FaStar className="text-yellow-500 font-semibold" />
             </span>
           </div>
-          <div className="max-w-[48rem] text-lg leading-snug">
-            <span>{movieData.overview}</span>
-          </div>
-          <div>
-            <button className="ring-white ring-2 rounded-3xl p-3 hover:ring-sky-800 hover:text-sky-800 mt-2">
-              Get Details
-            </button>
-          </div>
+
+          <p className="text-xs sm:text-sm lg:text-base leading-snug font-semibold">
+            {movieData.overview}
+          </p>
+
+          <button className="ring-white ring-2 rounded-3xl px-3 py-1 sm:px-5 sm:py-2 hover:ring-sky-800 hover:text-sky-800 mt-2 font-semibold">
+            Get Details
+          </button>
         </div>
-        <img
-          className="absolute top-[9rem] right-[7rem] w-[17rem] h-[25rem] rounded-lg shadow-zinc-600 shadow-lg  z-30 cursor-pointer"
-          src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`}
-        />
+
+        {/* Poster image */}
+        {movieData.poster_path && (
+          <img
+            className="hidden sm:block w-24 sm:w-36 lg:w-64 h-auto rounded-lg shadow-lg shadow-zinc-600 cursor-pointer flex-shrink-0"
+            src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`}
+            alt={`${movieData.original_title} poster`}
+            onClick={showDetails}
+          />
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

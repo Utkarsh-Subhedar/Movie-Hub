@@ -9,6 +9,6 @@ export const api = async (url, params) => {
     });
     return data;
   } catch (err) {
-    return err;
+    throw err;
   }
 };

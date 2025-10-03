@@ -18,208 +18,203 @@ import NoPoster from "@/assets/Img/no-poster.png";
 import NoVideo from "@/assets/Img/no-video-available-image.webp";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Img from "@/components/lazyLoad/Img";
+import ServerErrorPage from "./ServerErrorPage";
+
 const Details = () => {
   const { id } = useParams();
-  const { data, loading } = useFetch(`/movie/${id}`);
+
+  // API hooks
+  const { data, loading, isError } = useFetch(`/movie/${id}`);
   const { data: credits } = useFetch(`/movie/${id}/credits`);
   const { data: videos } = useFetch(`/movie/${id}/videos`);
   const { data: similar } = useFetch(`/movie/${id}/similar`);
   const { data: recommended } = useFetch(`/movie/${id}/recommendations`);
-  const director = credits?.crew?.find((item) => item.job == "Director");
+  console.log("data", data);
+
+  // fix: credits?.crew is an array; filter properly
+  const director = credits?.crew?.find((item) => item.job === "Director");
   const writers = credits?.crew?.filter(
-    (item) => item.job == "Writer" || "Writing"
+    (item) => item.job === "Writer" || item.job === "Screenplay"
   );
+
+  // fix: videos response has {results: []}, find by type
   const trailer = videos?.results?.find((video) => video.type === "Trailer");
+
   const runTime = movieRuntime(data);
-  console.log(data);
-  console.log("simiiii", similar);
-  console.log("recommm", recommended);
-  console.log("credits", credits);
 
   const { newWishlist } = useContext(movieContext);
-  return loading ? (
-    <div>
-      <DetailsShimmer />
-      <VideosShimmer />
-      <CastShimmer />
-      <CarouselShimmer />
-      <CarouselShimmer />
-    </div>
-  ) : (
-    <div className="h-full w-full">
+
+  if (loading)
+    return (
+      <div>
+        <DetailsShimmer />
+        <VideosShimmer />
+        <CastShimmer />
+        <CarouselShimmer />
+        <CarouselShimmer />
+      </div>
+    );
+
+  if (isError) return <ServerErrorPage />;
+
+  return (
+    <div className="relative h-full max-w-full">
+      {/* Background image */}
       <div
-        className="realtive overflow-hidden w-full h-screen bg-cover blur-[5px] opacity-20"
+        className="absolute inset-0 bg-cover blur-[5px] opacity-20"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${data?.backdrop_path})`,
         }}
       ></div>
-      <div className="absolute top-[7rem] left-[8rem] flex space-x-16 ">
+
+      {/* Main content responsive wrapper */}
+      <div className="relative flex flex-col lg:flex-row lg:space-x-16 px-4 lg:px-16 pt-28">
+        {/* Poster */}
         <Img
-          className="w-[20rem] h-[30rem] rounded-lg shadow-zinc-600 shadow-md"
+          className="w-full max-w-[250px] lg:max-w-[320px] h-auto rounded-lg shadow-md"
           src={
             data?.poster_path === null
               ? NoPoster
               : `https://image.tmdb.org/t/p/original${data?.poster_path}`
           }
         />
-        <div className="*:pb-2">
-          <h1 className="text-4xl tracking-normal font-semibold ">
+
+        {/* Details */}
+        <div className="mt-6 lg:mt-0 space-y-4">
+          {/* Title + Year */}
+          <h1 className="text-2xl lg:text-4xl font-semibold">
             {data?.title}{" "}
-            <span className="font-semibold">({data?.release_date}) </span>
-          </h1>
-          <h3 className="italic text-xl opacity-60">{data?.tagline}</h3>
-          <div className="flex space-x-1 items-center">
-            <label htmlFor="genre" className="font-bold opacity-90 text-xl">
-              Genre:
-            </label>
-            {data?.genres?.length == 0 ? (
-              <span className="text-red-800 pt-1 opacity-80 font-roboto font-medium">
-                No generes found
-              </span>
-            ) : (
-              <div
-                id="genre"
-                className="whitespace-pre text-text_primary font-roboto pt-1 font-medium text-xl"
-              >
-                {data?.genres?.map((genre, index) => (
-                  <span key={genre.id} className={getGenresWiseColor(genre)}>
-                    {" "}
-                    {genre.name}
-                    {index === data?.genres?.length - 1 ? "." : ","}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="w-[40rem]">
-            <h2 className="text-2xl font-semibold tracking-wide">Overview</h2>
-            <span
-              className={`text-pretty font-roboto line-clamp-3 ${
-                data?.overview === "" ? "text-red-800 opacity-80" : ""
-              }`}
-            >
-              {data?.overview === "" ? "No data found" : data?.overview}
+            <span className="font-normal opacity-70">
+              ({data?.release_date?.slice(0, 4)})
             </span>
+          </h1>
+
+          {/* Tagline */}
+          <h3 className="italic text-lg lg:text-xl opacity-60">
+            {data?.tagline}
+          </h3>
+
+          {/* Genres */}
+          <div className="flex flex-wrap gap-2 items-center">
+            <span className="font-bold">Genres:</span>
+            {data?.genres?.length === 0 ? (
+              <span className="text-red-800 opacity-80">No genres found</span>
+            ) : (
+              data?.genres?.map((genre, index) => (
+                <span key={genre.id} className={getGenresWiseColor(genre)}>
+                  {genre.name}
+                  {index === data.genres.length - 1 ? "." : ","}
+                </span>
+              ))
+            )}
           </div>
 
-          <div className="flex mt-4">
-            <div className="dark:border-r-slate-200 border-r-slate-700 border-r-2 w-[110px] h-[90px] border-dashed">
-              <CircleRating rating={data?.vote_average} />
-            </div>
-            <div className="flex dark:border-r-slate-200 border-r-slate-700 border-r-2 px-4 border-dashed">
-              <div className="w-full ">
-                <Dialog>
-                  <DialogTrigger className="flex space-x-2 pt-5 items-center text-5xl cursor-pointer *:hover:scale-105 *:duration-500  *:hover:text-red-700 ">
-                    <FaPlay />
-                    <span className="text-3xl">Watch Trailer</span>
-                  </DialogTrigger>
-                  <DialogContent className="flex items-center justify-center w-full h-[30rem] border-none">
-                    {trailer === undefined ? (
-                      <img src={NoVideo} />
-                    ) : (
-                      <ReactPlayer
-                        url={`https://www.youtube.com/watch?v=${trailer?.key}`}
-                        controls
-                        width="100%"
-                        height="100%"
-                      />
-                    )}
-                  </DialogContent>
-                </Dialog>
-              </div>
-            </div>
-            <div className="flex justify-center items-center ml-6 text-6xl cursor-pointer ">
-              <FaHeart
-                className="active:text-red-900"
-                onClick={() => newWishlist(data)}
-              />
-            </div>
+          {/* Overview */}
+          <div className="max-w-[40rem]">
+            <h2 className="text-xl lg:text-2xl font-semibold">Overview</h2>
+            <p
+              className={`text-pretty ${
+                !data?.overview ? "text-red-800 opacity-80" : ""
+              }`}
+            >
+              {data?.overview || "No data found"}
+            </p>
           </div>
-          <div className="flex gap-4 mt-4 *:font-roboto font-medium">
-            <h1>
-              Status:<span className="ml-2 opacity-80">{data?.status}</span>
-            </h1>
-            <h1>
-              Release Date:
-              <span
-                className={`ml-2 opacity-80 ${
-                  data?.release_date === "" ? "text-red-700" : ""
-                }`}
-              >
-                {data?.release_date === ""
-                  ? "No data found"
-                  : data?.release_date}
-              </span>
-            </h1>
-            <h1>
-              Runtime:
-              <span
-                className={`ml-2 tracking-normal opacity-80 ${
-                  data?.runtime === "0" ? "text-red-700" : ""
-                }`}
-              >
-                {runTime === "0h" ? "No data found" : runTime}
-              </span>
-            </h1>
+
+          {/* Rating + Trailer + Wishlist */}
+          <div className="flex flex-wrap items-center gap-6 mt-4">
+            <CircleRating rating={data?.vote_average} />
+
+            {/* Trailer */}
+            <Dialog>
+              <DialogTrigger className="flex items-center space-x-2 text-xl cursor-pointer hover:text-red-700 transition">
+                <FaPlay />
+                <span>Watch Trailer</span>
+              </DialogTrigger>
+              <DialogContent className="flex items-center justify-center w-full h-[20rem] lg:h-[30rem] border-none">
+                {!trailer ? (
+                  <img src={NoVideo} alt="No trailer" />
+                ) : (
+                  <ReactPlayer
+                    url={`https://www.youtube.com/watch?v=${trailer?.key}`}
+                    controls
+                    width="100%"
+                    height="100%"
+                  />
+                )}
+              </DialogContent>
+            </Dialog>
+
+            {/* Wishlist */}
+            <FaHeart
+              className="text-4xl cursor-pointer hover:text-red-600 active:text-red-900"
+              onClick={() => newWishlist(data)}
+            />
           </div>
-          <div className="border-b-2 dark:border-b-slate-200 border-b-slate-700 "></div>
-          <div className="flex gap-2 mt-3">
-            <span className="font-roboto font-medium">
-              Director:
-              <span
-                className={`ml-2 font-roboto tracking-normal opacity-80 ${
-                  director?.name === undefined ? "text-red-700" : ""
-                }`}
-              >
-                {director?.name === undefined
-                  ? "No data found"
-                  : director?.name}
-              </span>
-            </span>
+
+          {/* Status / Release Date / Runtime */}
+          <div className="flex flex-wrap gap-6 mt-4 text-sm lg:text-base">
+            <p>
+              <span className="font-medium">Status:</span>{" "}
+              {data?.status || "No data found"}
+            </p>
+            <p>
+              <span className="font-medium">Release Date:</span>{" "}
+              {data?.release_date || "No data found"}
+            </p>
+            <p>
+              <span className="font-medium">Runtime:</span>{" "}
+              {runTime === "0h" ? "No data found" : runTime}
+            </p>
           </div>
-          <div className="border-b-2 dark:border-b-slate-200 border-b-slate-700"></div>
-          <div className="flex gap-2 mt-3 font-roboto ">
-            <span className="font-roboto font-medium">Writers:</span>
-            {writers?.length === 0 ? (
-              <span className="text-red-700 opacity-80">No data found</span>
-            ) : (
-              <span>
-                {writers?.slice(0, 3).map((writer, index) => (
-                  <span className="opacity-80 font-mediumfont-medium">
+
+          {/* Director */}
+          <div className="mt-3">
+            <span className="font-medium">Director:</span>{" "}
+            {director?.name || "No data found"}
+          </div>
+
+          {/* Writers */}
+          <div className="mt-3">
+            <span className="font-medium">Writers:</span>{" "}
+            {writers?.length > 0
+              ? writers.slice(0, 3).map((writer, i) => (
+                  <span key={i}>
                     {writer.name}
-                    {index === writer.length - 1 || 2 ? "." : ","}
+                    {i === writers.length - 1 ? "." : ", "}
                   </span>
-                ))}
-              </span>
-            )}
+                ))
+              : "No data found"}
           </div>
         </div>
       </div>
-      <div className="mt-[5rem]">
-        <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]"></h1>
-        <VideoCorousel name={"Official Videos"} videos={videos} />
+
+      {/* Videos */}
+      <div className="mt-16">
+        <VideoCorousel name="Official Videos" videos={videos} />
       </div>
-      <div className="mt-[2rem]">
-        <CastCorousel name={"Top Cast"} credits={credits} />
+
+      {/* Cast */}
+      <div className="mt-8">
+        <CastCorousel name="Top Cast" credits={credits} />
       </div>
-      <div>
-        {similar?.results?.length === 0 ? (
-          <div></div>
-        ) : (
-          <div className="mt-[2rem]">
-            <MovieCarousel name={"You may also like"} movie={similar} />
-          </div>
-        )}
-      </div>
-      <div>
-        {recommended?.results?.length === 0 ? (
-          <div></div>
-        ) : (
-          <div className="mt-[2rem]">
-            <MovieCarousel name={"Recommended Movies"} movie={recommended} />
-          </div>
-        )}
-      </div>
+
+      {/* Similar Movies */}
+      {similar?.results?.length > 0 && (
+        <div className="mt-8">
+          <MovieCarousel name="You may also like" movie={similar.results} />
+        </div>
+      )}
+
+      {/* Recommended */}
+      {recommended?.results?.length > 0 && (
+        <div className="mt-8">
+          <MovieCarousel
+            name="Recommended Movies"
+            movie={recommended.results}
+          />
+        </div>
+      )}
     </div>
   );
 };
