@@ -18,12 +18,13 @@ import NoPoster from "@/assets/Img/no-poster.png";
 import NoVideo from "@/assets/Img/no-video-available-image.webp";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Img from "@/components/lazyLoad/Img";
+import ServerErrorPage from "./ServerErrorPage";
 
 const Details = () => {
   const { id } = useParams();
 
   // API hooks
-  const { data, loading } = useFetch(`/movie/${id}`);
+  const { data, loading, isError } = useFetch(`/movie/${id}`);
   const { data: credits } = useFetch(`/movie/${id}/credits`);
   const { data: videos } = useFetch(`/movie/${id}/videos`);
   const { data: similar } = useFetch(`/movie/${id}/similar`);
@@ -43,15 +44,20 @@ const Details = () => {
 
   const { newWishlist } = useContext(movieContext);
 
-  return loading ? (
-    <div>
-      <DetailsShimmer />
-      <VideosShimmer />
-      <CastShimmer />
-      <CarouselShimmer />
-      <CarouselShimmer />
-    </div>
-  ) : (
+  if (loading)
+    return (
+      <div>
+        <DetailsShimmer />
+        <VideosShimmer />
+        <CastShimmer />
+        <CarouselShimmer />
+        <CarouselShimmer />
+      </div>
+    );
+
+  if (isError) return <ServerErrorPage />;
+
+  return (
     <div className="relative h-full max-w-full">
       {/* Background image */}
       <div
