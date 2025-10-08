@@ -98,7 +98,7 @@ const Navbar = () => {
 
       {/* Mobile & Tablet Dropdown Menu */}
       {menuOpen && (
-        <div className="lg:hidden absolute top-[4rem] left-0 w-full bg-white dark:bg-black/90 shadow-lg flex flex-col items-center py-6 space-y-6 font-medium">
+        <div className="lg:hidden fixed top-[4rem] left-0 w-full bg-white dark:bg-black/90 shadow-lg flex flex-col items-center py-6 space-y-6 font-medium">
           <NavLink
             to="/"
             onClick={() => setMenuOpen(false)}

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import React from "react";
 import {
   Carousel,
   CarouselContent,
@@ -7,47 +6,36 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { FaPlay } from "react-icons/fa6";
-import NoVideo from "../no_image/NoVideo";
-import { imageCheck } from "@/components/utils/imageCheck";
 import VideoCard from "./VideoCard";
 
 const VideoCorousel = ({ name, videos }) => {
-  const [imageExist, setImageExist] = useState(true);
-  console.log(videos);
-  // useEffect(() => {
-  //   videos?.results.forEach((video) => {
-  //     imageCheck(video.key, (exist) => {
-  //       console.log(exist, video.key);
-  //       setImageExist(exist);
-  //     });
-  //   });
-  // }, [videos]);
-
   return (
     <div className="mt-4 w-full">
-      <h1 className="text-2xl font-roboto font-semibold pl-[4.5rem]">{name}</h1>
-      {videos?.results?.length > 1 ? (
-        <div>
-          <div className="w-full flex justify-center items-center mt-2 mb-10">
-            <Carousel
-              opts={{ loop: true }}
-              className="max-w-[75rem] w-full py-1"
-            >
-              <CarouselContent>
-                {videos?.results?.map((video, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="basis-1/2 md:basis-1/4 lg:basis-1/5"
-                  >
-                    <VideoCard videoDetails={video} />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="absolute top-[4.5rem]" />
-              <CarouselNext className="absolute top-[4.5rem]" />
-            </Carousel>
-          </div>
+      <h1 className="text-2xl font-roboto font-semibold pl-0 md:pl-[4.5rem]">
+        {name}
+      </h1>
+
+      {videos?.results?.length > 0 ? ( // ✅ fix: show even if 1 video
+        <div className="w-full  mt-2 mb-10 flex justify-center items-center px-2 md:px-5 lg:px-0">
+          <Carousel
+            opts={{ loop: true }}
+            className="max-w-[75rem] w-full py-1 "
+          >
+            <CarouselContent>
+              {videos?.results?.map((video, index) => (
+                <CarouselItem
+                  key={index}
+                  className="basis-full md:basis-1/3 lg:basis-1/5 px-0 md:px-10 lg:px-4" // ✅ responsive
+                >
+                  <VideoCard videoDetails={video} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {/* ✅ vertically centered buttons */}
+            <CarouselPrevious className="absolute top-1/3  -left-14 md:-left-6 lg:-left-11" />
+            <CarouselNext className="absolute top-1/3 -right-14 md:-right-6 lg:-right-11" />
+          </Carousel>
         </div>
       ) : (
         <div className="text-center">

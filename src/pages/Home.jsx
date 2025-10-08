@@ -59,7 +59,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:min-h-[90vh] flex items-center justify-start overflow-hidden">
+      <div className="relative w-full min-h-[40vh] md:min-h-[90vh] flex items-center justify-start overflow-hidden">
         {popMovies && <HeroCarousel movieData={popMovies[currentIndex]} />}
         <div
           className="absolute top-0 left-0 right-0 h-full z-10 pointer-events-none 

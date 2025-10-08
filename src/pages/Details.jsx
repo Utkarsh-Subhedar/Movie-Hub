@@ -58,7 +58,7 @@ const Details = () => {
   if (isError) return <ServerErrorPage />;
 
   return (
-    <div className="relative h-full max-w-full">
+    <div className="relative h-full max-w-full -mt-20">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover blur-[5px] opacity-20"
@@ -190,25 +190,25 @@ const Details = () => {
       </div>
 
       {/* Videos */}
-      <div className="mt-16">
+      <div className="mt-16 px-[4rem] md:px-[1rem]">
         <VideoCorousel name="Official Videos" videos={videos} />
       </div>
 
       {/* Cast */}
-      <div className="mt-8">
+      <div className="mt-8 px-[2rem] md:px-[1rem]">
         <CastCorousel name="Top Cast" credits={credits} />
       </div>
 
       {/* Similar Movies */}
       {similar?.results?.length > 0 && (
-        <div className="mt-8">
+        <div className="mt-8 px-[1rem]">
           <MovieCarousel name="You may also like" movie={similar.results} />
         </div>
       )}
 
       {/* Recommended */}
       {recommended?.results?.length > 0 && (
-        <div className="mt-8">
+        <div className="mt-8 px-[1rem]">
           <MovieCarousel
             name="Recommended Movies"
             movie={recommended.results}

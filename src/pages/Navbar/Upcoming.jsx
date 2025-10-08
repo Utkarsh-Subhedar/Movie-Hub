@@ -18,10 +18,10 @@ const Upcoming = () => {
       if (searchedMovies.length !== 0) {
         setSortedData(searchedMovies);
         setNotFound(false);
-      } else if (searchedMovies.length === 0) {
+      } else {
         setNotFound(true);
       }
-    } else if (e.target.value == "") {
+    } else if (e.target.value === "") {
       setSortedData(data?.results);
       setNotFound(false);
     }
@@ -33,7 +33,7 @@ const Upcoming = () => {
 
   if (loading)
     return (
-      <div className="mt-24">
+      <div className="mt-7">
         <CarouselShimmer />
         <CarouselShimmer />
         <CarouselShimmer />
@@ -46,12 +46,15 @@ const Upcoming = () => {
   }
 
   return (
-    <div className="mt-24">
-      <div className="flex justify-between px-16 mb-4">
-        <span className="text-xl font-roboto font-semibold">
+    <div className="mt-7">
+      {/* header */}
+      <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-16 mb-4 gap-4">
+        <span className="text-lg md:text-xl font-roboto font-semibold">
           Upcoming Movies
         </span>
-        <div className="flex gap-14 pr-16 *:font-roboto">
+
+        {/* sort + search */}
+        <div className="flex flex-row items-center justify-around gap-3 md:gap-8 w-full md:w-auto">
           <Sort
             labels={["default", "trending", "AtoZ", "ZtoA"]}
             data={data?.results}
@@ -59,19 +62,29 @@ const Upcoming = () => {
           />
           <input
             placeholder="Search...."
-            className="w-[20rem] h-[2rem] border-2 bg-background p-4 rounded-full placeholder:text-sm"
+            className="w-[11rem] md:w-[20rem] h-[2.5rem] border bg-background px-4 rounded-full placeholder:text-sm"
             onKeyUp={(e) => searchMovie(e)}
-          />{" "}
+          />
         </div>
       </div>
-      {notFound === true ? (
-        <div className="text-center text-5xl text-red-800 space my-32">
+
+      {/* movie grid */}
+      {notFound ? (
+        <div className="text-center text-2xl md:text-5xl text-red-800 my-16 md:my-32">
           Movie Unavailable
         </div>
       ) : (
-        <div className="max-w-full max-h-full grid grid-cols-5 gap-4 px-10  place-content-center">
+        <div
+          className="
+            grid 
+            grid-cols-1  md:grid-cols-4 lg:grid-cols-5 
+            gap-4 md:gap-6 
+            px-4 md:px-10 
+            place-content-center
+          "
+        >
           {sortedData?.map((movie) => (
-            <div>
+            <div key={movie.id}>
               <CustomCard movie={movie} />
             </div>
           ))}

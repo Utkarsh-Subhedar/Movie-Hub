@@ -18,7 +18,7 @@ const Sort = ({ labels, data, set }) => {
   };
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full text-md py-1 w-[8rem] border-2  flex justify-around">
+      <DropdownMenuTrigger className="rounded-full text-md py-1 w-[8rem] px-2 md:px-0 border-2 flex justify-around">
         <span>{currLabel === "" ? "Sort" : currLabel}</span>
         <ChevronDown className={`ml-2`} />
       </DropdownMenuTrigger>
