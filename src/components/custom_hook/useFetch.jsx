@@ -4,28 +4,32 @@ import { api } from "../utils/api";
 const useFetch = (dataUrl) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [isError, setIsError] = useState(false); // boolean error flag
-
+  const [isError, setIsError] = useState(false);
   useEffect(() => {
-    let isSubscribed = true; // prevent state updates if unmounted
+    const controller = new AbortController();
+
     setLoading(true);
-    setIsError(false); // reset error for new fetch
+    setIsError(false);
 
     const fetchData = async () => {
       try {
-        const res = await api(dataUrl);
-        if (isSubscribed) setData(res);
+        const { data } = await api.get(dataUrl, {
+          signal: controller.signal,
+        });
+        setData(data);
       } catch (err) {
-        if (isSubscribed) setIsError(true);
+        if (err.name !== "CanceledError") {
+          setIsError(true);
+        }
       } finally {
-        if (isSubscribed) setLoading(false);
+        setLoading(false);
       }
     };
 
     fetchData();
 
     return () => {
-      isSubscribed = false; // cleanup
+      controller.abort();
     };
   }, [dataUrl]);
 

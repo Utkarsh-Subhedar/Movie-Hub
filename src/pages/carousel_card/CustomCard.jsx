@@ -97,8 +97,10 @@ const CustomCard = ({ movie }) => {
         </div>
 
         {/* Circle Rating */}
-        <div className="absolute bottom-[5.4rem] md:bottom-[6.2rem] left-1 w-4 sm:w-6 md:w-8">
-          <CircleRating rating={movie.vote_average} />
+        <div className="absolute bottom-[5.4rem] md:bottom-[6.2rem] max-lg:bottom-[6.2rem]  left-1 w-4 sm:w-6 md:w-8">
+          <CircleRating
+            rating={movie.rating ? movie.rating : movie.vote_average}
+          />
         </div>
       </Card>
     </div>

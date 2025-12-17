@@ -10,7 +10,7 @@ const CircleRating = ({ rating }) => {
   return (
     <div
       className="
-        w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16
+        w-16 md:max-w-20
         bg-zinc-950 rounded-full p-[0.25rem] font-bold
       "
     >

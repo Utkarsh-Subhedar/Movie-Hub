@@ -8,24 +8,20 @@ import ReactPlayer from "react-player/lazy";
 
 const VideoCard = ({ videoDetails }) => {
   const [imageExist, setImageExist] = useState(true);
+
   return (
-    <div>
+    <div className="w-full md:w-[11rem] lg:w-[14rem] flex flex-col items-center">
       <Dialog>
-        <DialogTrigger>
-          <Card className="border-none object-cover">
+        <DialogTrigger className="w-full">
+          <Card className="border-none rounded-lg overflow-hidden hover:scale-95 transition-transform duration-300 cursor-pointer">
             {imageExist ? (
-              <CardContent className="relative flex aspect-auto *:hover:text-red-700  hover:cursor-pointer rounded-lg items-center justify-center p-[0.1rem] group shadow-lg hover:scale-90 transition-all duration-500 ">
+              <CardContent className="relative aspect-video flex items-center justify-center p-0 group">
                 <Img
-                  className="group-hover:opacity-40 rounded-xl transition-all duration-500 "
-                  src={`https://img.youtube.com/vi/${
-                    videoDetails?.key
-                  }/hqdefault.jpg?${new Date().getTime()}`}
-                  onError={() => {
-                    console.log("runs");
-                    setImageExist(false);
-                  }}
+                  className="rounded-lg object-cover w-full h-full group-hover:opacity-40 transition-all duration-500"
+                  src={`https://img.youtube.com/vi/${videoDetails?.key}/hqdefault.jpg`}
+                  onError={() => setImageExist(false)}
                 />
-                <span className="absolute text-4xl group-hover:scale-125 group-hover:rotate-[360deg] transition-all duration-700 ">
+                <span className="absolute text-3xl sm:text-4xl text-white group-hover:text-red-600 group-hover:scale-125 group-hover:rotate-[360deg] transition-all duration-700">
                   <FaPlay />
                 </span>
               </CardContent>
@@ -33,20 +29,21 @@ const VideoCard = ({ videoDetails }) => {
               <NoVideo />
             )}
           </Card>
-          <div className="font-roboto text-md mt-1 tracking-wide">
+          <div className="font-roboto text-sm sm:text-base text-center mt-2 px-2 line-clamp-2">
             {videoDetails?.name}
           </div>
         </DialogTrigger>
-        <DialogContent className="flex items-center justify-center w-full h-[30rem] border-none">
-          <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${videoDetails?.key}`}
-            controls
-            width="100%"
-            height="100%"
 
-            // width="100%"
-            // height="100%"
-          />
+        {/* Dialog for playing video */}
+        <DialogContent className="flex items-center justify-center w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[60vw] h-[45vw] sm:h-[40vw] md:h-[35vw] lg:h-[30vw] border-none p-0">
+          <div className="w-full h-full">
+            <ReactPlayer
+              url={`https://www.youtube.com/watch?v=${videoDetails?.key}`}
+              controls
+              width="100%"
+              height="100%"
+            />
+          </div>
         </DialogContent>
       </Dialog>
     </div>

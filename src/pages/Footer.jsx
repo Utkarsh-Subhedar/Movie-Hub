@@ -9,7 +9,7 @@ import Links from "./Links";
 const Footer = () => {
   return (
     <div className="w-full h-auto">
-      <footer className="mt-10 px-4 sm:px-10 dark:bg-slate-800 bg-slate-400/60 py-5">
+      <footer className="mt-6 md:mt-10 px-4 sm:px-10 dark:bg-slate-800 bg-slate-400/60 py-5">
         {/* Top Section: Logo + Socials */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
           <div className="flex flex-wrap items-center mb-4 md:mb-0 pl-8 md:pl-0 ">

@@ -12,7 +12,7 @@ const HeroCarousel = ({ movieData }) => {
     <div className="relative w-full">
       {/* Background image */}
       <div
-        className="w-full h-[20rem] sm:h-[30rem] lg:h-[45rem] bg-cover bg-center"
+        className="w-full h-[23rem] md:h-[40rem] bg-cover bg-center"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${movieData.backdrop_path})`,
         }}
@@ -20,7 +20,7 @@ const HeroCarousel = ({ movieData }) => {
 
       {/* Overlay container */}
       <div
-        className="absolute inset-0 flex flex-col sm:flex-row items-center justify-center p-4 sm:p-8 lg:p-12 gap-4 sm:gap-8 cursor-pointer z-30"
+        className="absolute inset-16 flex flex-col sm:flex-row items-center justify-center p-3 sm:p-8 lg:p-12 gap-4 sm:gap-8 cursor-pointer z-30 lg:py-5"
         onClick={showDetails}
       >
         {/* Text content */}
@@ -41,7 +41,7 @@ const HeroCarousel = ({ movieData }) => {
             {movieData.overview}
           </p>
 
-          <button className="ring-white ring-2 rounded-3xl px-3 py-1 sm:px-5 sm:py-2 hover:ring-sky-800 hover:text-sky-800 mt-2 font-semibold">
+          <button className="ring-white ring-2 rounded-3xl px-3 py-2 sm:px-5 md:py-3 hover:ring-sky-800 hover:text-sky-800 mt-2 font-semibold">
             Get Details
           </button>
         </div>
@@ -49,7 +49,7 @@ const HeroCarousel = ({ movieData }) => {
         {/* Poster image */}
         {movieData.poster_path && (
           <img
-            className="hidden sm:block w-24 sm:w-36 lg:w-64 h-auto rounded-lg shadow-lg shadow-zinc-600 cursor-pointer flex-shrink-0"
+            className="hidden sm:block w-full md:max-w-64 h-auto rounded-lg shadow-lg shadow-zinc-600 cursor-pointer flex-shrink-0"
             src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`}
             alt={`${movieData.original_title} poster`}
             onClick={showDetails}

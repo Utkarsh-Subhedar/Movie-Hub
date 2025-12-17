@@ -21,10 +21,10 @@ const Hero = () => {
   // Loading shimmer
   if (loading) {
     return (
-      <div className="px-4 sm:px-6 lg:px-8">
+      <div className="px-4 md:px-6 ">
         <Skeleton className="h-[20rem] sm:h-[30rem] lg:h-[35rem] w-full rounded-xl relative overflow-hidden">
           {/* Overlay content */}
-          <div className="pt-16 sm:pt-24 relative">
+          <div className="pt-16 md:pt-24 relative">
             <div className="absolute left-4 sm:left-16 top-16 sm:top-32 space-y-2">
               <Skeleton className="h-6 sm:h-8 w-40 sm:w-64 bg-background" />
               <div className="flex items-center space-x-2 pt-3">

@@ -24,7 +24,7 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="text-center w-full min-h-screen  space-y-6 px-4 sm:px-6 lg:px-12">
+    <div className="text-center w-full min-h-screen space-y-6 px-4 sm:px-6 lg:px-12">
       <div className="text-2xl sm:text-3xl font-roboto font-semibold mt-12">
         Wishlist
       </div>
@@ -33,14 +33,21 @@ const Wishlist = () => {
         <div className="flex flex-col items-center space-y-6">
           <img
             src={WishlistImg}
-            className="w-[16rem] sm:w-[24rem] md:w-[32rem] lg:w-[40rem] max-w-full"
+            className="max-w-xs sm:max-w-md lg:max-w-xl w-full"
+            alt="Empty wishlist"
           />
-          <span className="text-2xl md:text-3xl font-roboto font-medium">
+          <span className="text-xl sm:text-2xl md:text-3xl font-roboto font-medium">
             Your Wishlist is empty
           </span>
         </div>
       ) : (
-        <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <div
+          className="
+            grid 
+            grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 
+            gap-4 sm:gap-6
+          "
+        >
           {wishlistedMovie?.map((movie) => (
             <div
               key={movie?.id}
@@ -49,11 +56,11 @@ const Wishlist = () => {
             >
               <Img
                 src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
-                className="w-full h-[12rem] sm:h-[15rem] md:h-[18rem] lg:h-[20rem] object-cover rounded"
+                className="w-full aspect-[2/3] object-cover rounded"
               />
               <button
                 onClick={(e) => {
-                  e.stopPropagation(); // prevent opening details
+                  e.stopPropagation();
                   removeFromWishlist(movie);
                 }}
                 className="absolute right-1 top-1 bg-black/70 text-white hover:bg-red-600 px-2 py-1 text-xs rounded shadow-lg transition-all duration-300"
