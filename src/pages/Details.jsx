@@ -3,7 +3,7 @@ import VideoCorousel from "@/pages/corousels/VideoCorousel";
 import useFetch from "@/components/custom_hook/useFetch";
 import { FaHeart, FaPlay } from "react-icons/fa6";
 import ReactPlayer from "react-player/lazy";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import CastCorousel from "@/pages/corousels/CastCorousel";
 import MovieCarousel from "./corousels/MovieCarousel";
@@ -19,30 +19,44 @@ import NoVideo from "@/assets/Img/no-video-available-image.webp";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Img from "@/components/lazyLoad/Img";
 import ServerErrorPage from "./ServerErrorPage";
+import { FaRegStar } from "react-icons/fa";
+import axios from "axios";
+import { api } from "@/components/utils/api";
+import { DialogDemo } from "@/components/utils/RatingDialog";
 
 const Details = () => {
   const { id } = useParams();
+  const { newWishlist } = useContext(movieContext);
 
-  // API hooks
   const { data, loading, isError } = useFetch(`/movie/${id}`);
   const { data: credits } = useFetch(`/movie/${id}/credits`);
   const { data: videos } = useFetch(`/movie/${id}/videos`);
   const { data: similar } = useFetch(`/movie/${id}/similar`);
   const { data: recommended } = useFetch(`/movie/${id}/recommendations`);
-  console.log("data", data);
 
-  // fix: credits?.crew is an array; filter properly
   const director = credits?.crew?.find((item) => item.job === "Director");
   const writers = credits?.crew?.filter(
     (item) => item.job === "Writer" || item.job === "Screenplay"
   );
 
-  // fix: videos response has {results: []}, find by type
   const trailer = videos?.results?.find((video) => video.type === "Trailer");
-
   const runTime = movieRuntime(data);
 
-  const { newWishlist } = useContext(movieContext);
+  const post = async ({ movieId, rating }) => {
+    try {
+      const payload = {
+        value: rating,
+      };
+      const response = await api.post(`/movie/${movieId}/rating`, payload);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRatingClick = (value) => {
+    post({ movieId: id, rating: value });
+  };
 
   if (loading)
     return (
@@ -59,17 +73,13 @@ const Details = () => {
 
   return (
     <div className="relative h-full max-w-full -mt-20">
-      {/* Background image */}
       <div
         className="absolute inset-0 bg-cover blur-[5px] opacity-20"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${data?.backdrop_path})`,
         }}
       ></div>
-
-      {/* Main content responsive wrapper */}
       <div className="relative flex flex-col lg:flex-row lg:space-x-16 px-4 lg:px-16 pt-28">
-        {/* Poster */}
         <Img
           className="w-full max-w-[250px] lg:max-w-[320px] h-auto rounded-lg shadow-md"
           src={
@@ -79,9 +89,7 @@ const Details = () => {
           }
         />
 
-        {/* Details */}
         <div className="mt-6 lg:mt-0 space-y-4">
-          {/* Title + Year */}
           <h1 className="text-2xl lg:text-4xl font-semibold">
             {data?.title}{" "}
             <span className="font-normal opacity-70">
@@ -89,12 +97,10 @@ const Details = () => {
             </span>
           </h1>
 
-          {/* Tagline */}
           <h3 className="italic text-lg lg:text-xl opacity-60">
             {data?.tagline}
           </h3>
 
-          {/* Genres */}
           <div className="flex flex-wrap gap-2 items-center">
             <span className="font-bold">Genres:</span>
             {data?.genres?.length === 0 ? (
@@ -109,7 +115,6 @@ const Details = () => {
             )}
           </div>
 
-          {/* Overview */}
           <div className="max-w-[40rem]">
             <h2 className="text-xl lg:text-2xl font-semibold">Overview</h2>
             <p
@@ -121,13 +126,11 @@ const Details = () => {
             </p>
           </div>
 
-          {/* Rating + Trailer + Wishlist */}
           <div className="flex flex-wrap items-center gap-6 mt-4">
             <CircleRating rating={data?.vote_average} />
 
-            {/* Trailer */}
             <Dialog>
-              <DialogTrigger className="flex items-center space-x-2 text-xl cursor-pointer hover:text-red-700 transition">
+              <DialogTrigger className="flex items-center space-x-2 text-2xl cursor-pointer hover:text-red-700 transition">
                 <FaPlay />
                 <span>Watch Trailer</span>
               </DialogTrigger>
@@ -145,14 +148,21 @@ const Details = () => {
               </DialogContent>
             </Dialog>
 
-            {/* Wishlist */}
-            <FaHeart
-              className="text-4xl cursor-pointer hover:text-red-600 active:text-red-900"
+            <DialogDemo movie={data} handleRatingClick={handleRatingClick}>
+              <span className="text-2xl flex gap-2 items-center text-sky-600 cursor-pointer font-semibold hover:text-sky-400">
+                <FaRegStar />
+                Rate
+              </span>
+            </DialogDemo>
+            <span
+              className="text-2xl flex gap-1 items-center hover:text-red-600 active:text-red-900 cursor-pointer"
               onClick={() => newWishlist(data)}
-            />
+            >
+              <FaHeart />
+              Wishlist
+            </span>
           </div>
 
-          {/* Status / Release Date / Runtime */}
           <div className="flex flex-wrap gap-6 mt-4 text-sm lg:text-base">
             <p>
               <span className="font-medium">Status:</span>{" "}
@@ -168,13 +178,11 @@ const Details = () => {
             </p>
           </div>
 
-          {/* Director */}
           <div className="mt-3">
             <span className="font-medium">Director:</span>{" "}
             {director?.name || "No data found"}
           </div>
 
-          {/* Writers */}
           <div className="mt-3">
             <span className="font-medium">Writers:</span>{" "}
             {writers?.length > 0
@@ -188,25 +196,17 @@ const Details = () => {
           </div>
         </div>
       </div>
-
-      {/* Videos */}
       <div className="mt-16 px-[4rem] md:px-[1rem]">
         <VideoCorousel name="Official Videos" videos={videos} />
       </div>
-
-      {/* Cast */}
       <div className="mt-8 px-[2rem] md:px-[1rem]">
         <CastCorousel name="Top Cast" credits={credits} />
       </div>
-
-      {/* Similar Movies */}
       {similar?.results?.length > 0 && (
         <div className="mt-8 px-[1rem]">
           <MovieCarousel name="You may also like" movie={similar.results} />
         </div>
       )}
-
-      {/* Recommended */}
       {recommended?.results?.length > 0 && (
         <div className="mt-8 px-[1rem]">
           <MovieCarousel

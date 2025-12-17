@@ -8,24 +8,18 @@ import ServerErrorPage from "./ServerErrorPage";
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Fetch movie data
   const popularFetch = useFetch(`/movie/popular`);
   const topRatedFetch = useFetch(`/movie/top_rated`);
   const upcomingFetch = useFetch(`/movie/upcoming`);
-
-  // Combine loading and error states
   const loading =
     popularFetch.loading || topRatedFetch.loading || upcomingFetch.loading;
   const isError =
     popularFetch.isError || topRatedFetch.isError || upcomingFetch.isError;
 
-  // Extract data safely
   const popMovies = popularFetch.data?.results;
   const topRated = topRatedFetch.data?.results;
   const upcoming = upcomingFetch.data?.results;
 
-  // Auto-change hero carousel every 5 seconds
   useEffect(() => {
     if (!popMovies?.length) return;
 
@@ -38,7 +32,6 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [popMovies]);
 
-  // Show loading shimmer while fetching
   if (loading) {
     return (
       <div>
@@ -52,14 +45,13 @@ const Home = () => {
     );
   }
 
-  // Show error if any fetch failed
   if (isError) {
     return <ServerErrorPage />;
   }
 
   return (
     <>
-      <div className="relative w-full min-h-[40vh] md:min-h-[90vh] flex items-center justify-start overflow-hidden">
+      <div className="relative w-full h-full min-h-[40vh] md:min-h-[80vh] flex items-center justify-start overflow-hidden">
         {popMovies && <HeroCarousel movieData={popMovies[currentIndex]} />}
         <div
           className="absolute top-0 left-0 right-0 h-full z-10 pointer-events-none 
@@ -69,7 +61,6 @@ const Home = () => {
         ></div>
       </div>
 
-      {/* Movie Carousels */}
       <div className="mt-6 sm:mt-8 lg:mt-12 max-w-7xl mx-auto px-3 sm:px-3 lg:px-6 space-y-10">
         {upcoming && (
           <MovieCarousel

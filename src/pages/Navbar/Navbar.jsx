@@ -60,6 +60,14 @@ const Navbar = () => {
             Home
           </NavLink>
           <NavLink
+            to="/RatedMovies"
+            className={({ isActive }) =>
+              isActive ? "text-blue-500" : "hover:text-blue-500"
+            }
+          >
+            Rated Movies
+          </NavLink>
+          <NavLink
             to="/Popular"
             className={({ isActive }) =>
               isActive ? "text-blue-500" : "hover:text-blue-500"
@@ -107,6 +115,15 @@ const Navbar = () => {
             }
           >
             Home
+          </NavLink>
+          <NavLink
+            to="/RatedMovies"
+            onClick={() => setMenuOpen(false)}
+            className={({ isActive }) =>
+              isActive ? "text-blue-500" : "hover:text-blue-500"
+            }
+          >
+            Rated Movies
           </NavLink>
           <NavLink
             to="/Popular"
