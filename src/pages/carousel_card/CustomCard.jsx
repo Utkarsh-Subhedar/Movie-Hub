@@ -72,7 +72,7 @@ const CustomCard = ({ movie }) => {
               <span
                 key={genre.id}
                 className={`${getGenresWiseColor(genre)}
-                    text-[1rem] sm:text-sm md:text-base 
+                    text-[1rem] md:text-base 
                     px-1 rounded-full font-semibold`}
               >
                 {genre.name === "Science Fiction" ? "sci-fi" : genre.name}
