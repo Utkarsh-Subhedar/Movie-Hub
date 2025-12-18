@@ -9,7 +9,7 @@ const Upcoming = () => {
   const { data, loading, isError } = useFetch("/movie/upcoming");
   const [sortedData, setSortedData] = useState([]);
   const [notFound, setNotFound] = useState(false);
-
+  console.log(data);
   const searchMovie = (e) => {
     if (e.key === "Enter" && e.target.value !== "") {
       const searchedMovies = sortedData?.filter((movie) =>
@@ -77,7 +77,7 @@ const Upcoming = () => {
         <div
           className="
             grid 
-            grid-cols-1  md:grid-cols-4 lg:grid-cols-5 
+            grid-cols-1 md:grid-cols-3 lg:grid-cols-5 
             gap-4 md:gap-6 
             px-4 md:px-10 
             place-content-center
@@ -85,6 +85,7 @@ const Upcoming = () => {
         >
           {sortedData?.map((movie) => (
             <div key={movie.id}>
+              {console.log(movie)}
               <CustomCard movie={movie} />
             </div>
           ))}

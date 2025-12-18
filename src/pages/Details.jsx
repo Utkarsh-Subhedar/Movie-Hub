@@ -3,7 +3,7 @@ import VideoCorousel from "@/pages/corousels/VideoCorousel";
 import useFetch from "@/components/custom_hook/useFetch";
 import { FaHeart, FaPlay } from "react-icons/fa6";
 import ReactPlayer from "react-player/lazy";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router";
 import CastCorousel from "@/pages/corousels/CastCorousel";
 import MovieCarousel from "./corousels/MovieCarousel";
@@ -20,7 +20,6 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Img from "@/components/lazyLoad/Img";
 import ServerErrorPage from "./ServerErrorPage";
 import { FaRegStar } from "react-icons/fa";
-import axios from "axios";
 import { api } from "@/components/utils/api";
 import { DialogDemo } from "@/components/utils/RatingDialog";
 
