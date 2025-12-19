@@ -79,7 +79,7 @@ const Popular = () => {
         <div
           className="
             grid 
-            grid-cols-1 md:grid-cols-4 lg:grid-cols-5 
+            grid-cols-1 md:grid-cols-3 lg:grid-cols-5 
             gap-4 md:gap-6 
             px-4 md:px-10
             place-content-center
