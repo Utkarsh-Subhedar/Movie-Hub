@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa6";
 import logo from "@/assets/Img/Logo.png";
 import logo2 from "@/assets/Img/logo-2.svg";
 import Links from "./Links";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -56,7 +57,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Links Section */}
-        <div className="grid grid-cols-1 pl-8 md:pl-0 md:place-items-center md:grid-cols-3 gap-6 mt-6 text-base sm:text-lg font-sans">
+        <div className="grid grid-cols-1 pl-8 md:pl-0 md:place-items-center md:grid-cols-3 gap-6 mt-6 text-base sm:text-lg font-sans cursor-pointer">
           <ul className="space-y-2">
             <Links url={"#about"} name={"Help Center"} />
             <Links url={"#movies"} name={"How to Rent or Buy a Movie"} />
@@ -64,7 +65,9 @@ const Footer = () => {
           </ul>
           <ul className="space-y-2">
             <Links url={"#about"} name={"About Us"} />
-            <Links url={"#movies"} name={"Movies"} />
+            <Links url={"home"} name={"Movies"}>
+              <Link to="/Popular">Movies</Link>
+            </Links>
             <Links url={"#categories"} name={"Categories"} />
           </ul>
           <ul className="space-y-2">

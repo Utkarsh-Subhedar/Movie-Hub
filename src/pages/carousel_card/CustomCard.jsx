@@ -34,7 +34,6 @@ const CustomCard = ({ movie }) => {
 
   return (
     <div className="group relative w-full max-w-[200px] sm:max-w-[250px] md:max-w-[280px] mx-auto cursor-pointer hover:scale-95 hover:shadow-md transition-all rounded-xl">
-      {/* Wishlist */}
       <span
         className="absolute right-1 top-1 z-20 bg-black/40 p-1 rounded-br-sm text-lg sm:text-xl"
         onClick={toggleWishlist}
@@ -46,7 +45,6 @@ const CustomCard = ({ movie }) => {
         className="border-none relative w-full flex flex-col"
         onClick={() => showDetails(Navigate, movie.id)}
       >
-        {/* Poster */}
         <Img
           className="w-full h-[calc(100%-80px)] sm:h-[calc(100%-100px)] md:h-[calc(100%-120px)] object-cover rounded-t-md"
           src={
@@ -56,17 +54,14 @@ const CustomCard = ({ movie }) => {
           }
         />
 
-        {/* Info Section */}
         <div
           className="p-2 bg-slate-200 dark:bg-slate-900 flex flex-col justify-between rounded-b-md
                 h-[calc(100%-80px)] sm:h-[calc(100%-100px)] md:h-[calc(100%-120px)]"
         >
-          {/* Title */}
           <h6 className="text-sm sm:text-base md:text-lg  font-semibold line-clamp-1 px-1">
             {data?.title}
           </h6>
 
-          {/* Genres */}
           <div className="flex flex-wrap">
             {data?.genres?.slice(0, 2).map((genre) => (
               <span
@@ -80,7 +75,6 @@ const CustomCard = ({ movie }) => {
             ))}
           </div>
 
-          {/* Release date + IMDb + runtime */}
           <div
             className="flex justify-between items-center
                   text-[13px]  md:text-[14px] mt-1 px-1"
@@ -96,7 +90,6 @@ const CustomCard = ({ movie }) => {
           </div>
         </div>
 
-        {/* Circle Rating */}
         <div className="absolute bottom-[5.4rem] md:bottom-[6.2rem] max-lg:bottom-[6.2rem]  left-1 w-4 sm:w-6 md:w-8">
           <CircleRating
             rating={movie.rating ? movie.rating : movie.vote_average}
