@@ -41,6 +41,10 @@ const Details = () => {
   const trailer = videos?.results?.find((video) => video.type === "Trailer");
   const runTime = movieRuntime(data);
 
+  const handleWishlistClick = () => {
+    newWishlist(data);
+  };
+
   const post = async ({ movieId, rating }) => {
     try {
       const payload = {
@@ -155,7 +159,7 @@ const Details = () => {
             </DialogDemo>
             <span
               className="text-2xl flex gap-1 items-center hover:text-red-600 active:text-red-900 cursor-pointer"
-              onClick={() => newWishlist(data)}
+              onClick={handleWishlistClick}
             >
               <FaHeart />
               Wishlist
