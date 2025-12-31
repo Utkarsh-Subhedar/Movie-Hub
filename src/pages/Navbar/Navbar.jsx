@@ -5,6 +5,7 @@ import { CircleUser, Menu, X } from "lucide-react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "@/assets/Img/Logo1.png";
 import logo2 from "@/assets/Img/Logo.png";
+import UserProfile from "../UserProfile";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -92,7 +93,10 @@ const Navbar = () => {
             Wishlist
           </NavLink>
           <DarkTheme />
-          <CircleUser cursor="pointer" width={30} height={30} />
+          <UserProfile
+            profile={logo2}
+            userData={{ firstName: "Utkarsh", lastName: "Subhedar" }}
+          />
         </div>
 
         {/* Mobile + Tablet Hamburger */}
@@ -161,7 +165,7 @@ const Navbar = () => {
             onKeyDown={handleKeyChange}
           />
 
-          <CircleUser cursor="pointer" width={35} height={35} />
+          <UserProfile />
         </div>
       )}
     </div>
