@@ -26,17 +26,17 @@ const Navbar = () => {
     <div className="relative z-50 w-full">
       <nav
         className="w-full h-[4rem] shadow-xl dark:bg-black/50 bg-white/50 flex justify-between items-center 
-                      px-4 md:px-6 lg:px-10 fixed top-0"
+                      px-4 md:px-6 lg:px-5 xl:px-10 fixed top-0"
       >
         {/* Logo - responsive width for mobile */}
         <Link to="/">
           <img
             src={logo}
-            className="w-[7rem]  md:w-[9rem] h-auto dark:block hidden"
+            className="w-[7rem]  md:w-[9rem] lg:w-[7rem] xl:lg:w-[9rem] h-auto dark:block hidden"
           />
           <img
             src={logo2}
-            className="w-[7rem]  md:w-[9rem] h-auto block dark:hidden"
+            className="w-[7rem]  md:w-[9rem] lg:w-[7rem] xl:lg:w-[9rem] h-auto block dark:hidden"
           />
         </Link>
 
@@ -44,14 +44,14 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center space-x-2 flex-1 justify-center px-2 sm:px-4">
           <Input
             type="text"
-            className="w-[10rem] sm:w-[14rem] md:w-[20rem]"
+            className="w-[10rem] sm:w-[14rem] md:w-[20rem] lg:w-[12rem] xl:w-[20rem]"
             placeholder="Search movies..."
             onKeyDown={handleKeyChange}
           />
         </div>
 
         {/* Desktop Menu - visible on lg+ */}
-        <div className="hidden lg:flex items-center space-x-8 font-medium">
+        <div className="hidden lg:flex items-center space-x-8 lg:space-x-5 xl:space-x-8 font-medium">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -156,7 +156,6 @@ const Navbar = () => {
           >
             Wishlist
           </NavLink>
-
           {/* Search bar inside dropdown for mobile */}
           <Input
             type="text"
@@ -164,8 +163,10 @@ const Navbar = () => {
             placeholder="Search movies..."
             onKeyDown={handleKeyChange}
           />
-
-          <UserProfile />
+          <UserProfile
+            profile={logo2}
+            userData={{ firstName: "Utkarsh", lastName: "Subhedar" }}
+          />{" "}
         </div>
       )}
     </div>
