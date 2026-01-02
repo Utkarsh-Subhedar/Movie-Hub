@@ -3,7 +3,7 @@ import VideoCorousel from "@/pages/corousels/VideoCorousel";
 import useFetch from "@/components/custom_hook/useFetch";
 import { FaHeart, FaPlay } from "react-icons/fa6";
 import ReactPlayer from "react-player/lazy";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router";
 import CastCorousel from "@/pages/corousels/CastCorousel";
 import MovieCarousel from "./corousels/MovieCarousel";
@@ -24,6 +24,8 @@ import { api } from "@/components/utils/api";
 import { DialogDemo } from "@/components/utils/RatingDialog";
 
 const Details = () => {
+  const [saved, setSaved] = useState(false);
+
   const { id } = useParams();
   const { newWishlist } = useContext(movieContext);
 
@@ -43,6 +45,7 @@ const Details = () => {
 
   const handleWishlistClick = () => {
     newWishlist(data);
+    setSaved(!saved);
   };
 
   const post = async ({ movieId, rating }) => {
@@ -158,7 +161,9 @@ const Details = () => {
               </span>
             </DialogDemo>
             <span
-              className="text-2xl flex gap-1 items-center hover:text-red-600 active:text-red-900 cursor-pointer"
+              className={`text-2xl flex gap-1 items-center hover:text-red-600 ${
+                saved && `text-red-700`
+              } cursor-pointer`}
               onClick={handleWishlistClick}
             >
               <FaHeart />
