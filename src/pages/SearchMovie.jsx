@@ -8,7 +8,6 @@ import CarouselShimmer from "./shimmer/CarouselShimmer";
 const SearchMovie = () => {
   const { name } = useParams();
   const { data, err, loading } = useFetch(`/search/movie?query=${name}`);
-  console.log("dattaaaa", data);
   return loading ? (
     <div className="mt-1/2 mb-1/2">
       <LoadingSpinner />
