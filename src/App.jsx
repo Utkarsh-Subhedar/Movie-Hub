@@ -6,9 +6,9 @@ import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
 import LoadingSpinner from "./components/lazyLoad/LoadingSpinner";
 import SearchMovie from "./pages/SearchMovie";
-import Login from "./pages/Login";
 import SignUp from "./pages/login-signup/SignUp";
 import RatedMovies from "./pages/Navbar/RatedMovies";
+import Login from "./pages/login-signup/Login";
 const Home = lazy(() => import("@/pages/Home"));
 const Details = lazy(() => import("@/pages/Details"));
 const Popular = lazy(() => import("@/pages/Navbar/Popular"));
@@ -28,6 +28,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="/Popular" element={<Popular />} />
                 <Route path="/Signup" element={<SignUp />} />
+                <Route path="/Login" element={<Login />} />
                 <Route path="/RatedMovies" element={<RatedMovies />} />
                 <Route path="/Upcoming" element={<Upcoming />} />
                 <Route path="/Wishlist" element={<Wishlist />} />

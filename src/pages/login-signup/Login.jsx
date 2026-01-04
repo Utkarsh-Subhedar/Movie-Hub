@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const Login = () => {
   const [UserData, setUserData] = useState({
     Username: "",
     Password: "",
@@ -17,35 +17,17 @@ const SignUp = () => {
       [name]: value,
     }));
   };
-
-  const SaveUserData = () => {
-    // console.log("User", UserData.Username);
-    // if (!UserData.Username || !UserData.Password) {
-    //   alert("Both Fields are required");
-    // } else {
-    //   localStorage.setItem("UserData", JSON.stringify(UserData));
-    //   Navigate("/Login");
-    // }
-    Navigate("/Login");
+  const userLogin = () => {
+    Navigate("/");
   };
+
   return (
     <div className="m-[2rem]">
       <div className="text-center font-roboto font-semibold text-slate-200 mb-8 text-2xl md:text-3xl">
-        NEW USER SIGNUP{" "}
+        USER LOGIN{" "}
       </div>
       <div className="flex justify-center">
         <div className="bg-slate-300 rounded-md *:text-black p-10 space-y-3 w-[20rem] ">
-          <div className="*:font-roboto">
-            <label className="text-base md:text-lg">Enter Username</label>
-            <Input
-              type="text"
-              className="w-[14rem] text-slate-200"
-              name="Username"
-              Placeholder="Enter First & Last Name"
-              value={UserData.Username}
-              onChange={handleChange}
-            />
-          </div>
           <div className="*:font-roboto">
             <label className="text-base md:text-lg">Enter Email</label>
             <Input
@@ -69,18 +51,21 @@ const SignUp = () => {
             />
           </div>
           <div>
-            <Button onClick={SaveUserData}>SignUp</Button>
+            <Button onClick={userLogin}>Log In</Button>
           </div>
-          <p className="mt-3 text-center text-sm">
-            Aleready have an account?{" "}
-            <span className="underline text-sky-600">
-              <Link to="/Login">Login</Link>
-            </span>
-          </p>
+          <div className="text-center">
+            Dont have account?{" "}
+            <Link to="/SignUp" className="text-sky-700">
+              SignUp
+            </Link>
+          </div>
+          <div className="font-roboto text-center text-xs text-red-600">
+            forget Password?
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default Login;
