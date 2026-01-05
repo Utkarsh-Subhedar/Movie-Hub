@@ -3,7 +3,7 @@ import VideoCorousel from "@/pages/corousels/VideoCorousel";
 import useFetch from "@/components/custom_hook/useFetch";
 import { FaHeart, FaPlay } from "react-icons/fa6";
 import ReactPlayer from "react-player/lazy";
-import React, { useContext, useState } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router";
 import CastCorousel from "@/pages/corousels/CastCorousel";
 import MovieCarousel from "./corousels/MovieCarousel";
@@ -27,7 +27,7 @@ const Details = () => {
   const [saved, setSaved] = useState(false);
 
   const { id } = useParams();
-  const { newWishlist } = useContext(movieContext);
+  const { newWishlist, movieData } = useContext(movieContext);
 
   const { data, loading, isError } = useFetch(`/movie/${id}`);
   const { data: credits } = useFetch(`/movie/${id}/credits`);
@@ -43,7 +43,16 @@ const Details = () => {
   const trailer = videos?.results?.find((video) => video.type === "Trailer");
   const runTime = movieRuntime(data);
 
+  useLayoutEffect(() => {
+    const isWishlisted = movieData?.some((movie) => movie?.id == data?.id);
+    console.log("check", isWishlisted);
+    if (isWishlisted) {
+      setSaved(true);
+    }
+  }, [data]);
+
   const handleWishlistClick = () => {
+    console.log(saved, "saved");
     newWishlist(data);
     setSaved(!saved);
   };
@@ -162,7 +171,7 @@ const Details = () => {
             </DialogDemo>
             <span
               className={`text-2xl flex gap-1 items-center hover:text-red-600 ${
-                saved && `text-red-700`
+                saved === true ? `text-red-700` : `text-white`
               } cursor-pointer`}
               onClick={handleWishlistClick}
             >
