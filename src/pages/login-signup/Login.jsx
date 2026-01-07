@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [UserData, setUserData] = useState({
-    Username: "",
-    Password: "",
+  const [userData, setUserData] = useState({
     email: "",
+    password: "",
   });
-  const Navigate = useNavigate();
+
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData((prev) => ({
@@ -17,51 +18,73 @@ const Login = () => {
       [name]: value,
     }));
   };
-  const userLogin = () => {
-    Navigate("/");
+
+  const isFormValid = userData.email && userData.password;
+
+  const handleLogin = () => {
+    if (!isFormValid) return;
+    navigate("/");
   };
 
   return (
-    <div className="m-[2rem]">
-      <div className="text-center font-roboto font-semibold text-slate-200 mb-8 text-2xl md:text-3xl">
-        USER LOGIN{" "}
+    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Left Section (Branding) */}
+      <div className="hidden md:flex flex-col justify-center px-16 text-slate-200 animate-fade-in-left">
+        <h1 className="text-4xl font-bold mb-4">Welcome Back to MovieHub</h1>
+        <p className="text-lg text-slate-400 max-w-md">
+          Continue watching your favorites, explore new releases, and get
+          personalized movie recommendations just for you.
+        </p>
       </div>
-      <div className="flex justify-center">
-        <div className="bg-slate-300 rounded-md *:text-black p-10 space-y-3 w-[20rem] ">
-          <div className="*:font-roboto">
-            <label className="text-base md:text-lg">Enter Email</label>
+
+      {/* Right Section (Login Form) */}
+      <div className="flex items-center justify-center px-6 animate-fade-in-right">
+        <div className="w-full max-w-md space-y-6">
+          <h2 className="text-3xl font-semibold text-slate-100">Sign In</h2>
+
+          <div className="space-y-4">
             <Input
               type="email"
-              className="w-[14rem] text-slate-200"
               name="email"
-              Placeholder="Enter Email"
-              value={UserData.email}
+              placeholder="Email address"
+              value={userData.email}
               onChange={handleChange}
+              className="h-11"
             />
-          </div>
-          <div className="*:font-roboto">
-            <label className="text-base md:text-lg">Enter Password</label>
+
             <Input
-              type="text"
-              className="w-[14rem] text-slate-200"
-              name="Password"
-              value={UserData.Password}
-              Placeholder="Enter Password"
+              type="password"
+              name="password"
+              placeholder="Your password"
+              value={userData.password}
               onChange={handleChange}
+              className="h-11"
             />
           </div>
-          <div>
-            <Button onClick={userLogin}>Log In</Button>
-          </div>
-          <div className="text-center">
-            Dont have account?{" "}
-            <Link to="/SignUp" className="text-sky-700">
-              SignUp
+
+          <div className="flex justify-end text-sm">
+            <Link
+              to="/forgot-password"
+              className="text-sky-500 hover:underline"
+            >
+              Forgot password?
             </Link>
           </div>
-          <div className="font-roboto text-center text-xs text-red-600">
-            forget Password?
-          </div>
+
+          <Button
+            onClick={handleLogin}
+            disabled={!isFormValid}
+            className="w-full h-11 text-base transition-all duration-300 disabled:opacity-50"
+          >
+            Continue Watching
+          </Button>
+
+          <p className="text-sm text-center text-slate-400">
+            New to MovieVerse?{" "}
+            <Link to="/SignUp" className="text-sky-500 hover:underline">
+              Create an account
+            </Link>
+          </p>
         </div>
       </div>
     </div>
