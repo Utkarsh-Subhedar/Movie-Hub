@@ -27,11 +27,11 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-gradient-to-br from-slate-300 via-slate-200 to-slate-300  dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Left Section (Branding) */}
-      <div className="hidden md:flex flex-col justify-center px-16 text-slate-200 animate-fade-in-left">
+      <div className="hidden md:flex flex-col justify-center px-16 dark:text-slate-200 animate-fade-in-left">
         <h1 className="text-4xl font-bold mb-4">Welcome Back to MovieHub</h1>
-        <p className="text-lg text-slate-400 max-w-md">
+        <p className="text-lg dark:text-slate-400 max-w-md">
           Continue watching your favorites, explore new releases, and get
           personalized movie recommendations just for you.
         </p>
@@ -40,7 +40,9 @@ const Login = () => {
       {/* Right Section (Login Form) */}
       <div className="flex items-center justify-center px-6 animate-fade-in-right">
         <div className="w-full max-w-md space-y-6">
-          <h2 className="text-3xl font-semibold text-slate-100">Sign In</h2>
+          <h2 className="text-3xl font-semibold dark:text-slate-100">
+            Sign In
+          </h2>
 
           <div className="space-y-4">
             <Input
@@ -79,7 +81,7 @@ const Login = () => {
             Continue Watching
           </Button>
 
-          <p className="text-sm text-center text-slate-400">
+          <p className="text-sm text-center dark:text-slate-400">
             New to MovieVerse?{" "}
             <Link to="/SignUp" className="text-sky-500 hover:underline">
               Create an account
