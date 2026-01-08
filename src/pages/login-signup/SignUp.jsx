@@ -9,26 +9,19 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    acceptedTerms: false,
+    acceptedTerms: true,
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    console.log(checked);
     setUserData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
-  const isFormValid =
-    userData.name &&
-    userData.email &&
-    userData.password &&
-    userData.confirmPassword &&
-    userData.password === userData.confirmPassword &&
-    userData.acceptedTerms;
 
   const handleSignup = () => {
     if (!isFormValid) return;
@@ -36,13 +29,13 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-gradient-to-br from-slate-300 via-slate-200 to-slate-300  dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Left Section (Branding) */}
-      <div className="hidden md:flex flex-col justify-center px-16 text-slate-200 animate-fade-in-left">
+      <div className="hidden md:flex flex-col justify-center px-16 dark:text-slate-200 animate-fade-in-left">
         <h1 className="text-4xl font-bold mb-4">
           Unlimited Movies. Endless Entertainment.
         </h1>
-        <p className="text-lg text-slate-400 max-w-md">
+        <p className="text-lg dark:text-slate-400 max-w-md">
           Discover trending movies, timeless classics, and personalized
           recommendations—all in one place. Create your account and start
           watching instantly.
@@ -52,7 +45,7 @@ const SignUp = () => {
       {/* Right Section (Form) */}
       <div className="flex items-center justify-center px-6 animate-fade-in-right">
         <div className="w-full max-w-md space-y-6">
-          <h2 className="text-3xl font-semibold text-slate-100">
+          <h2 className="text-3xl font-semibold dark:text-slate-100">
             Create Your Movie Account
           </h2>
 
@@ -93,7 +86,7 @@ const SignUp = () => {
             />
           </div>
 
-          <label className="flex items-center gap-2 text-sm text-slate-400">
+          <label className="flex items-center gap-2 text-sm dark:text-slate-400">
             <input
               type="checkbox"
               name="acceptedTerms"
@@ -106,13 +99,12 @@ const SignUp = () => {
 
           <Button
             onClick={handleSignup}
-            disabled={!isFormValid}
             className="w-full h-11 text-base transition-all duration-300 disabled:opacity-50"
           >
             Start Watching
           </Button>
 
-          <p className="text-sm text-center text-slate-400">
+          <p className="text-sm text-center dark:text-slate-400">
             Already a member?
             <Link to="/Login" className="text-sky-500 hover:underline">
               Login

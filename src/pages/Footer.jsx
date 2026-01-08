@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div className="w-full h-auto">
-      <footer className=" px-4 sm:px-10 dark:bg-slate-800 bg-slate-400/60 py-5">
+      <footer className=" px-4 sm:px-10 dark:bg-slate-800 bg-slate-400/70 py-5">
         {/* Top Section: Logo + Socials */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
           <div className="flex flex-wrap items-center mb-4 md:mb-0 pl-8 md:pl-0 ">
