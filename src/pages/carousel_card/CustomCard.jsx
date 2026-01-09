@@ -35,7 +35,7 @@ const CustomCard = ({ movie }) => {
   return (
     <div className="group relative w-full max-w-[200px] sm:max-w-[250px] md:max-w-[280px] mx-auto cursor-pointer hover:scale-95 hover:shadow-md transition-all rounded-xl">
       <span
-        className="absolute right-1 top-1 z-20 bg-black/40 p-1 rounded-br-sm text-lg sm:text-xl"
+        className="absolute right-1 top-1 z-20 bg-white/60 dark:bg-black/40 p-1 rounded-br-sm text-lg sm:text-xl"
         onClick={toggleWishlist}
       >
         <FaRegBookmark color={isSaved ? "yellow" : ""} />

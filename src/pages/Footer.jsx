@@ -17,7 +17,7 @@ const Footer = () => {
             <img src={logo} className="w-36 sm:w-48 h-12 sm:h-12" />
             <img
               src={logo2}
-              className="w-24 sm:w-36 h-12 sm:h-12 ml-2 border-l-2 border-slate-200"
+              className="w-24 sm:w-36 h-12 sm:h-12 ml-2 border-l-2 border-slate-200 invert dark:invert-0"
             />
           </div>
           <div className="flex mt-4 md:mt-0 pl-8 md:pl-0 ">
