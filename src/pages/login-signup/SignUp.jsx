@@ -9,7 +9,7 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    acceptedTerms: true,
+    acceptedTerms: false,
   });
 
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ const SignUp = () => {
   };
 
   const handleSignup = () => {
-    if (!isFormValid) return;
     navigate("/Login");
   };
 
