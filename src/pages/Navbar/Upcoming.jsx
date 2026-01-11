@@ -9,7 +9,6 @@ const Upcoming = () => {
   const { data, loading, isError } = useFetch("/movie/upcoming");
   const [sortedData, setSortedData] = useState([]);
   const [notFound, setNotFound] = useState(false);
-  console.log(data);
   const searchMovie = (e) => {
     if (e.key === "Enter" && e.target.value !== "") {
       const searchedMovies = sortedData?.filter((movie) =>
@@ -85,7 +84,6 @@ const Upcoming = () => {
         >
           {sortedData?.map((movie) => (
             <div key={movie.id}>
-              {console.log(movie)}
               <CustomCard movie={movie} />
             </div>
           ))}

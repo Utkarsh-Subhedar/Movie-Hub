@@ -10,7 +10,7 @@ const VideoCard = ({ videoDetails }) => {
   const [imageExist, setImageExist] = useState(true);
 
   return (
-    <div className="w-full md:w-[11rem] lg:w-[14rem] flex flex-col items-center">
+    <div className="w-full md:w-[11rem] lg:w-[14rem] flex flex-col items-center lg:px-3 xl:px-2">
       <Dialog>
         <DialogTrigger className="w-full">
           <Card className="border-none rounded-lg overflow-hidden hover:scale-95 transition-transform duration-300 cursor-pointer">

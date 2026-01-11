@@ -11,8 +11,6 @@ import { IoStar } from "react-icons/io5";
 
 export function DialogDemo({ children, movie, handleRatingClick }) {
   const [value, setValue] = useState(8);
-  console.log(movie);
-
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
