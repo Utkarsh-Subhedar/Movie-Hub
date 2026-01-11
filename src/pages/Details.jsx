@@ -35,6 +35,8 @@ const Details = () => {
   const { data: similar } = useFetch(`/movie/${id}/similar`);
   const { data: recommended } = useFetch(`/movie/${id}/recommendations`);
 
+  console.log(data);
+
   const director = credits?.crew?.find((item) => item.job === "Director");
   const writers = credits?.crew?.filter(
     (item) => item.job === "Writer" || item.job === "Screenplay"
@@ -45,14 +47,12 @@ const Details = () => {
 
   useLayoutEffect(() => {
     const isWishlisted = movieData?.some((movie) => movie?.id == data?.id);
-    console.log("check", isWishlisted);
     if (isWishlisted) {
       setSaved(true);
     }
   }, [data]);
 
   const handleWishlistClick = () => {
-    console.log(saved, "saved");
     newWishlist(data);
     setSaved(!saved);
   };
@@ -63,7 +63,6 @@ const Details = () => {
         value: rating,
       };
       const response = await api.post(`/movie/${movieId}/rating`, payload);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -213,7 +212,7 @@ const Details = () => {
           </div>
         </div>
       </div>
-      <div className="mt-16 px-[4rem] md:px-[1rem]">
+      <div className="mt-16 px-[4rem] md:px-[1rem] lg:px-[4rem]">
         <VideoCorousel name="Official Videos" videos={videos} />
       </div>
       <div className="mt-8 px-[2rem] md:px-[1rem]">

@@ -7,7 +7,6 @@ const usePost = (props) => {
       const response = await axios.post(`/movie/${props.movieId}/rating`, {
         value: props.rating,
       });
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

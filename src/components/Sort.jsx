@@ -14,7 +14,6 @@ const Sort = ({ labels, data, set }) => {
     const u = [...data]?.sort(ele.method);
     setCurrLabel(ele?.label);
     set(u);
-    console.log(u);
   };
   return (
     <DropdownMenu>

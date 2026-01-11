@@ -25,7 +25,7 @@ const VideoCorousel = ({ name, videos }) => {
               {videos?.results?.map((video, index) => (
                 <CarouselItem
                   key={index}
-                  className="basis-full md:basis-1/3 lg:basis-1/5 px-0 md:px-10 lg:px-4" // ✅ responsive
+                  className="basis-full md:basis-1/3 lg:basis-1/4 xl:basis-1/5 px-0 md:px-10 lg:px-2" // ✅ responsive
                 >
                   <VideoCard videoDetails={video} />
                 </CarouselItem>
