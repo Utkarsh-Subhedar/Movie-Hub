@@ -11,11 +11,13 @@ const SignUp = () => {
     confirmPassword: "",
     acceptedTerms: false,
   });
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    setError(false);
     setUserData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
@@ -23,7 +25,14 @@ const SignUp = () => {
   };
 
   const handleSignup = () => {
-    navigate("/Login");
+    const { name, email, password, confirmPassword, acceptedTerms } = userData;
+    if (name && email && password == confirmPassword && acceptedTerms) {
+      console.log(userData.name);
+      localStorage.setItem("userCredentials", JSON.stringify(userData));
+      navigate("/Login");
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -42,9 +51,14 @@ const SignUp = () => {
 
       {/* Right Section (Form) */}
       <div className="flex items-center justify-center px-6 animate-fade-in-right">
-        <div className="w-full max-w-md space-y-6">
+        <div className="w-full max-w-md space-y-4">
           <h2 className="text-3xl font-semibold dark:text-slate-100">
             Create Your Movie Account
+            {error && (
+              <p className="text-sm text-red-600 font-medium pt-2">
+                * All fields are required
+              </p>
+            )}
           </h2>
 
           <div className="space-y-4">
