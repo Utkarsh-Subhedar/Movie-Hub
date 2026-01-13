@@ -9,21 +9,32 @@ const Login = () => {
     password: "",
   });
 
+  const [error, setError] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setError(false);
+
     setUserData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const isFormValid = userData.email && userData.password;
-
+  const user = JSON.parse(localStorage.getItem("userCredentials"));
+  console.log(user);
   const handleLogin = () => {
-    if (!isFormValid) return;
-    navigate("/");
+    if (userData.email && userData.password) {
+      if (userData.email == user.email && userData.password == user.password) {
+        setError(false);
+
+        navigate("/");
+      }
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -42,6 +53,11 @@ const Login = () => {
         <div className="w-full max-w-md space-y-6">
           <h2 className="text-3xl font-semibold dark:text-slate-100">
             Sign In
+            {error && (
+              <p className="text-sm text-red-600 font-medium pt-2">
+                * All fields are required
+              </p>
+            )}
           </h2>
 
           <div className="space-y-4">
@@ -75,7 +91,6 @@ const Login = () => {
 
           <Button
             onClick={handleLogin}
-            disabled={!isFormValid}
             className="w-full h-11 text-base transition-all duration-300 disabled:opacity-50"
           >
             Continue Watching

@@ -26,8 +26,26 @@ const SignUp = () => {
 
   const handleSignup = () => {
     const { name, email, password, confirmPassword, acceptedTerms } = userData;
-    if (name && email && password == confirmPassword && acceptedTerms) {
-      console.log(userData.name);
+    console.log(
+      "name",
+      name,
+      "email",
+      email,
+      "password",
+      password,
+      "confirmPassword",
+      confirmPassword,
+      "acceptedTerms",
+      acceptedTerms
+    );
+    if (
+      name &&
+      email &&
+      password &&
+      confirmPassword &&
+      password == confirmPassword &&
+      acceptedTerms
+    ) {
       localStorage.setItem("userCredentials", JSON.stringify(userData));
       navigate("/Login");
     } else {
