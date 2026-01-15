@@ -45,7 +45,7 @@ const Upcoming = () => {
   }
 
   return (
-    <div className="mt-7">
+    <div className="mt-7 pb-7">
       {/* header */}
       <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-16 mb-4 gap-4">
         <span className="text-lg md:text-xl font-roboto font-semibold">

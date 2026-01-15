@@ -69,7 +69,7 @@ const RatedMovies = () => {
   }
 
   return (
-    <div className="mt-7">
+    <div className="mt-7 pb-7">
       {/* header section */}
       <div className="flex flex-col md:flex-row items-center mb-4 justify-between px-4 md:px-16 gap-4">
         <h1 className="text-xl md:text-2xl font-roboto font-semibold">
