@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const ProfileDropdown = ({ userData, open, setOpen }) => {
+const ProfileDropdown = ({ name, open, setOpen }) => {
   return (
     <div className="relative inline-block">
       <button
@@ -13,8 +13,8 @@ const ProfileDropdown = ({ userData, open, setOpen }) => {
           text-zinc-900
         "
       >
-        <span className="hidden sm:inline">{userData?.firstName}</span>
-        <span className="sm:hidden">{userData?.firstName?.charAt(0)}</span>
+        <span className="hidden sm:inline">{name}</span>
+        <span className="sm:hidden">{name?.charAt(0)}</span>
 
         {/* <IoChevronDown
           className={`
@@ -43,7 +43,7 @@ const ProfileDropdown = ({ userData, open, setOpen }) => {
         >
           <div className="px-3 sm:px-4 py-3 text-xs sm:text-sm">
             Signed in as
-            <div className="font-semibold truncate">{`${userData?.firstName} ${userData?.lastName}`}</div>
+            <div className="font-semibold truncate">{`${name} ${name}`}</div>
           </div>
           {/* <Link
             className="

@@ -163,10 +163,7 @@ const Navbar = () => {
             placeholder="Search movies..."
             onKeyDown={handleKeyChange}
           />
-          <UserProfile
-            profile={logo2}
-            userData={{ firstName: "Utkarsh", lastName: "Subhedar" }}
-          />{" "}
+          <UserProfile profile={logo2} />{" "}
         </div>
       )}
     </div>
