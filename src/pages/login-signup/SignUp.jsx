@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [userData, setUserData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -25,21 +26,18 @@ const SignUp = () => {
   };
 
   const handleSignup = () => {
-    const { name, email, password, confirmPassword, acceptedTerms } = userData;
-    console.log(
-      "name",
-      name,
-      "email",
+    const {
+      firstName,
+      lastName,
       email,
-      "password",
       password,
-      "confirmPassword",
       confirmPassword,
-      "acceptedTerms",
-      acceptedTerms
-    );
+      acceptedTerms,
+    } = userData;
+
     if (
-      name &&
+      firstName &&
+      lastName &&
       email &&
       password &&
       confirmPassword &&
@@ -81,9 +79,16 @@ const SignUp = () => {
 
           <div className="space-y-4">
             <Input
-              name="name"
-              placeholder="Your Full Name"
-              value={userData.name}
+              name="firstName"
+              placeholder="Your First Name"
+              value={userData.firstName}
+              onChange={handleChange}
+              className="h-11"
+            />
+            <Input
+              name="lastName"
+              placeholder="Your Last Name"
+              value={userData.lastName}
               onChange={handleChange}
               className="h-11"
             />

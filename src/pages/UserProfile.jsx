@@ -12,7 +12,7 @@ const UserProfile = ({ profile }) => {
         onClick={() => setOpen(!open)}
       >
         <div className="flex items-center dark:bg-gray-900 bg-gray-200 hover:bg-zinc-300 max-w-[150px] rounded-full">
-          <ProfileDropdown name={userData.name} open={open} setOpen={setOpen} />
+          <ProfileDropdown userData={userData} open={open} setOpen={setOpen} />
           <MdAccountCircle
             className="dark:text-gray-200
             text-black text-4xl"
