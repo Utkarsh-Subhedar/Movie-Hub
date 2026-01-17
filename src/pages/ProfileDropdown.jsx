@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
-const ProfileDropdown = ({ name, open, setOpen }) => {
+const ProfileDropdown = ({ userData, open, setOpen }) => {
+  console.log(userData);
   return (
     <div className="relative inline-block">
       <button
@@ -13,8 +14,8 @@ const ProfileDropdown = ({ name, open, setOpen }) => {
           text-zinc-900
         "
       >
-        <span className="hidden sm:inline">{name}</span>
-        <span className="sm:hidden">{name?.charAt(0)}</span>
+        <span className="hidden sm:inline">{userData?.firstName}</span>
+        <span className="sm:hidden">{userData?.firstName?.charAt(0)}</span>
 
         {/* <IoChevronDown
           className={`
@@ -30,7 +31,7 @@ const ProfileDropdown = ({ name, open, setOpen }) => {
           className="
             absolute right-0
             mt-2
-            max-w-32 sm:w-48               
+            max-w-32 sm:max-w-44               
             lg:max-w-[90vw]                 
             rounded-lg
             dark:text-gray-200
@@ -43,38 +44,8 @@ const ProfileDropdown = ({ name, open, setOpen }) => {
         >
           <div className="px-3 sm:px-4 py-3 text-xs sm:text-sm">
             Signed in as
-            <div className="font-semibold truncate">{`${name} ${name}`}</div>
+            <div className="font-semibold truncate ">{`${userData?.firstName} ${userData?.lastName}`}</div>
           </div>
-          {/* <Link
-            className="
-              flex w-full items-center gap-2
-              px-3 sm:px-4 py-2
-              text-xs md:text-sm 
-              font-semibold
-              text-teal-600
-              hover:bg-gray-100
-              transition
-            "
-            to="/home"
-          >
-            My Profile
-          </Link>
-          <Link
-            className="
-              flex w-full items-center gap-2
-              px-3 sm:px-4 py-2
-              text-xs md:text-sm 
-              font-semibold
-              text-teal-600
-              hover:bg-gray-100
-              transition
-              border-b
-            "
-            to="/home"
-          >
-            
-            My Dashboard
-          </Link> */}
         </div>
       )}
     </div>

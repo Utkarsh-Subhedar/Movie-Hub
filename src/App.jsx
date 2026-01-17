@@ -9,6 +9,7 @@ import SearchMovie from "./pages/SearchMovie";
 import SignUp from "./pages/login-signup/SignUp";
 import RatedMovies from "./pages/Navbar/RatedMovies";
 import Login from "./pages/login-signup/Login";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 const Home = lazy(() => import("@/pages/Home"));
 const Details = lazy(() => import("@/pages/Details"));
 const Popular = lazy(() => import("@/pages/Navbar/Popular"));
@@ -22,19 +23,19 @@ function App() {
         <BrowserRouter>
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
-              {/* <Route index path="/Signup" element={<SignUp />} />
-              <Route path="/Login" element={<Login />} /> */}
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="/Popular" element={<Popular />} />
-                <Route path="/Signup" element={<SignUp />} />
-                <Route path="/Login" element={<Login />} />
-                <Route path="/RatedMovies" element={<RatedMovies />} />
-                <Route path="/Upcoming" element={<Upcoming />} />
-                <Route path="/Wishlist" element={<Wishlist />} />
-                <Route path="/Details/:id" element={<Details />} />
-                <Route path="*" element={<NoPage />} />
-                <Route path="/SearchMovie/:name" element={<SearchMovie />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/Signup" element={<SignUp />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<Home />} />
+                  <Route path="/Popular" element={<Popular />} />
+                  <Route path="/RatedMovies" element={<RatedMovies />} />
+                  <Route path="/Upcoming" element={<Upcoming />} />
+                  <Route path="/Wishlist" element={<Wishlist />} />
+                  <Route path="/Details/:id" element={<Details />} />
+                  <Route path="*" element={<NoPage />} />
+                  <Route path="/SearchMovie/:name" element={<SearchMovie />} />
+                </Route>
               </Route>
             </Routes>
           </Suspense>
