@@ -29,7 +29,7 @@ const CustomCard = ({ movie }) => {
   }, [movie, movieData]);
 
   const toggleWishlist = () => {
-    newWishlist(movie);
+    newWishlist(data);
   };
 
   return (
@@ -46,12 +46,13 @@ const CustomCard = ({ movie }) => {
         onClick={() => showDetails(Navigate, movie.id)}
       >
         <Img
-          className="w-full h-[calc(100%-80px)] sm:h-[calc(100%-100px)] md:h-[calc(100%-120px)] object-cover rounded-t-md"
+          className="w-full h-[270px] sm:h-[320px] lg:h-[380px] object-cover rounded-t-md"
           src={
-            movie.poster_path
-              ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+            movie?.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
               : NoPoster
           }
+          alt={movie?.title}
         />
 
         <div
@@ -61,19 +62,22 @@ const CustomCard = ({ movie }) => {
           <h6 className="text-sm sm:text-base md:text-lg  font-semibold line-clamp-1 px-1">
             {data?.title}
           </h6>
-
-          <div className="flex flex-wrap">
-            {data?.genres?.slice(0, 2).map((genre) => (
-              <span
-                key={genre.id}
-                className={`${getGenresWiseColor(genre)}
+          {data?.genres.length !== 0 ? (
+            <div className="flex flex-wrap">
+              {data?.genres?.slice(0, 2).map((genre) => (
+                <span
+                  key={genre.id}
+                  className={`${getGenresWiseColor(genre)}
                     text-[1rem] md:text-base 
                     px-1 rounded-full font-semibold`}
-              >
-                {genre.name === "Science Fiction" ? "sci-fi" : genre.name}
-              </span>
-            ))}
-          </div>
+                >
+                  {genre.name === "Science Fiction" ? "sci-fi" : genre.name}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <div className="text-red-700 font-medium">Genres unavailable</div>
+          )}
 
           <div
             className="flex justify-between items-center

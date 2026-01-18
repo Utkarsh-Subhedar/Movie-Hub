@@ -9,7 +9,7 @@ import { api } from "@/components/utils/api";
 
 const RatedMovies = () => {
   const { data, loading, isError } = useFetch(
-    `/account/${ACC_ID}/rated/movies`
+    `/account/${ACC_ID}/rated/movies`,
   );
 
   const [sortedData, setSortedData] = useState([]);
@@ -28,7 +28,7 @@ const RatedMovies = () => {
   const searchMovie = (e) => {
     if (e.key === "Enter" && e.target.value !== "") {
       const searchedMovies = sortedData?.filter((movie) =>
-        movie?.title.toLowerCase().includes(e.target.value)
+        movie?.title.toLowerCase().includes(e.target.value),
       );
       if (searchedMovies.length !== 0) {
         setSortedData(searchedMovies);
@@ -45,7 +45,8 @@ const RatedMovies = () => {
   useEffect(() => {
     setSortedData(data?.results);
   }, [data]);
-  if (loading)
+
+  if (loading) {
     return (
       <div className="mt-7">
         <CarouselShimmer />
@@ -54,6 +55,7 @@ const RatedMovies = () => {
         <CarouselShimmer />
       </div>
     );
+  }
 
   if (isError) {
     return <ServerErrorPage />;

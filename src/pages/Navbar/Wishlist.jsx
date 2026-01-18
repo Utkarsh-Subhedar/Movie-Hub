@@ -4,12 +4,13 @@ import WishlistImg from "../../assets/Img/empty_wishlist.png";
 import Img from "@/components/lazyLoad/Img";
 import { showDetails } from "@/components/utils/showDetails";
 import { useNavigate } from "react-router";
+import NoPoster from "@/assets/Img/no-poster.png";
 
 const Wishlist = () => {
   const { movieData, newWishlist } = useContext(movieContext);
   const Navigate = useNavigate();
   const [wishlistedMovie, setWishlistedMovie] = useState([]);
-
+  console.log("movieData", movieData);
   useEffect(() => {
     const localData = JSON.parse(localStorage.getItem("wishlistArray"));
     if (localData !== null) {
@@ -55,8 +56,13 @@ const Wishlist = () => {
               className="hover:opacity-90 cursor-pointer relative"
             >
               <Img
-                src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
+                src={
+                  movie?.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                    : NoPoster
+                }
                 className="w-full aspect-[2/3] object-cover rounded"
+                alt={movie?.title}
               />
               <button
                 onClick={(e) => {
