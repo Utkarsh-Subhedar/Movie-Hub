@@ -8,7 +8,7 @@ import ServerErrorPage from "../ServerErrorPage";
 
 const Popular = () => {
   const [sortedData, setSortedData] = useState([]);
-  const [notFound, setNotFound] = useState(false);
+  // const [notFound, setNotFound] = useState(false);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
 
@@ -16,22 +16,22 @@ const Popular = () => {
     `/movie/popular?language=en-US&page=${page}`,
   );
 
-  const searchMovie = (e) => {
-    if (e.key === "Enter" && e.target.value !== "") {
-      const searchedMovies = sortedData?.filter((movie) =>
-        movie?.title.toLowerCase().includes(e.target.value),
-      );
-      if (searchedMovies.length !== 0) {
-        setSortedData(searchedMovies);
-        setNotFound(false);
-      } else {
-        setNotFound(true);
-      }
-    } else if (e.target.value === "") {
-      setSortedData(sortedData?.results);
-      setNotFound(false);
-    }
-  };
+  // const searchMovie = (e) => {
+  //   if (e.key === "Enter" && e.target.value !== "") {
+  //     const searchedMovies = sortedData?.filter((movie) =>
+  //       movie?.title.toLowerCase().includes(e.target.value),
+  //     );
+  //     if (searchedMovies.length !== 0) {
+  //       setSortedData(searchedMovies);
+  //       setNotFound(false);
+  //     } else {
+  //       setNotFound(true);
+  //     }
+  //   } else if (e.target.value === "") {
+  //     setSortedData(sortedData?.results);
+  //     setNotFound(false);
+  //   }
+  // };
 
   useEffect(() => {
     if (isError) {
@@ -45,7 +45,8 @@ const Popular = () => {
       );
     }
   }, [data, isError]);
-  console.log("page", page);
+
+  console.log("sortedData", sortedData);
 
   const fetchNextData = () => {
     setPage((prev) => prev + 1);
@@ -53,7 +54,7 @@ const Popular = () => {
 
   if (loading)
     return (
-      <div className="mt-7">
+      <div className="mt-1">
         <CarouselShimmer />
         <CarouselShimmer />
         <CarouselShimmer />
@@ -80,40 +81,40 @@ const Popular = () => {
             set={setSortedData}
             data={sortedData?.results || []}
           />
-          <input
+          {/* <input
             placeholder="Search...."
             className="w-full  md:w-[20rem] h-[2.5rem] border bg-background px-4 rounded-full placeholder:text-sm"
             onKeyUp={(e) => searchMovie(e)}
-          />
+          /> */}
         </div>
       </div>
 
       <InfiniteScroll
-        className="
-          
-          grid 
+        dataLength={sortedData?.length || 0}
+        next={fetchNextData}
+        hasMore={page <= 111}
+        loader={<CarouselShimmer />}
+      >
+        <div
+          className="grid 
           grid-cols-1 md:grid-cols-3 lg:grid-cols-5 
           gap-4 md:gap-6 
           px-4 md:px-10
-          place-content-center
-          "
-        dataLength={sortedData?.length || 0}
-        next={fetchNextData}
-        hasMore={[page] <= 111}
-        loader={<CarouselShimmer />}
-      >
-        {sortedData?.map((movie) => (
-          <div key={movie.id}>
-            <CustomCard movie={movie} />
-          </div>
-        ))}
+          place-content-center"
+        >
+          {sortedData?.map((movie) => (
+            <div key={movie.id}>
+              <CustomCard movie={movie} />
+            </div>
+          ))}
+        </div>
       </InfiniteScroll>
       {/* movie section */}
-      {notFound && (
+      {/* {notFound && (
         <div className="text-center text-2xl md:text-5xl text-red-800 my-16 md:my-32">
           Movie Unavailable
         </div>
-      )}
+      )} */}
     </div>
   );
 };
