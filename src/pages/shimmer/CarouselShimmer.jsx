@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
-const CarouselShimmer = () => {
+const CarouselShimmer = ({ arr = 6 }) => {
   return (
     <div className="mt-6 sm:mt-8 lg:mt-10">
       {/* Section title shimmer */}
@@ -11,7 +11,7 @@ const CarouselShimmer = () => {
       {/* Movie cards shimmer grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 px-4 sm:px-8 lg:px-16 mt-4">
         {/* Generate 6 placeholders */}
-        {[...Array(6)].map((_, i) => (
+        {[...Array(arr)].map((_, i) => (
           <Skeleton
             key={i}
             className="h-40 sm:h-60 lg:h-[20rem] w-full rounded-md"
