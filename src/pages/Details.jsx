@@ -39,7 +39,7 @@ const Details = () => {
 
   const director = credits?.crew?.find((item) => item.job === "Director");
   const writers = credits?.crew?.filter(
-    (item) => item.job === "Writer" || item.job === "Screenplay"
+    (item) => item.job === "Writer" || item.job === "Screenplay",
   );
 
   const trailer = videos?.results?.find((video) => video.type === "Trailer");
@@ -95,7 +95,7 @@ const Details = () => {
       ></div>
       <div className="relative flex flex-col lg:flex-row lg:space-x-16 px-4 lg:px-16 pt-28">
         <Img
-          className="w-full max-w-[250px] lg:max-w-[320px] h-auto rounded-lg shadow-md"
+          className="w-full max-w-[250px] lg:max-w-[320px] h-auto rounded-lg shadow-md border-slate-200 border-4 shadow-slate-100"
           src={
             data?.poster_path === null
               ? NoPoster
