@@ -6,32 +6,14 @@ import Sort from "@/components/Sort";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ServerErrorPage from "../ServerErrorPage";
 
-const Popular = () => {
+const Popular = ({ endpoint }) => {
   const [sortedData, setSortedData] = useState([]);
-  // const [notFound, setNotFound] = useState(false);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
 
   const { data, loading, isError } = useFetch(
-    `/movie/popular?language=en-US&page=${page}`,
+    `${endpoint}?language=en-US&page=${page}`,
   );
-
-  // const searchMovie = (e) => {
-  //   if (e.key === "Enter" && e.target.value !== "") {
-  //     const searchedMovies = sortedData?.filter((movie) =>
-  //       movie?.title.toLowerCase().includes(e.target.value),
-  //     );
-  //     if (searchedMovies.length !== 0) {
-  //       setSortedData(searchedMovies);
-  //       setNotFound(false);
-  //     } else {
-  //       setNotFound(true);
-  //     }
-  //   } else if (e.target.value === "") {
-  //     setSortedData(sortedData?.results);
-  //     setNotFound(false);
-  //   }
-  // };
 
   useEffect(() => {
     if (isError) {
@@ -79,13 +61,8 @@ const Popular = () => {
           <Sort
             labels={["default", "trending", "AtoZ", "ZtoA"]}
             set={setSortedData}
-            data={sortedData?.results || []}
+            data={sortedData}
           />
-          {/* <input
-            placeholder="Search...."
-            className="w-full  md:w-[20rem] h-[2.5rem] border bg-background px-4 rounded-full placeholder:text-sm"
-            onKeyUp={(e) => searchMovie(e)}
-          /> */}
         </div>
       </div>
 
@@ -102,19 +79,13 @@ const Popular = () => {
           px-4 md:px-10
           place-content-center"
         >
-          {sortedData?.map((movie) => (
-            <div key={movie.id}>
+          {sortedData?.map((movie, index) => (
+            <div key={index}>
               <CustomCard movie={movie} />
             </div>
           ))}
         </div>
       </InfiniteScroll>
-      {/* movie section */}
-      {/* {notFound && (
-        <div className="text-center text-2xl md:text-5xl text-red-800 my-16 md:my-32">
-          Movie Unavailable
-        </div>
-      )} */}
     </div>
   );
 };

@@ -30,14 +30,20 @@ function App() {
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
                   <Route path="/RatedMovies" element={<RatedMovies />} />
-                  <Route path="/Upcoming" element={<Upcoming />} />
                   <Route path="/Wishlist" element={<Wishlist />} />
                   <Route path="/Details/:id" element={<Details />} />
                   <Route path="*" element={<NoPage />} />
                   <Route path="/SearchMovie/:name" element={<SearchMovie />} />
                 </Route>
                 <Route element={<NavbarLayout />}>
-                  <Route path="/Popular" element={<Popular />} />
+                  <Route
+                    path="/Popular"
+                    element={<Popular endpoint={`/movie/popular`} />}
+                  />
+                  <Route
+                    path="/Upcoming"
+                    element={<Popular endpoint={`/movie/upcoming`} />}
+                  />
                 </Route>
               </Route>
             </Routes>
