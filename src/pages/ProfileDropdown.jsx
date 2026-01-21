@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const ProfileDropdown = ({ userData, open, setOpen }) => {
   console.log(userData);
@@ -40,12 +41,21 @@ const ProfileDropdown = ({ userData, open, setOpen }) => {
             shadow-lg
             border border-gray-200
             z-50
+            py-2
           "
         >
-          <div className="px-3 sm:px-4 py-3 text-xs sm:text-sm">
+          <div className="px-3 sm:px-4  text-xs sm:text-sm pb-2">
             Signed in as
             <div className="font-semibold truncate ">{`${userData?.firstName} ${userData?.lastName}`}</div>
           </div>
+          <hr className="text-slate-200" />
+          <Link
+            to="/Login"
+            className="px-1 sm:px-4 flex items-center justify-start gap-3 py-1 text-red-600 hover:text-red-800"
+          >
+            <span className="font-semibold text-md">LogOut</span>
+            <FaSignOutAlt className="text-xl" />
+          </Link>
         </div>
       )}
     </div>
