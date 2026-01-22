@@ -11,6 +11,7 @@ import RatedMovies from "./pages/Navbar/RatedMovies";
 import Login from "./pages/login-signup/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import NavbarLayout from "./pages/NavbarLayout";
+import UserProfileDetails from "./pages/UserProfileDetails";
 const Home = lazy(() => import("@/pages/Home"));
 const Details = lazy(() => import("@/pages/Details"));
 const Popular = lazy(() => import("@/pages/Navbar/Popular"));
@@ -30,6 +31,10 @@ function App() {
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
                   <Route path="/RatedMovies" element={<RatedMovies />} />
+                  <Route
+                    path="/UserProfileDetails"
+                    element={<UserProfileDetails />}
+                  />
                   <Route path="/Wishlist" element={<Wishlist />} />
                   <Route path="/Details/:id" element={<Details />} />
                   <Route path="*" element={<NoPage />} />

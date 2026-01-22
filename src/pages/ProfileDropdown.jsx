@@ -44,10 +44,12 @@ const ProfileDropdown = ({ userData, open, setOpen }) => {
             py-2
           "
         >
-          <div className="px-3 sm:px-4  text-xs sm:text-sm pb-2">
-            Signed in as
-            <div className="font-semibold truncate ">{`${userData?.firstName} ${userData?.lastName}`}</div>
-          </div>
+          <Link to="/UserProfileDetails">
+            <div className="px-3 sm:px-4  text-xs sm:text-sm pb-2 hover:bg-slate-800">
+              Signed in as
+              <div className="font-semibold truncate ">{`${userData?.firstName} ${userData?.lastName}`}</div>
+            </div>
+          </Link>
           <hr className="text-slate-200" />
           <Link
             to="/Login"
