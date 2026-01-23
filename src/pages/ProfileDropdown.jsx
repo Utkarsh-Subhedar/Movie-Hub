@@ -41,21 +41,21 @@ const ProfileDropdown = ({ userData, open, setOpen }) => {
             shadow-lg
             border border-gray-200
             z-50
-            py-2
+            overflow-hidden
           "
         >
           <Link to="/UserProfileDetails">
-            <div className="px-3 sm:px-4  text-xs sm:text-sm pb-2 hover:bg-slate-800">
-              Signed in as
-              <div className="font-semibold truncate ">{`${userData?.firstName} ${userData?.lastName}`}</div>
+            <div className="px-3 sm:px-4  text-xs sm:text-sm py-2 hover:bg-slate-800">
+              <span className="text-green-600">Signed in as</span>
+              <div className="font-semibold truncate text-green-50">{`${userData?.firstName} ${userData?.lastName}`}</div>
             </div>
           </Link>
           <hr className="text-slate-200" />
           <Link
             to="/Login"
-            className="px-1 sm:px-4 flex items-center justify-start gap-3 py-1 text-red-600 hover:text-red-800"
+            className="px-1 sm:px-4 flex items-center justify-start gap-3 py-2 text-red-600 hover:bg-slate-800"
           >
-            <span className="font-semibold text-md">LogOut</span>
+            <span className="font-semibold text-lg">LogOut</span>
             <FaSignOutAlt className="text-xl" />
           </Link>
         </div>

@@ -11,7 +11,7 @@ import RatedMovies from "./pages/Navbar/RatedMovies";
 import Login from "./pages/login-signup/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import NavbarLayout from "./pages/NavbarLayout";
-import UserProfileDetails from "./pages/UserProfileDetails";
+import UserProfileDetails from "./pages/user-profile-details/UserProfileDetails";
 const Home = lazy(() => import("@/pages/Home"));
 const Details = lazy(() => import("@/pages/Details"));
 const Popular = lazy(() => import("@/pages/Navbar/Popular"));
