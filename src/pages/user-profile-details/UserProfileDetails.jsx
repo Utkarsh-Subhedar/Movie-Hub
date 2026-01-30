@@ -2,9 +2,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Input } from "./component/Input";
 import { Chip } from "./component/Chip";
-import { Mail, Phone, MapPin, User } from "lucide-react";
-
-/* ---------------- Animations ---------------- */
+import { Phone, MapPin, User } from "lucide-react";
+import { SectionTitle } from "./component/SectionTitle";
 
 const sectionVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -27,10 +26,71 @@ const fieldVariant = {
   visible: { opacity: 1, y: 0 },
 };
 
-/* ---------------- Component ---------------- */
-
 export default function UserProfileDetails() {
-  const [identity, setIdentity] = useState(null);
+  const [userData, setUserData] = useState({
+    mobileNumber: "",
+    emailAddress: "",
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    streetAddress: "",
+    identity: "",
+    city: "",
+    state: "",
+    postalCode: "",
+  });
+
+  const handleSave = () => {
+    console.log("userData", userData);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "mobileNumber":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      case "emailAddress":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      case "firstName":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      case "lastName":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      case "birthDate":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      case "streetAddress":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      case "city":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      case "identity":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      case "state":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      case "postalCode":
+        setUserData((prev) => ({ ...prev, [name]: value }));
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="relative min-h-screen px-4 sm:px-6 py-14 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white overflow-hidden">
@@ -79,7 +139,7 @@ export default function UserProfileDetails() {
           animate="visible"
           className="mb-14"
         >
-          <SectionTitle icon={<Phone />} title="Account Details" />
+          <SectionTitle title="Account Details" icon={<Phone />} />
 
           <motion.div
             variants={gridVariant}
@@ -91,14 +151,16 @@ export default function UserProfileDetails() {
               <Input
                 label="Mobile Number"
                 placeholder="Get tickets on WhatsApp / SMS"
+                name="mobileNumber"
+                onChange={(e) => handleChange(e)}
               />
             </motion.div>
 
             <motion.div variants={fieldVariant}>
               <Input
                 label="Email Address"
-                value="utkarshsubhedar2017@gmail.com"
-                disabled
+                name="emailAddress"
+                onChange={(e) => handleChange(e)}
               />
             </motion.div>
           </motion.div>
@@ -111,7 +173,7 @@ export default function UserProfileDetails() {
           animate="visible"
           className="mb-14"
         >
-          <SectionTitle icon={<User />} title="Personal Details" />
+          <SectionTitle title="Personal Details" icon={<User />} />
 
           <motion.div
             variants={gridVariant}
@@ -120,15 +182,28 @@ export default function UserProfileDetails() {
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
             <motion.div variants={fieldVariant}>
-              <Input label="First Name *" />
+              <Input
+                label="First Name *"
+                name="firstName"
+                onChange={(e) => handleChange(e)}
+              />
             </motion.div>
 
             <motion.div variants={fieldVariant}>
-              <Input label="Last Name *" />
+              <Input
+                label="Last Name *"
+                name="lastName"
+                onChange={(e) => handleChange(e)}
+              />
             </motion.div>
 
             <motion.div variants={fieldVariant}>
-              <Input label="Birthday (Optional)" type="date" />
+              <Input
+                label="Birthday (Optional)"
+                type="date"
+                name="birthDate"
+                onChange={(e) => handleChange(e)}
+              />
             </motion.div>
 
             <motion.div variants={fieldVariant}>
@@ -138,13 +213,17 @@ export default function UserProfileDetails() {
               <div className="flex gap-4 flex-wrap">
                 <Chip
                   text="Woman"
-                  active={identity === "Woman"}
-                  onClick={() => setIdentity("Woman")}
+                  active={userData.identity === "Woman"}
+                  onClick={() =>
+                    setUserData((prev) => ({ ...prev, identity: "Woman" }))
+                  }
                 />
                 <Chip
                   text="Man"
-                  active={identity === "Man"}
-                  onClick={() => setIdentity("Man")}
+                  active={userData.identity === "Man"}
+                  onClick={() =>
+                    setUserData((prev) => ({ ...prev, identity: "Man" }))
+                  }
                 />
               </div>
             </motion.div>
@@ -158,7 +237,7 @@ export default function UserProfileDetails() {
           animate="visible"
           className="mb-14"
         >
-          <SectionTitle icon={<MapPin />} title="Address" />
+          <SectionTitle title="Address" icon={<MapPin />} />
 
           <motion.div
             variants={gridVariant}
@@ -167,19 +246,35 @@ export default function UserProfileDetails() {
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
             <motion.div variants={fieldVariant} className="md:col-span-2">
-              <Input label="Street Address" />
+              <Input
+                label="Street Address"
+                name="streetAddress"
+                onChange={(e) => handleChange(e)}
+              />
             </motion.div>
 
             <motion.div variants={fieldVariant}>
-              <Input label="City" />
+              <Input
+                label="City"
+                name="city"
+                onChange={(e) => handleChange(e)}
+              />
             </motion.div>
 
             <motion.div variants={fieldVariant}>
-              <Input label="State" />
+              <Input
+                label="State"
+                name="state"
+                onChange={(e) => handleChange(e)}
+              />
             </motion.div>
 
             <motion.div variants={fieldVariant}>
-              <Input label="Postal Code" />
+              <Input
+                label="Postal Code"
+                name="postalCode"
+                onChange={(e) => handleChange(e)}
+              />
             </motion.div>
 
             <motion.div variants={fieldVariant}>
@@ -197,22 +292,12 @@ export default function UserProfileDetails() {
             }}
             whileTap={{ scale: 0.92 }}
             className="px-10 py-3 rounded-xl bg-gradient-to-r from-red-600 to-red-700 font-semibold shadow-lg"
+            onClick={handleSave}
           >
             Save Changes
           </motion.button>
         </div>
       </motion.div>
-    </div>
-  );
-}
-
-/* ---------------- Helpers ---------------- */
-
-function SectionTitle({ title, icon }) {
-  return (
-    <div className="flex items-center gap-3 mb-6 border-l-4 border-red-600 pl-4">
-      <span className="text-red-500">{icon}</span>
-      <h2 className="text-xl font-semibold">{title}</h2>
     </div>
   );
 }

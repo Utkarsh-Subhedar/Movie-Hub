@@ -7,6 +7,8 @@ export function Input({
   value,
   placeholder,
   className,
+  name,
+  onChange,
 }) {
   return (
     <motion.div whileHover={{ scale: 1.01 }} className={className}>
@@ -17,6 +19,8 @@ export function Input({
         value={value}
         disabled={disabled}
         placeholder={placeholder}
+        name={name}
+        onChange={onChange}
         className="
           w-full px-4 py-3 rounded-xl
           bg-black/40 border border-white/10
