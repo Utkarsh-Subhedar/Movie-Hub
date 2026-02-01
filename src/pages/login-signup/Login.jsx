@@ -18,7 +18,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    console.log(!userData.email);
     const { name, value } = e.target;
     setError({
       EmptyError: "",
@@ -33,7 +32,6 @@ const Login = () => {
   };
 
   const user = JSON.parse(localStorage.getItem("userCredentials"));
-  console.log(user);
   const handleLogin = () => {
     if (!user) {
       setError({

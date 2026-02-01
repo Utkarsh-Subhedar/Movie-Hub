@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "./component/Input";
 import { Chip } from "./component/Chip";
 import { Phone, MapPin, User } from "lucide-react";
 import { SectionTitle } from "./component/SectionTitle";
+import { toast } from "react-toastify";
 
 const sectionVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -27,69 +28,33 @@ const fieldVariant = {
 };
 
 export default function UserProfileDetails() {
-  const [userData, setUserData] = useState({
-    mobileNumber: "",
-    emailAddress: "",
-    firstName: "",
-    lastName: "",
-    birthDate: "",
-    streetAddress: "",
-    identity: "",
-    city: "",
-    state: "",
-    postalCode: "",
-  });
+  const prevData = localStorage.getItem("userData");
+  const [userData, setUserData] = useState(
+    prevData
+      ? JSON.parse(prevData)
+      : {
+          mobileNumber: "",
+          emailAddress: "",
+          firstName: "",
+          lastName: "",
+          birthDate: "",
+          streetAddress: "",
+          identity: "",
+          city: "",
+          state: "",
+          postalCode: "",
+          country: "",
+        },
+  );
 
   const handleSave = () => {
-    console.log("userData", userData);
+    localStorage.setItem("userData", JSON.stringify(userData));
+    toast.success("Profile saved successfully");
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    switch (name) {
-      case "mobileNumber":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      case "emailAddress":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      case "firstName":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      case "lastName":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      case "birthDate":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      case "streetAddress":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      case "city":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      case "identity":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      case "state":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      case "postalCode":
-        setUserData((prev) => ({ ...prev, [name]: value }));
-        break;
-
-      default:
-        break;
-    }
+    setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -150,7 +115,8 @@ export default function UserProfileDetails() {
             <motion.div variants={fieldVariant}>
               <Input
                 label="Mobile Number"
-                placeholder="Get tickets on WhatsApp / SMS"
+                value={userData.mobileNumber}
+                placeholder="1234567890"
                 name="mobileNumber"
                 onChange={(e) => handleChange(e)}
               />
@@ -159,6 +125,8 @@ export default function UserProfileDetails() {
             <motion.div variants={fieldVariant}>
               <Input
                 label="Email Address"
+                value={userData.emailAddress}
+                placeholder="Utkarsh2017@gmail.com"
                 name="emailAddress"
                 onChange={(e) => handleChange(e)}
               />
@@ -184,6 +152,8 @@ export default function UserProfileDetails() {
             <motion.div variants={fieldVariant}>
               <Input
                 label="First Name *"
+                value={userData.firstName}
+                placeholder="Utkarsh"
                 name="firstName"
                 onChange={(e) => handleChange(e)}
               />
@@ -192,6 +162,8 @@ export default function UserProfileDetails() {
             <motion.div variants={fieldVariant}>
               <Input
                 label="Last Name *"
+                value={userData.lastName}
+                placeholder="Subhedar"
                 name="lastName"
                 onChange={(e) => handleChange(e)}
               />
@@ -200,6 +172,7 @@ export default function UserProfileDetails() {
             <motion.div variants={fieldVariant}>
               <Input
                 label="Birthday (Optional)"
+                value={userData.birthDate}
                 type="date"
                 name="birthDate"
                 onChange={(e) => handleChange(e)}
@@ -248,7 +221,9 @@ export default function UserProfileDetails() {
             <motion.div variants={fieldVariant} className="md:col-span-2">
               <Input
                 label="Street Address"
+                value={userData.streetAddress}
                 name="streetAddress"
+                placeholder="Flat No./Street Address/Landmark"
                 onChange={(e) => handleChange(e)}
               />
             </motion.div>
@@ -256,7 +231,9 @@ export default function UserProfileDetails() {
             <motion.div variants={fieldVariant}>
               <Input
                 label="City"
+                value={userData.city}
                 name="city"
+                placeholder="Kolhapur"
                 onChange={(e) => handleChange(e)}
               />
             </motion.div>
@@ -264,7 +241,9 @@ export default function UserProfileDetails() {
             <motion.div variants={fieldVariant}>
               <Input
                 label="State"
+                value={userData.state}
                 name="state"
+                placeholder="Maharashtra"
                 onChange={(e) => handleChange(e)}
               />
             </motion.div>
@@ -272,13 +251,21 @@ export default function UserProfileDetails() {
             <motion.div variants={fieldVariant}>
               <Input
                 label="Postal Code"
+                value={userData.postalCode}
                 name="postalCode"
+                placeholder="416209"
                 onChange={(e) => handleChange(e)}
               />
             </motion.div>
 
             <motion.div variants={fieldVariant}>
-              <Input label="Country" />
+              <Input
+                label="Country"
+                value={userData.country}
+                placeholder="India"
+                name="country"
+                onChange={(e) => handleChange(e)}
+              />
             </motion.div>
           </motion.div>
         </motion.section>

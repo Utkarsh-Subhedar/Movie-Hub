@@ -28,8 +28,6 @@ const Popular = ({ endpoint }) => {
     }
   }, [data, isError]);
 
-  console.log("sortedData", sortedData);
-
   const fetchNextData = () => {
     setPage((prev) => prev + 1);
   };

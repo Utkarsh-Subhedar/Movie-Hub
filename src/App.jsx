@@ -12,6 +12,7 @@ import Login from "./pages/login-signup/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import NavbarLayout from "./pages/NavbarLayout";
 import UserProfileDetails from "./pages/user-profile-details/UserProfileDetails";
+import { ToastContainer } from "react-toastify";
 const Home = lazy(() => import("@/pages/Home"));
 const Details = lazy(() => import("@/pages/Details"));
 const Popular = lazy(() => import("@/pages/Navbar/Popular"));
@@ -21,6 +22,15 @@ const Wishlist = lazy(() => import("@/pages/Navbar/Wishlist"));
 function App() {
   return (
     <ContextStore>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="dark"
+      />
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <BrowserRouter>
           <Suspense fallback={<LoadingSpinner />}>
