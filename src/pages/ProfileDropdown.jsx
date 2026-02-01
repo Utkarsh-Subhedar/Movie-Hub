@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 
 const ProfileDropdown = ({ userData, open, setOpen }) => {
-  console.log(userData);
   return (
     <div className="relative inline-block">
       <button

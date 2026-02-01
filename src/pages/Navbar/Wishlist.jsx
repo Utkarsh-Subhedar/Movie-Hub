@@ -10,7 +10,6 @@ const Wishlist = () => {
   const { movieData, newWishlist } = useContext(movieContext);
   const Navigate = useNavigate();
   const [wishlistedMovie, setWishlistedMovie] = useState([]);
-  console.log("movieData", movieData);
   useEffect(() => {
     const localData = JSON.parse(localStorage.getItem("wishlistArray"));
     if (localData !== null) {

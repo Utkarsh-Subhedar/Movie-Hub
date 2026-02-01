@@ -35,8 +35,6 @@ const Details = () => {
   const { data: similar } = useFetch(`/movie/${id}/similar`);
   const { data: recommended } = useFetch(`/movie/${id}/recommendations`);
 
-  console.log(data);
-
   const director = credits?.crew?.find((item) => item.job === "Director");
   const writers = credits?.crew?.filter(
     (item) => item.job === "Writer" || item.job === "Screenplay",
@@ -95,7 +93,7 @@ const Details = () => {
       ></div>
       <div className="relative flex flex-col lg:flex-row lg:space-x-16 px-4 lg:px-16 pt-28">
         <Img
-          className="w-full max-w-[250px] lg:max-w-[320px] h-auto rounded-lg shadow-md border-slate-200 border-4 shadow-slate-100"
+          className="w-full max-w-[250px] lg:max-w-[320px] h-auto rounded-lg shadow-md border-slate-900 dark:border-slate-200 border-4 shadow-slate-900 dark:shadow-slate-100"
           src={
             data?.poster_path === null
               ? NoPoster
@@ -169,8 +167,10 @@ const Details = () => {
               </span>
             </DialogDemo>
             <span
-              className={`text-2xl flex gap-1 items-center hover:text-red-600 ${
-                saved === true ? `text-red-700` : `text-white`
+              className={`text-2xl flex gap-1 items-center hover:text-red-600 text-gray-950 dark:text-white ${
+                saved === true
+                  ? `!text-red-700`
+                  : `dark:text-white text-gray-950`
               } cursor-pointer`}
               onClick={handleWishlistClick}
             >
