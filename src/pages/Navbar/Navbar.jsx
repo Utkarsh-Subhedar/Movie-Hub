@@ -6,20 +6,24 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "@/assets/Img/Logo1.png";
 import logo2 from "@/assets/Img/Logo.png";
 import UserProfile from "../UserProfile";
+import { useRef } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const timerRef = useRef(null);
+  const [query, setQuery] = useState("");
 
   const handleKeyChange = (e) => {
-    if (
-      e.key === "Enter" &&
-      e.target.value !== "" &&
-      /^[a-zA-Z0-9]/.test(e.target.value)
-    ) {
-      navigate(`/SearchMovie/${e.target.value}`);
-      e.target.value = "";
-    }
+    clearTimeout(timerRef.current);
+    setQuery(e.target.value);
+    const value = e.target.value.trim();
+    if (!value) return;
+
+    timerRef.current = setTimeout(() => {
+      navigate(`/SearchMovie/${value}`);
+      setQuery("");
+    }, 1000);
   };
 
   return (
@@ -44,9 +48,10 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center space-x-2 flex-1 justify-center px-2 sm:px-4">
           <Input
             type="text"
+            value={query}
             className="w-[10rem] sm:w-[14rem] md:w-[20rem] lg:w-[12rem] xl:w-[20rem]"
             placeholder="Search movies..."
-            onKeyDown={handleKeyChange}
+            onChange={(e) => handleKeyChange(e)}
           />
         </div>
 
@@ -159,9 +164,10 @@ const Navbar = () => {
           {/* Search bar inside dropdown for mobile */}
           <Input
             type="text"
+            value={query}
             className="w-[90%] sm:w-[80%]"
             placeholder="Search movies..."
-            onKeyDown={handleKeyChange}
+            onChange={(e) => handleKeyChange(e)}
           />
           <UserProfile profile={logo2} />{" "}
         </div>
